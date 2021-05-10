@@ -1,0 +1,40 @@
+{
+  "compressionlevel":-1,
+  "height": 12,
+  "infinite": false,
+  "layers": [{
+    "data": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    "height": 12,
+    "id": 1,
+    "name": "Tile Layer 1",
+    "opacity": 1,
+    "type": "tilelayer",
+    "visible": true,
+    "width": 12,
+    "x": 0,
+    "y": 0
+  }],
+  "nextlayerid": 2,
+  "nextobjectid": 1,
+  "orientation": "isometric",
+  "renderorder": "right-down",
+  "tiledversion": "1.6.0",
+  "tileheight": 64,
+  "tilesets": [{
+    "columns": 1,
+    "firstgid": 1,
+    "image": "..\/..\/..\/..\/..\/..\/..\/Downloads\/iso-12-tilesset.png",
+    "imageheight": 256,
+    "imagewidth": 256,
+    "margin": 0,
+    "name": "iso-512-tileset",
+    "spacing": 0,
+    "tilecount": 2,
+    "tileheight": 128,
+    "tilewidth": 128
+  }],
+  "tilewidth": 128,
+  "type": "map",
+  "version": "1.6",
+  "width": 12
+}
