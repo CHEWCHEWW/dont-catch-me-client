@@ -30,6 +30,11 @@ export default class Game extends Phaser.Scene {
   }
 
   update(time, delta) {
+    this.cursors = this.input.keyboard.createCursorKeys();
+
+    if (this.hero) {
+      this.hero.handleMovement(delta, this.cursors, this.boardLayer);
+    }
   }
 }
 
