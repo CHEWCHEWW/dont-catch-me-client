@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 
 import Hero from "./Hero";
+import Enemy from "./Enemy";
 
 export default class Game extends Phaser.Scene {
   constructor() {
@@ -25,10 +26,13 @@ export default class Game extends Phaser.Scene {
       .setCollisionByProperty({ collides: true });
 
     this.hero = new Hero(this, 380, 300, "hero");
+    this.enemy = new Enemy(this, 200, 200, "hero");
 
     this.physics.world.enableBody(this.hero, Phaser.Physics.Arcade.DYNAMIC_BODY)
+    this.physics.world.enableBody(this.enemy, Phaser.Physics.Arcade.DYNAMIC_BODY)
     
     this.add.existing(this.hero);
+    this.add.existing(this.enemy);
 
     this.cameras.main.startFollow(this.hero);
     this.cameras.main.setZoom(1);

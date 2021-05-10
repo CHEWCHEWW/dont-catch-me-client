@@ -26,7 +26,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
-    this.scene.physics.world.wrapObject(this, 128);
+    this.scene.physics.world.wrapObject(this, 64);
 
     if (this.heroState === HeroState.Normal) {
       return;
@@ -35,9 +35,8 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
   handleMovement(delta, cursors, boardLayer) {
     const velocity = this.body.velocity;
-    if (velocity.lengthSq()) {
-      this.play("hero-running-left", true);
-    } else {
+
+    if (!velocity.lengthSq()) {
       this.lastKeyDown = Moves.None;
     }
 
@@ -111,6 +110,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
         break;
       }
       case Moves.Right: {
+        this.play("hero-running-right", true);
         this.body.setVelocity(speed, speed * 0.5);
         
         break;
@@ -121,12 +121,14 @@ export default class Hero extends Phaser.GameObjects.Sprite {
         break;
       }
       case Moves.Down: {
+        this.play("hero-running-left", true);
         this.body.setVelocity(-speed, speed * 0.5);
 
         break;
       }
-      default:
+      default: {
         break;
+      }
     }
   }
 
