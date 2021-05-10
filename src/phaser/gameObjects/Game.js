@@ -11,6 +11,7 @@ export default class Game extends Phaser.Scene {
     this.load.image("tiles", "iso-12-tileset.png");
     this.load.tilemapTiledJSON("map", "iso-12-tileset.json");
 
+    this.load.image("hero", "hero.png");
     this.load.atlas("hero-running", "hero-running.png", "hero-running.json");
   }
 
@@ -20,6 +21,12 @@ export default class Game extends Phaser.Scene {
 
     this.boardLayer = map.createLayer("Tile Layer 1", tileset)
       .setCollisionByProperty({ collides: true });
+
+    this.hero = new Hero(this, 456, 384, "hero");
+
+    this.physics.world.enableBody(this.hero, Phaser.Physics.Arcade.DYNAMIC_BODY)
+    
+    this.add.existing(this.hero);
   }
 
   update(time, delta) {
