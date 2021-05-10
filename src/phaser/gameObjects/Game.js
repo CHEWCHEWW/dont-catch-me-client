@@ -1,3 +1,7 @@
+import Phaser from "phaser";
+
+import Hero from "./Hero";
+
 export default class Game extends Phaser.Scene {
   constructor() {
     super("main");
@@ -6,6 +10,8 @@ export default class Game extends Phaser.Scene {
   preload() {
     this.load.image("tiles", "iso-12-tileset.png");
     this.load.tilemapTiledJSON("map", "iso-12-tileset.json");
+
+    this.load.atlas("hero-running", "hero-running.png", "hero-running.json");
   }
 
   create() {
@@ -26,5 +32,16 @@ export const config = {
   height: 600,
   backgroundColor: "#FFFFFF",
   parent: "game-container",
+  physics: {
+		default: "arcade",
+		arcade: {
+			gravity: { y: 0 },
+			debug: true
+		}
+	},
+	scale: {
+		mode: Phaser.Scale.ScaleModes.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH
+	},
   scene: [Game],
 };
