@@ -23,11 +23,11 @@
   "tilesets": [{
     "columns": 1,
     "firstgid": 1,
-    "image": "..\/..\/..\/..\/..\/..\/..\/Downloads\/iso-12-tilesset.png",
+    "image": "..\/..\/..\/..\/..\/..\/..\/Downloads\/iso-12-tileset.png",
     "imageheight": 256,
     "imagewidth": 256,
     "margin": 0,
-    "name": "iso-512-tileset",
+    "name": "iso-12-tileset",
     "spacing": 0,
     "tilecount": 2,
     "tileheight": 128,
