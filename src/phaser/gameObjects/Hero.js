@@ -12,7 +12,7 @@ const HeroState = {
   Normal: "Normal",
 };
 
-export class Hero extends Phaser.GameObjects.Sprite {
+export default class Hero extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture) {
     super(scene, x, y, texture);
     
