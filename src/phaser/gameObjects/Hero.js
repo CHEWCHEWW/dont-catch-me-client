@@ -35,9 +35,8 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
   handleMovement(delta, cursors, boardLayer) {
     const velocity = this.body.velocity;
-    
-    if (velocity.lengthSq() > 0.2) {
-      this.play("hero-running", true);
+    if (velocity.lengthSq()) {
+      this.play("hero-running-left", true);
     } else {
       this.lastKeyDown = Moves.None;
     }
@@ -45,20 +44,28 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     const keysDown = this.getKeysDownState(cursors);
     
     if (keysDown.left) {
-      if (boardLayer.getTileAtWorldXY(this.x - 128, this.y - 64)) {
+      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y + 32)) {
         this.queuedMove = Moves.Left; 
+      } else {
+        this.queuedMove = Moves.None; 
       }
     } else if (keysDown.right) {
-      if (boardLayer.getTileAtWorldXY(this.x + 128, this.y + 64)) {
+      if (boardLayer.getTileAtWorldXY(this.x + 64, this.y - 32)) {
         this.queuedMove = Moves.Right;
+      } else {
+        this.queuedMove = Moves.None; 
       }
     } else if (keysDown.up) {
-      if (boardLayer.getTileAtWorldXY(this.x - 128, this.y + 64)) {
+      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y - 32)) {
         this.queuedMove = Moves.Up;
+      } else {
+        this.queuedMove = Moves.None; 
       }
     } else if (keysDown.down) {
-      if (boardLayer.getTileAtWorldXY(this.x + 128, this.y - 64)) {
+      if (boardLayer.getTileAtWorldXY(this.x + 64, this.y + 32)) {
         this.queuedMove = Moves.Down;
+      } else {
+        this.queuedMove = Moves.None; 
       }
     }
 
@@ -99,22 +106,22 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     switch (this.lastKeyDown) {
       case Moves.Left: {
-        this.body.setVelocity(-speed, -speed);
+        this.body.setVelocity(-speed, -speed * 0.5);
 
         break;
       }
       case Moves.Right: {
-        this.body.setVelocity(speed, speed);
+        this.body.setVelocity(speed, speed * 0.5);
         
         break;
       }
       case Moves.Up: {
-        this.body.setVelocity(speed, -speed);
+        this.body.setVelocity(speed, -speed * 0.5);
 
         break;
       }
       case Moves.Down: {
-        this.body.setVelocity(-speed, speed);
+        this.body.setVelocity(-speed, speed * 0.5);
 
         break;
       }
