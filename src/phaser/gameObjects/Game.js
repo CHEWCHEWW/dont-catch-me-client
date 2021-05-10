@@ -12,7 +12,9 @@ export default class Game extends Phaser.Scene {
     this.load.tilemapTiledJSON("map", "iso-12-tileset.json");
 
     this.load.image("hero", "hero.png");
-    this.load.atlas("hero-running", "hero-running.png", "hero-running.json");
+
+    this.load.atlas("hero-running-left", "hero-running-left.png", "hero-running-left.json");
+    this.load.atlas("hero-running-right", "hero-running-right.png", "hero-running-right.json");
   }
 
   create() {
@@ -22,7 +24,7 @@ export default class Game extends Phaser.Scene {
     this.boardLayer = map.createLayer("Tile Layer 1", tileset)
       .setCollisionByProperty({ collides: true });
 
-    this.hero = new Hero(this, 456, 384, "hero");
+    this.hero = new Hero(this, 380, 300, "hero");
 
     this.physics.world.enableBody(this.hero, Phaser.Physics.Arcade.DYNAMIC_BODY)
     
@@ -32,13 +34,26 @@ export default class Game extends Phaser.Scene {
     this.cameras.main.setZoom(1);
 
     this.anims.create({
-      key: "hero-running",
+      key: "hero-running-right",
       framRate: 100,
       repeat: -1,
-      frames: this.anims.generateFrameNames("hero-running", {
+      frames: this.anims.generateFrameNames("hero-running-right", {
         start: 1,
         end: 5,
-        prefix: "hero-running",
+        prefix: "hero-running-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-running-left",
+      framRate: 100,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-running-left", {
+        start: 1,
+        end: 5,
+        prefix: "hero-running-left",
         zeroPad: 2,
         suffix: ".png",
       }),
