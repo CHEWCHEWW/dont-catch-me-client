@@ -4,15 +4,15 @@ export default class Game extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("tiles", "iso-12-tilesset.png");
-    this.load.tilemapTiledJSON("map", "iso-12-tilesset.json");
+    this.load.image("tiles", "iso-12-tileset.png");
+    this.load.tilemapTiledJSON("map", "iso-12-tileset.json");
   }
 
   create() {
     const map = this.add.tilemap("map");
-    const tileset = map.addTilesetImage("iso-12-tilesset", "tiles");
+    const tileset = map.addTilesetImage("iso-12-tileset", "tiles");
 
-    this.boardLayer = map.createDynamicLayer("Tile Layer 1", tileset)
+    this.boardLayer = map.createLayer("Tile Layer 1", tileset)
       .setCollisionByProperty({ collides: true });
   }
 
