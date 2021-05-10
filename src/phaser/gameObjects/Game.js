@@ -27,6 +27,22 @@ export default class Game extends Phaser.Scene {
     this.physics.world.enableBody(this.hero, Phaser.Physics.Arcade.DYNAMIC_BODY)
     
     this.add.existing(this.hero);
+
+    this.cameras.main.startFollow(this.hero);
+    this.cameras.main.setZoom(1);
+
+    this.anims.create({
+      key: "hero-running",
+      framRate: 100,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-running", {
+        start: 1,
+        end: 5,
+        prefix: "hero-running",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
   }
 
   update(time, delta) {

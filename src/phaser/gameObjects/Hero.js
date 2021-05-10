@@ -34,6 +34,14 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   }
 
   handleMovement(delta, cursors, boardLayer) {
+    const velocity = this.body.velocity;
+    
+    if (velocity.lengthSq() > 0.2) {
+      this.play("hero-running", true);
+    } else {
+      this.lastKeyDown = Moves.None;
+    }
+
     const keysDown = this.getKeysDownState(cursors);
     
     if (keysDown.left) {
