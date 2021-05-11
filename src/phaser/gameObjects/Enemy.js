@@ -2,15 +2,12 @@ import Phaser from "phaser";
 
 import { Direction } from "../../constants/direction";
 
-export default class Enemy extends Phaser.GameObjects.Container {
-  constructor(scene, x, y) {
-    super(scene, x, y);
+export default class Enemy extends Phaser.GameObjects.Sprite {
+  constructor(scene, x, y, texture) {
+    super(scene, x, y, texture);
 
     this.lastDirection = Direction.None;
     this.lastTilePosition = { x: -1, y: -1 };
-
-    this.enemy = scene.add.sprite(0, 0, "hero");
-    this.add(this.enemy);
 
     this.targetIndicator = scene.add
       .text(0, 0, "x")
@@ -36,7 +33,7 @@ export default class Enemy extends Phaser.GameObjects.Container {
     if (!this.ai) {
       return;
     }
-
+    
     const body = this.body;
 
     const x = body.position.x;
@@ -63,20 +60,22 @@ export default class Enemy extends Phaser.GameObjects.Container {
     
     switch (direction) {
       case Direction.Left: {
+        this.play("hero-running-back-left", true);
         body.setVelocity(-speed, -speed * 0.5);
         break;
       }
       case Direction.Right: {
-        this.enemy.play("hero-running-right", true);
+        this.play("hero-running-right", true);
         body.setVelocity(speed, speed * 0.5);
         break;
       }
       case Direction.Up: {
+        this.play("hero-running-back-right", true);
         body.setVelocity(speed, -speed * 0.5);
         break;
       }
       case Direction.Down: {
-        this.enemy.play("hero-running-left", true);
+        this.play("hero-running-left", true);
         body.setVelocity(-speed, speed * 0.5);
         break;
       }
