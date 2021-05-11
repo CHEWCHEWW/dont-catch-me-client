@@ -3,6 +3,23 @@ import styled from "styled-components";
 
 import heroRabbit from "../../public/hero-running-right.png";
 
+const StartPage = () => {
+  const clouds = [1, 2, 3, 4, 5, 6, 7];
+
+  return (
+    <PageWrapper>
+      <Clouds>
+        {clouds.map((item) => (
+          <div key={item} className="cloud"/>
+        ))}
+      </Clouds>
+      <MainCard>
+        <SpriteImage />
+      </MainCard>
+    </PageWrapper>
+  );
+};
+
 const PageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -107,22 +124,5 @@ const Clouds = styled.div`
     left: 1500px;
   }
 `;
-
-const StartPage = () => {
-  const clouds = [1, 2, 3, 4, 5, 6, 7];
-
-  return (
-    <PageWrapper>
-      <Clouds>
-        {clouds.map((item) => (
-          <div key={item} className="cloud"/>
-        ))}
-      </Clouds>
-      <MainCard>
-        <SpriteImage />
-      </MainCard>
-    </PageWrapper>
-  );
-};
 
 export default StartPage;
