@@ -16,13 +16,12 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    const map = this.add.tilemap("map");
+    this.map = this.add.tilemap("map");
 
-    map.setCollisionBetween(0);
+    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
 
-    const tileset = map.addTilesetImage("iso-level1", "tiles");
+    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
 
-    this.boardLayer = map.createLayer("Tile Layer 1", [tileset]);
     this.hero = new Hero(this, 0, 0, "hero");
 
     this.enemy = new Enemy(this, 200, 200, "hero");
@@ -39,9 +38,7 @@ export default class Game extends Phaser.Scene {
     this.add.existing(this.enemy);
     this.add.existing(this.enemy1);
 
-		this.physics.add.collider(this.hero, this.boardLayer);
-		this.cameras.main.startFollow(this.hero, true)
-
+		this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(0.3);
 
     this.anims.create({

@@ -41,53 +41,29 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     if (!velocity.lengthSq()) {
       this.lastKeyDown = Moves.None;
     }
-    const keysDown = this.getKeysDownState(cursors);
     
+    const keysDown = this.getKeysDownState(cursors);
+    const speed = 200;
+
     if (keysDown.left) {
       if (boardLayer.getTileAtWorldXY(this.x - 16, this.y - 8)) {
-        this.lastKeyDown = Moves.Left;
+        this.body.setVelocity(-speed, -speed * 0.5);
+        this.lastKeyDwon = Moves.Left;
       }
     } else if (keysDown.right) {
       if (boardLayer.getTileAtWorldXY(this.x + 16, this.y + 8)) {
-        this.lastKeyDown = Moves.Right;
+        this.body.setVelocity(speed, speed * 0.5);
+        this.lastKeyDwon = Moves.Right;
       }
     } else if (keysDown.up) {
       if (boardLayer.getTileAtWorldXY(this.x - 16, this.y - 8)) {
-        this.lastKeyDown = Moves.Up;
+        this.body.setVelocity(speed, -speed * 0.5);
+        this.lastKeyDwon = Moves.Up;
       }
     } else if (keysDown.down) {
       if (boardLayer.getTileAtWorldXY(this.x + 16, this.y + 8)) {
-        this.lastKeyDown = Moves.Down;
-      }
-    }
-
-    const speed = 200;
-
-    switch (this.lastKeyDown) {
-      case Moves.Left: {
-        this.body.setVelocity(-speed, -speed * 0.5);
-        break;
-      }
-      case Moves.Right: {
-        this.play("hero-running-right", true);
-        this.body.setVelocity(speed, speed * 0.5);
-        break;
-      }
-      case Moves.Up: {
-        this.body.setVelocity(speed, -speed * 0.5);
-        break;
-      }
-      case Moves.Down: {
-        this.play("hero-running-left", true);
         this.body.setVelocity(-speed, speed * 0.5);
-        break;
-      }
-      case Moves.None: {
-        this.body.setVelocity(0, 0);
-        break;
-      }
-      default: {
-        break;
+        this.lastKeyDwon = Moves.Down;
       }
     }
   }
