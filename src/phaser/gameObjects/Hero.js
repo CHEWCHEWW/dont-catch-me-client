@@ -1,5 +1,7 @@
 import Phaser from "phaser";
 
+import { TileSize } from "../../constants/tile";
+
 const Moves = {
   None: "None",
   Left: "Left",
@@ -16,7 +18,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture) {
     super(scene, x, y, texture);
     
-    this.queuedMove = Moves.None;
     this.lastKeyDown = Moves.None;
 
     this.heroState = HeroState.Normal;
@@ -33,37 +34,30 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   }
 
   handleMovement(delta, cursors, boardLayer) {
+    this.body.setVelocity(0, 0);
+
     const velocity = this.body.velocity;
 
     if (!velocity.lengthSq()) {
       this.lastKeyDown = Moves.None;
     }
-
     const keysDown = this.getKeysDownState(cursors);
     
     if (keysDown.left) {
-      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y - 32)) {
+      if (boardLayer.getTileAtWorldXY(this.x - 16, this.y - 8)) {
         this.lastKeyDown = Moves.Left;
-      } else {
-        this.lastKeyDown = Moves.None;
       }
     } else if (keysDown.right) {
-      if (boardLayer.getTileAtWorldXY(this.x + 64, this.y - 32)) {
+      if (boardLayer.getTileAtWorldXY(this.x + 16, this.y + 8)) {
         this.lastKeyDown = Moves.Right;
-      } else {
-        this.lastKeyDown = Moves.None; 
       }
     } else if (keysDown.up) {
-      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y + 32)) {
+      if (boardLayer.getTileAtWorldXY(this.x - 16, this.y - 8)) {
         this.lastKeyDown = Moves.Up;
-      } else {
-        this.lastKeyDown = Moves.None; 
       }
     } else if (keysDown.down) {
-      if (boardLayer.getTileAtWorldXY(this.x + 64, this.y + 32)) {
+      if (boardLayer.getTileAtWorldXY(this.x + 16, this.y + 8)) {
         this.lastKeyDown = Moves.Down;
-      } else {
-        this.lastKeyDown = Moves.None; 
       }
     }
 
