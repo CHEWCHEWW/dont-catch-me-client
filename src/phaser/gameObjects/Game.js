@@ -41,7 +41,7 @@ export default class Game extends Phaser.Scene {
     this.add.existing(this.enemy1);
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      console.log("click!");
+      // callback
     });
 
     this.physics.add.collider([this.enemy, this.enemy1]);
