@@ -1,17 +1,23 @@
-import React, { useEffect } from "react";
-import Phaser from "phaser";
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 
-import { config } from "../../phaser/gameObjects/Game";
+import { theme } from "../../theme/theme";
+import StartPage from "../../page/StartPage";
+import GamePage from "../../page/GamePage";
 
 const App = () => {
-  useEffect(() => {
-    const game = new Phaser.Game(config);
-  }, []);
-
   return (
-    <>
-      <div id="game-container" />
-    </>
+    <ThemeProvider theme={theme}>
+      <Switch>
+        <Route path="/" exact>
+          <StartPage />
+        </Route>
+        <Route path="/game">
+          <GamePage />
+        </Route>
+      </Switch>
+    </ThemeProvider>
   );
 };
 

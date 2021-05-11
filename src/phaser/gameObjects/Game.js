@@ -30,8 +30,8 @@ export default class Game extends Phaser.Scene {
     
     this.physics.world.enable([this.hero, this.enemy, this.enemy1], Phaser.Physics.Arcade.DYNAMIC_BODY);
     this.hero.body.setSize(64, 120, true);
-    this.enemy.body.setSize(64, 120, true);
-    this.enemy1.body.setSize(64, 120, true);
+    this.enemy.body.setSize(40, 110, true);
+    this.enemy1.body.setSize(40, 110, true);
 
     this.enemy.setAI(new ChaseHeroAI(this.hero, this.enemy, this.boardLayer));
     this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));

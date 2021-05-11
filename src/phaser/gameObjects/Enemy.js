@@ -21,20 +21,16 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     return this.lastDirection;
   }
 
-  setAI(ai) {
-    this.ai = ai;
-  }
-
-  enableTargetMarker(isEnable) {
-    this.targetIndicator.setVisible(isEnable);
-  }
-
   preUpdate(time, delta) {
+    super.preUpdate(time, delta);
+
     if (!this.ai) {
       return;
     }
     
     const body = this.body;
+
+    body.setBounce(0).setCollideWorldBounds(false);
 
     const x = body.position.x;
     const y = body.position.y;
@@ -53,10 +49,11 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.lastTilePosition.y = gy;
 
     const speed = this.ai.speed;
-    const direction = this.ai.pickDirection();
     const targetPosition = this.ai.targetPosition;
 
     this.targetIndicator.setPosition(targetPosition.x, targetPosition.y);
+
+    const direction = this.ai.pickDirection();
     
     switch (direction) {
       case Direction.Left: {
@@ -85,5 +82,13 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     }
 
     this.lastDirection = direction;
+  }
+  
+  setAI(ai) {
+    this.ai = ai;
+  }
+
+  enableTargetMarker(isEnable) {
+    this.targetIndicator.setVisible(isEnable);
   }
 }
