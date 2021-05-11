@@ -13,6 +13,8 @@ export default class Game extends Phaser.Scene {
 
     this.load.atlas("hero-running-left", "hero-running-left.png", "hero-running-left.json");
     this.load.atlas("hero-running-right", "hero-running-right.png", "hero-running-right.json");
+    this.load.atlas("hero-running-back-left", "hero-running-back-left.png", "hero-running-back-left.json");
+    this.load.atlas("hero-running-back-right", "hero-running-back-right.png", "hero-running-back-right.json");
   }
 
   create() {
@@ -22,7 +24,7 @@ export default class Game extends Phaser.Scene {
 
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
 
-    this.hero = new Hero(this, 0, 0, "hero");
+    this.hero = new Hero(this, 300, 300, "hero");
 
     this.enemy = new Enemy(this, 200, 200, "hero");
     this.enemy1 = new Enemy(this, 100, 150, "hero");
@@ -39,7 +41,7 @@ export default class Game extends Phaser.Scene {
     this.add.existing(this.enemy1);
 
 		this.cameras.main.startFollow(this.hero, true);
-    this.cameras.main.setZoom(0.3);
+    this.cameras.main.setZoom(0.8);
 
     this.anims.create({
       key: "hero-running-right",
@@ -62,6 +64,32 @@ export default class Game extends Phaser.Scene {
         start: 1,
         end: 5,
         prefix: "hero-running-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-running-back-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-running-back-left", {
+        start: 1,
+        end: 5,
+        prefix: "hero-running-back-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-running-back-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-running-back-right", {
+        start: 1,
+        end: 5,
+        prefix: "hero-running-back-right",
         zeroPad: 2,
         suffix: ".png",
       }),

@@ -47,6 +47,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     if (keysDown.left) {
       if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
+        this.play("hero-running-back-left", true);
         this.body.setVelocity(-speed, -speed * 0.5);
         this.lastKeyDown = Moves.Left;
       }
@@ -58,6 +59,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
       }
     } else if (keysDown.up) {
       if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
+        this.play("hero-running-back-right", true);
         this.body.setVelocity(speed, -speed * 0.5);
         this.lastKeyDown = Moves.Up;
       }
