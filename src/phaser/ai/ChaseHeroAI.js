@@ -1,6 +1,7 @@
 import { getOrderedDirections, getOppositeDirection, getPositionByDirection } from "../../utils/directions";
 import { Direction } from "../../constants/direction";
 import { TileSize } from "../../constants/tile";
+import { shuffleOrder } from "../../utils/random";
 
 export default class ChaseHeroAI {
   constructor(hero, enemy, board) {
@@ -32,12 +33,12 @@ export default class ChaseHeroAI {
 
     const backwardsPosition = getOppositeDirection(this.enemy.currentDirection);
     const directions = getOrderedDirections((dir) => dir !== backwardsPosition);
+    const shuffledDirections = shuffleOrder(directions);
 
-    for (const direction of directions) {
+    for (const direction of shuffledDirections) {
       const position = getPositionByDirection(currentX, currentY, direction);
       
       if (!this.board.getTileAtWorldXY(position.x, position.y)) {
-        console.log(30);
         continue;
       }
 
