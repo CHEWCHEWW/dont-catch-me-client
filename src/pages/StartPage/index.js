@@ -1,10 +1,22 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import heroRabbit from "../../public/hero-running-right.png";
+import heroRabbit from "../../../public/hero-running-right.png";
+import MainButton from "../../components/MainButton"
+
+const clouds = [1, 2, 3, 4, 5, 6, 7];
 
 const StartPage = () => {
-  const clouds = [1, 2, 3, 4, 5, 6, 7];
+  const history = useHistory();
+
+  const handleSinglePlayButton = () => {
+    history.push("/game");
+  };
+
+  const handleRecordsButton = () => {
+    history.push("/records");
+  };
 
   return (
     <PageWrapper>
@@ -14,6 +26,10 @@ const StartPage = () => {
         ))}
       </Clouds>
       <MainCard>
+        <Buttons>
+          <MainButton name="Single Play" onClick={handleSinglePlayButton} />
+          <MainButton name="Record" onClick={handleRecordsButton} />
+        </Buttons>
         <SpriteImage />
       </MainCard>
     </PageWrapper>
@@ -32,10 +48,18 @@ const MainCard = styled.div`
   width: 1000px;
   height: 700px;
   display: flex;
-  background-color: lightpink;
+  flex-direction: column;
+  background: pink;
   justify-content: center;
   border-radius: 20px;
-  align-items: flex-end;
+  align-items: center;
+`;
+
+const Buttons = styled.div`
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const SpriteImage = styled.div`

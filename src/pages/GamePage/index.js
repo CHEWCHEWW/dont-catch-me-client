@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { config } from "../phaser/gameObjects/Game";
+import { config } from "../../phaser/gameObjects/Game";
 
 const GamePage = () => {
   useEffect(() => {
