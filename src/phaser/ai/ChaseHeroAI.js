@@ -8,6 +8,17 @@ export default class ChaseHeroAI {
     this.board = board;
   }
 
+  get speed() {
+    return 120;
+  }
+
+  get targetPosition() {
+		return {
+			x: this.hero.x,
+			y: this.hero.y
+		}
+	}
+
   pickDirection() {
     let lastClosedDirection = Direction.None;
     let lastClosedDistance = -1;
@@ -38,6 +49,6 @@ export default class ChaseHeroAI {
       }
     }
 
-    return closestDirection;
+    return lastClosedDirection;
   }
 }
