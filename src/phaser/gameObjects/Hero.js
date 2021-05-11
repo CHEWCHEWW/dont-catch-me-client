@@ -16,8 +16,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
-    // this.scene.physics.world.wrapObject(this, -2);
-
     if (this.heroState === HeroState.Normal) {
       return;
     }
