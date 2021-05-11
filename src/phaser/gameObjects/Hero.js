@@ -46,24 +46,26 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     const speed = 200;
 
     if (keysDown.left) {
-      if (boardLayer.getTileAtWorldXY(this.x - 16, this.y - 8)) {
+      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
         this.body.setVelocity(-speed, -speed * 0.5);
-        this.lastKeyDwon = Moves.Left;
+        this.lastKeyDown = Moves.Left;
       }
     } else if (keysDown.right) {
-      if (boardLayer.getTileAtWorldXY(this.x + 16, this.y + 8)) {
+      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x + 1, this.y + TileSize.y + 0.5)) {
+        this.play("hero-running-right", true);
         this.body.setVelocity(speed, speed * 0.5);
-        this.lastKeyDwon = Moves.Right;
+        this.lastKeyDown = Moves.Right;
       }
     } else if (keysDown.up) {
-      if (boardLayer.getTileAtWorldXY(this.x - 16, this.y - 8)) {
+      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
         this.body.setVelocity(speed, -speed * 0.5);
-        this.lastKeyDwon = Moves.Up;
+        this.lastKeyDown = Moves.Up;
       }
     } else if (keysDown.down) {
-      if (boardLayer.getTileAtWorldXY(this.x + 16, this.y + 8)) {
+      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x + 1, this.y + TileSize.y + 0.5)) {
+        this.play("hero-running-left", true);
         this.body.setVelocity(-speed, speed * 0.5);
-        this.lastKeyDwon = Moves.Down;
+        this.lastKeyDown = Moves.Down;
       }
     }
   }
