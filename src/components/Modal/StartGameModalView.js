@@ -8,7 +8,7 @@ const StartGameModalView = ({ onClick }) => {
     <ModalView padding={20} width={700} height={500}>
       <ModalContent onClick={onClick}>
         <TextBoard>
-
+          <div>Rabbit!! Rabbit!!</div>
         </TextBoard>
         <button onClick={onClick}>Start</button>
       </ModalContent>
