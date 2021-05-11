@@ -18,7 +18,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     
     this.queuedMove = Moves.None;
     this.lastKeyDown = Moves.None;
-    this.queuedMoveAccumulator = 0;
 
     this.heroState = HeroState.Normal;
   }
@@ -26,11 +25,11 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 
-    this.scene.physics.world.wrapObject(this, 64);
-
     if (this.heroState === HeroState.Normal) {
       return;
     }
+
+    this.body.setImmovable(false);
   }
 
   handleMovement(delta, cursors, boardLayer) {
@@ -43,87 +42,54 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     const keysDown = this.getKeysDownState(cursors);
     
     if (keysDown.left) {
-      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y + 32)) {
-        this.queuedMove = Moves.Left; 
+      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y - 32)) {
+        this.lastKeyDown = Moves.Left;
       } else {
-        this.queuedMove = Moves.None; 
+        this.lastKeyDown = Moves.None;
       }
     } else if (keysDown.right) {
       if (boardLayer.getTileAtWorldXY(this.x + 64, this.y - 32)) {
-        this.queuedMove = Moves.Right;
+        this.lastKeyDown = Moves.Right;
       } else {
-        this.queuedMove = Moves.None; 
+        this.lastKeyDown = Moves.None; 
       }
     } else if (keysDown.up) {
-      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y - 32)) {
-        this.queuedMove = Moves.Up;
+      if (boardLayer.getTileAtWorldXY(this.x - 64, this.y + 32)) {
+        this.lastKeyDown = Moves.Up;
       } else {
-        this.queuedMove = Moves.None; 
+        this.lastKeyDown = Moves.None; 
       }
     } else if (keysDown.down) {
       if (boardLayer.getTileAtWorldXY(this.x + 64, this.y + 32)) {
-        this.queuedMove = Moves.Down;
+        this.lastKeyDown = Moves.Down;
       } else {
-        this.queuedMove = Moves.None; 
+        this.lastKeyDown = Moves.None; 
       }
     }
 
-    switch (this.queuedMove) {
-      case Moves.Left: {
-        this.lastKeyDown = this.queuedMove;
-        this.queuedMove = Moves.None;
-
-        break;
-      }
-      case Moves.Right: {
-        this.lastKeyDown = this.queuedMove;
-        this.queuedMove = Moves.None;
-
-        break;
-      }
-      case Moves.Up: {
-        this.lastKeyDown = this.queuedMove;
-        this.queuedMove = Moves.None;
-
-        break;
-      }
-      case Moves.Down: {
-        this.lastKeyDown = this.queuedMove;
-        this.queuedMove = Moves.None;
-
-        break;
-      }
-      case Moves.None: {
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-
-    const speed = 100;
+    const speed = 200;
 
     switch (this.lastKeyDown) {
       case Moves.Left: {
         this.body.setVelocity(-speed, -speed * 0.5);
-
         break;
       }
       case Moves.Right: {
         this.play("hero-running-right", true);
         this.body.setVelocity(speed, speed * 0.5);
-        
         break;
       }
       case Moves.Up: {
         this.body.setVelocity(speed, -speed * 0.5);
-
         break;
       }
       case Moves.Down: {
         this.play("hero-running-left", true);
         this.body.setVelocity(-speed, speed * 0.5);
-
+        break;
+      }
+      case Moves.None: {
+        this.body.setVelocity(0, 0);
         break;
       }
       default: {
