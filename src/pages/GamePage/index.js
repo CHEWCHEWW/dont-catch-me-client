@@ -2,7 +2,29 @@ import React, { useEffect, useState } from "react";
 
 import Modal from "../../components/Modal";
 import StartGameModalView from "../../components/Modal/StartGameModalView";
-import { config } from "../../phaser/gameObjects/Game";
+import Main from "../../phaser/scenes/Game";
+import Preloader from "../../phaser/scenes/Preloader";
+
+
+export const config = {
+  type: Phaser.WEBGL,
+  width: 800,
+  height: 600,
+  backgroundColor: "#FFFFFF",
+  parent: "game-container",
+  physics: {
+		default: "arcade",
+		arcade: {
+			gravity: { y: 0 },
+			debug: true
+		}
+	},
+	scale: {
+		mode: Phaser.Scale.ScaleModes.FIT,
+		autoCenter: Phaser.Scale.CENTER_BOTH
+	},
+  scene: [Preloader, Main],
+};
 
 const GamePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
