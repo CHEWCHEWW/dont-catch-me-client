@@ -1,6 +1,9 @@
-import { getOrderedDirections, getOppositeDirection, getPositionByDirection } from "../../utils/directions";
+import {
+  getOrderedDirections,
+  getOppositeDirection,
+  getPositionByDirection,
+} from "../../utils/directions";
 import { Direction } from "../../constants/direction";
-import { TileSize } from "../../constants/tile";
 import { shuffleOrder } from "../../utils/random";
 
 export default class ChaseHeroAI {
@@ -15,11 +18,11 @@ export default class ChaseHeroAI {
   }
 
   get targetPosition() {
-		return {
-			x: this.hero.x,
-			y: this.hero.y
-		};
-	}
+    return {
+      x: this.hero.x,
+      y: this.hero.y,
+    };
+  }
 
   pickDirection() {
     let lastClosedDirection = Direction.None;
@@ -37,14 +40,22 @@ export default class ChaseHeroAI {
 
     for (const direction of shuffledDirections) {
       const position = getPositionByDirection(currentX, currentY, direction);
-      
+
       if (!this.board.getTileAtWorldXY(position.x, position.y)) {
         continue;
       }
 
-      const distance = Phaser.Math.Distance.Between(position.x, position.y, targetX, targetY);
+      const distance = Phaser.Math.Distance.Between(
+        position.x,
+        position.y,
+        targetX,
+        targetY
+      );
 
-      if (lastClosedDirection === Direction.None || distance < lastClosedDistance) {
+      if (
+        lastClosedDirection === Direction.None ||
+        distance < lastClosedDistance
+      ) {
         lastClosedDirection = direction;
         lastClosedDistance = distance;
 
