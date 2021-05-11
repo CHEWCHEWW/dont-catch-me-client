@@ -2,15 +2,12 @@ import Phaser from "phaser";
 
 import Hero from "./Hero";
 import Enemy from "./Enemy";
+import ChaseHeroAI from "../ai/ChaseHeroAI";
 
 export default class Game extends Phaser.Scene {
-  constructor() {
-    super("main");
-  }
-
   preload() {
     this.load.image("tiles", "iso-12-tileset.png");
-    this.load.tilemapTiledJSON("map", "iso-12-tileset.json");
+    this.load.tilemapTiledJSON("map", "iso-level1.json");
 
     this.load.image("hero", "hero.png");
 
@@ -20,26 +17,36 @@ export default class Game extends Phaser.Scene {
 
   create() {
     const map = this.add.tilemap("map");
-    const tileset = map.addTilesetImage("iso-12-tileset", "tiles");
 
-    this.boardLayer = map.createLayer("Tile Layer 1", tileset)
-      .setCollisionByProperty({ collides: true });
+    map.setCollisionBetween(0);
 
-    this.hero = new Hero(this, 380, 300, "hero");
+    const tileset = map.addTilesetImage("iso-level1", "tiles");
+
+    this.boardLayer = map.createLayer("Tile Layer 1", [tileset]);
+    this.hero = new Hero(this, 0, 0, "hero");
+
     this.enemy = new Enemy(this, 200, 200, "hero");
+    this.enemy1 = new Enemy(this, 100, 150, "hero");
+    
+    this.physics.world.enable(this.hero, Phaser.Physics.Arcade.DYNAMIC_BODY);
+    this.physics.world.enable(this.enemy, Phaser.Physics.Arcade.DYNAMIC_BODY);
+    this.physics.world.enable(this.enemy1, Phaser.Physics.Arcade.DYNAMIC_BODY);
 
-    this.physics.world.enableBody(this.hero, Phaser.Physics.Arcade.DYNAMIC_BODY)
-    this.physics.world.enableBody(this.enemy, Phaser.Physics.Arcade.DYNAMIC_BODY)
+    this.enemy.setAI(new ChaseHeroAI(this.hero, this.enemy, this.boardLayer));
+    this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));
     
     this.add.existing(this.hero);
     this.add.existing(this.enemy);
+    this.add.existing(this.enemy1);
 
-    this.cameras.main.startFollow(this.hero);
-    this.cameras.main.setZoom(1);
+		this.physics.add.collider(this.hero, this.boardLayer);
+		this.cameras.main.startFollow(this.hero, true)
+
+    this.cameras.main.setZoom(0.3);
 
     this.anims.create({
       key: "hero-running-right",
-      framRate: 100,
+      frameRate: 300,
       repeat: -1,
       frames: this.anims.generateFrameNames("hero-running-right", {
         start: 1,
@@ -52,7 +59,7 @@ export default class Game extends Phaser.Scene {
 
     this.anims.create({
       key: "hero-running-left",
-      framRate: 100,
+      frameRate: 300,
       repeat: -1,
       frames: this.anims.generateFrameNames("hero-running-left", {
         start: 1,
@@ -83,7 +90,7 @@ export const config = {
 		default: "arcade",
 		arcade: {
 			gravity: { y: 0 },
-			debug: true
+			debug: false
 		}
 	},
 	scale: {
