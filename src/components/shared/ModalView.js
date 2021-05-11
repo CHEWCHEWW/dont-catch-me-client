@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default Modalview = styled.div`
+const Modalview = styled.div`
   position: relative;
   padding: ${({ padding }) => padding}px;
   width: ${({ width }) => width}px;
@@ -10,3 +10,5 @@ export default Modalview = styled.div`
   border-radius: 5px;
   overflow-y: scroll;
 `;
+
+export default Modalview;

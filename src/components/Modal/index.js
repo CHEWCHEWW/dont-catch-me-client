@@ -11,12 +11,12 @@ const Modal = ({ children, onBackgroundClick }) => {
   }, []);
 
   return (
-    <ModalWrapper>
+    <>
       <ModalBackground onClick={onBackgroundClick} />
       <ModalContent>
         {children}
       </ModalContent>
-    </ModalWrapper>
+    </>
   );
 };
 
