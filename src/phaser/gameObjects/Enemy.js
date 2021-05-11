@@ -26,14 +26,10 @@ export default class Enemy extends Phaser.GameObjects.Container {
 
   setAI(ai) {
     this.ai = ai;
-
-    return this;
   }
 
   enableTargetMarker(isEnable) {
     this.targetIndicator.setVisible(isEnable);
-
-    return this;
   }
 
   preUpdate(time, delta) {
@@ -43,16 +39,8 @@ export default class Enemy extends Phaser.GameObjects.Container {
 
     const body = this.body;
 
-    body.setImmovable(false);
-
     const x = body.position.x;
     const y = body.position.y;
-
-    if (
-      !Phaser.Geom.Rectangle.Contains(this.scene.physics.world.bounds, x, y)
-    ) {
-      return;
-    }
 
     const gx = Math.floor(x / 128) * 128;
     const gy = Math.floor(y / 128) * 128;

@@ -1,5 +1,6 @@
 import { getOrderedDirections, getOppositeDirection, getPositionByDirection } from "../../utils/directions";
 import { Direction } from "../../constants/direction";
+import { TileSize } from "../../constants/tile";
 
 export default class ChaseHeroAI {
   constructor(hero, enemy, board) {
@@ -16,7 +17,7 @@ export default class ChaseHeroAI {
 		return {
 			x: this.hero.x,
 			y: this.hero.y
-		}
+		};
 	}
 
   pickDirection() {
@@ -34,8 +35,9 @@ export default class ChaseHeroAI {
 
     for (const direction of directions) {
       const position = getPositionByDirection(currentX, currentY, direction);
-
+      
       if (!this.board.getTileAtWorldXY(position.x, position.y)) {
+        console.log(30);
         continue;
       }
 
