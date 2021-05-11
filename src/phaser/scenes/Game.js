@@ -17,6 +17,10 @@ export default class Game extends Phaser.Scene {
     this.hero = new Hero(this, 300, 300, "hero");
     this.enemy = new Enemy(this, 200, 200, "hero");
     this.enemy1 = new Enemy(this, 100, 150, "hero");
+
+    this.add.existing(this.hero);
+    this.add.existing(this.enemy);
+    this.add.existing(this.enemy1);
     
     this.physics.world.enable([this.hero, this.enemy, this.enemy1], Phaser.Physics.Arcade.DYNAMIC_BODY);
     
@@ -27,10 +31,6 @@ export default class Game extends Phaser.Scene {
     this.enemy.setAI(new ChaseHeroAI(this.hero, this.enemy, this.boardLayer));
     this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));
 
-    this.add.existing(this.hero);
-    this.add.existing(this.enemy);
-    this.add.existing(this.enemy1);
-
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
       // callback
     });
@@ -39,7 +39,6 @@ export default class Game extends Phaser.Scene {
 
 		this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(0.8);
-
   }
 
   update(time, delta) {

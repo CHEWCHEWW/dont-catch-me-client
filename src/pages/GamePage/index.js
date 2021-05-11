@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import Modal from "../../components/Modal";
 import StartGameModalView from "../../components/Modal/StartGameModalView";
-import Main from "../../phaser/scenes/Game";
+import Game from "../../phaser/scenes/Game";
 import Preloader from "../../phaser/scenes/Preloader";
-
 
 export const config = {
   type: Phaser.WEBGL,
@@ -23,7 +22,7 @@ export const config = {
 		mode: Phaser.Scale.ScaleModes.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH
 	},
-  scene: [Preloader, Main],
+  scene: [Preloader, Game],
 };
 
 const GamePage = () => {
