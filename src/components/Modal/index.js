@@ -32,7 +32,7 @@ const ModalBackground = styled.div`
   overflow: hidden;
 `;
 
-const ModalContent = styled.div`  
+const ModalContent = styled.div`
   display: block;
   position: fixed;
   overflow-x: hidden;
