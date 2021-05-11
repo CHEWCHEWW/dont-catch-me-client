@@ -9,6 +9,7 @@ const GamePage = () => {
 
   return (
     <>
+      <div>title</div>
       <div id="game-container" />
     </>
   );
