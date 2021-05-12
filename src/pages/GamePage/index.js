@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 
 import Modal from "../../components/Modal";
 import StartGameModalView from "../../components/Modal/StartGameModalView";
 import Game from "../../phaser/scenes/Game";
 import Preloader from "../../phaser/scenes/Preloader";
+import { gameProgress } from "../../constants/gameState";
+import { updateGameProgress } from "../../redux/slices/gameSlice";
 
 export const config = {
   type: Phaser.WEBGL,
@@ -26,6 +30,9 @@ export const config = {
 };
 
 const GamePage = () => {
+  const { progress } = useSelector((state) => state.game);
+  const dispatch = useDispatch();
+  console.log(progress)
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isGameStart, setIsGameStart] = useState(false);
 
@@ -38,6 +45,8 @@ const GamePage = () => {
   const handleModalClick = () => {
     setIsGameStart(true);
     setIsModalOpen(false);
+
+    dispatch(updateGameProgress(gameProgress.GAME_START));
   };
 
   return (
@@ -47,7 +56,11 @@ const GamePage = () => {
           <StartGameModalView onClick={handleModalClick} />
         </Modal>
       )}
-      <div>title</div>
+      {progress === gameProgress.GAME_OVER && (
+        <Modal>
+          <StartGameModalView onClick={handleModalClick} />
+        </Modal>
+      )}
       <div id="game-container" />
     </>
   );
