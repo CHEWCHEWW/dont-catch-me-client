@@ -36,8 +36,6 @@ const GamePage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   
-  const [isStartModalOpen, setIsStartModalOpen] = useState(true);
-
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
       const game = new Phaser.Game(config);
@@ -45,19 +43,18 @@ const GamePage = () => {
   }, [progress]);
 
   const handleGameStartModalClick = () => {
-    setIsStartModalOpen(false);
-
     dispatch(updateGameProgress(gameProgress.GAME_START));
   };
 
   const handleGameOverModalClick = () => {
     history.push("/");
+
     dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
   };
 
   return (
     <>
-      {isStartModalOpen && (
+      {progress === gameProgress.GAME_BEFORE_START && (
         <Modal>
           <GameStartModalView onClick={handleGameStartModalClick} />
         </Modal>
