@@ -23,9 +23,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
   handleMovement(delta, cursors, boardLayer) {
     const body = this.body;
-
-    body.setVelocity(0, 0);
-
     const velocity = body.velocity;
 
     if (!velocity.lengthSq()) {

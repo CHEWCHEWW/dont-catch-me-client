@@ -8,7 +8,7 @@ const Modalview = styled.div`
   box-sizing: border-box;
   background-color: white;
   border-radius: 5px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 `;
 
 export default Modalview;

@@ -6,9 +6,9 @@ import store from "../../store";
 import { updateGameProgress } from "../../redux/slices/gameSlice";
 import { gameProgress } from "../../constants/gameState";
 
-export default class Game extends Phaser.Scene {
+export default class Stage1 extends Phaser.Scene {
   constructor() {
-    super("game");
+    super("stage1");
   }
 
   create() {
@@ -35,20 +35,25 @@ export default class Game extends Phaser.Scene {
     this.enemy.setAI(new ChaseHeroAI(this.hero, this.enemy, this.boardLayer));
     this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));
     
+    this.cursors = this.input.keyboard.createCursorKeys();
+
 		this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(0.8);
 
     this.physics.add.collider([this.enemy, this.enemy1]);
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      this.scene.pause();
-      store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+      this.time.addEvent({
+        callback: () => {
+          this.scene.pause();
+          store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+        },
+        delay: 1000,
+      });
     });
   }
 
   update(time, delta) {
-    this.cursors = this.input.keyboard.createCursorKeys();
-
     if (this.hero) {
       this.hero.handleMovement(delta, this.cursors, this.boardLayer);
     }
