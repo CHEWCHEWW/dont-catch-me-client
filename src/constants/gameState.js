@@ -1,5 +1,5 @@
 export const gameProgress = {
   BEFORE_START: "BEFORE_START",
-  START: "START",
-  STOP: "STOP",
+  GAME_START: "GAME_START",
+  GAME_OVER: "GAME_OVER",
 };
