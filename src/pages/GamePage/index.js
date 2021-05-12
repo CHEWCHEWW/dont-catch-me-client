@@ -9,7 +9,7 @@ import GameOverModalView from "../../components/Modal/GameOverModalView";
 import Stage1 from "../../phaser/scenes/Stage1";
 import Preloader from "../../phaser/scenes/Preloader";
 import { gameProgress } from "../../constants/gameState";
-import { updateGameProgress } from "../../redux/slices/gameSlice";
+import { updateGameProgress, gameProgressSelector } from "../../redux/slices/gameSlice";
 
 export const config = {
   type: Phaser.WEBGL,
@@ -32,7 +32,7 @@ export const config = {
 };
 
 const GamePage = () => {
-  const { progress } = useSelector((state) => state.game);
+  const { progress } = useSelector(gameProgressSelector);
   const dispatch = useDispatch();
   const history = useHistory();
   

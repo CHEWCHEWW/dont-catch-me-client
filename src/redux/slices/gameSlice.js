@@ -18,6 +18,6 @@ const gameSlice = createSlice({
 
 export const { updateGameProgress } = gameSlice.actions;
 
-export const gameProgressSelector = (state) => state.progress;
+export const gameProgressSelector = ({ game }) => game;
 
 export default gameSlice.reducer;
