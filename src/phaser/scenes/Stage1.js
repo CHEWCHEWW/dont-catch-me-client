@@ -10,7 +10,7 @@ export default class Stage1 extends Phaser.Scene {
   constructor() {
     super("stage1");
   }
-
+  
   create() {
     this.map = this.add.tilemap("map");
 
@@ -40,22 +40,32 @@ export default class Stage1 extends Phaser.Scene {
 		this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(0.8);
 
+    this.timer = this.time.delayedCall(30000, this.gameOver, [], this);
+    this.countDown = this.add.text(32, 32);
+
     this.physics.add.collider([this.enemy, this.enemy1]);
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      this.time.addEvent({
-        callback: () => {
-          this.scene.pause();
-          store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
-        },
-        delay: 1000,
-      });
+      this.gameOver();
     });
+
   }
 
   update(time, delta) {
     if (this.hero) {
       this.hero.handleMovement(delta, this.cursors, this.boardLayer);
     }
+
+    this.countDown.setText("current" + this.timer.getProgress().toString().substr(0, 4));
+  }
+
+  gameOver() {
+    this.time.addEvent({
+      callback: () => {
+        this.scene.pause();
+        store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+      },
+      delay: 1000,
+    });
   }
 }
