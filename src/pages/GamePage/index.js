@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import Modal from "../../components/Modal";
-import StartGameModalView from "../../components/Modal/StartGameModalView";
-import Game from "../../phaser/scenes/Game";
+import GameStartModalView from "../../components/Modal/GameStartModalView";
+import GameOverModalView from "../../components/Modal/GameOverModalView";
+import Stage1 from "../../phaser/scenes/Stage1";
 import Preloader from "../../phaser/scenes/Preloader";
 import { gameProgress } from "../../constants/gameState";
 import { updateGameProgress } from "../../redux/slices/gameSlice";
@@ -26,39 +28,43 @@ export const config = {
 		mode: Phaser.Scale.ScaleModes.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH
 	},
-  scene: [Preloader, Game],
+  scene: [Preloader, Stage1],
 };
 
 const GamePage = () => {
   const { progress } = useSelector((state) => state.game);
   const dispatch = useDispatch();
-  console.log(progress)
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const [isGameStart, setIsGameStart] = useState(false);
+  const history = useHistory();
+  
+  const [isStartModalOpen, setIsStartModalOpen] = useState(true);
 
   useEffect(() => {
-    if (isGameStart) {
+    if (progress === gameProgress.GAME_START) {
       const game = new Phaser.Game(config);
     }
-  }, [isGameStart]);
+  }, [progress]);
 
-  const handleModalClick = () => {
-    setIsGameStart(true);
-    setIsModalOpen(false);
+  const handleGameStartModalClick = () => {
+    setIsStartModalOpen(false);
 
     dispatch(updateGameProgress(gameProgress.GAME_START));
   };
 
+  const handleGameOverModalClick = () => {
+    history.push("/");
+    dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
+  };
+
   return (
     <>
-      {isModalOpen && (
+      {isStartModalOpen && (
         <Modal>
-          <StartGameModalView onClick={handleModalClick} />
+          <GameStartModalView onClick={handleGameStartModalClick} />
         </Modal>
       )}
       {progress === gameProgress.GAME_OVER && (
         <Modal>
-          <StartGameModalView onClick={handleModalClick} />
+          <GameOverModalView onClick={handleGameOverModalClick} />
         </Modal>
       )}
       <div id="game-container" />

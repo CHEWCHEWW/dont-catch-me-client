@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 import ModalView from "../shared/ModalView";
 
-const StartGameModalView = ({ onClick }) => {
+const GameStartModalView = ({ onClick }) => {
   return (
-    <ModalView padding={20} width={700} height={500}>
+    <ModalView padding={20} width={500} height={400}>
       <ModalContent onClick={onClick}>
         <TextBoard>
           <div>Rabbit!! Rabbit!!</div>
@@ -17,15 +17,20 @@ const StartGameModalView = ({ onClick }) => {
 };
 
 const ModalContent = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background: red;
+  background: pink;
+  align-items: center;
+  justify-content: center;
 `;
 
 const TextBoard = styled.div`
   width: 80%;
   height: 40%;
-  background: red;
+  background: white;
+  text-align: center;
 `;
 
-export default StartGameModalView;
+export default GameStartModalView;

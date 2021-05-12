@@ -3,7 +3,7 @@ import { createSlice, createAction } from "@reduxjs/toolkit";
 import { gameProgress } from "../../constants/gameState";
 
 const initialState = {
-  progress: gameProgress.BEFORE_START,
+  progress: gameProgress.GAME_BEFORE_START,
 };
 
 const gameSlice = createSlice({
