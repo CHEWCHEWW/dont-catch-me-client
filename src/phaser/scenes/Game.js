@@ -32,7 +32,7 @@ export default class Game extends Phaser.Scene {
     this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      // callback
+      this.scene.pause();
     });
 
     this.physics.add.collider([this.enemy, this.enemy1]);
