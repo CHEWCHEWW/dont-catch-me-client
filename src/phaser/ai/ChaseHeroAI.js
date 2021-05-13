@@ -5,6 +5,7 @@ import {
 } from "../../utils/directions";
 import { Direction } from "../../constants/direction";
 import { shuffleOrder } from "../../utils/random";
+import { TileSize } from "../../constants/tile";
 
 export default class ChaseHeroAI {
   constructor(hero, enemy, board) {
@@ -14,7 +15,7 @@ export default class ChaseHeroAI {
   }
 
   get speed() {
-    return 120;
+    return 150;
   }
 
   get targetPosition() {
@@ -33,14 +34,15 @@ export default class ChaseHeroAI {
 
     const currentX = this.enemy.body.position.x;
     const currentY = this.enemy.body.position.y;
-
+    
     const backwardsPosition = getOppositeDirection(this.enemy.currentDirection);
-    const directions = getOrderedDirections((dir) => dir !== backwardsPosition);
+    
+    const directions = getOrderedDirections();
     const shuffledDirections = shuffleOrder(directions);
-
+    
     for (const direction of shuffledDirections) {
       const position = getPositionByDirection(currentX, currentY, direction);
-
+      
       if (!this.board.getTileAtWorldXY(position.x, position.y)) {
         continue;
       }
@@ -51,15 +53,13 @@ export default class ChaseHeroAI {
         targetX,
         targetY
       );
-
+      
       if (
         lastClosedDirection === Direction.None ||
         distance < lastClosedDistance
       ) {
         lastClosedDirection = direction;
         lastClosedDistance = distance;
-
-        continue;
       }
     }
 
