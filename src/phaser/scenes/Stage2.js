@@ -6,16 +6,16 @@ import store from "../../store";
 import { updateGameProgress } from "../../redux/slices/gameSlice";
 import { gameProgress } from "../../constants/gameState";
 
-export default class Stage1 extends Phaser.Scene {
+export default class Stage2 extends Phaser.Scene {
   constructor() {
-    super("stage1");
+    super("stage2");
   }
 
   create() {
-    this.map = this.add.tilemap("level1-map");
-
-    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
-    this.registry.values.happy = "24";
+    this.map = this.add.tilemap("level2-map");
+    
+    const tileset = this.map.addTilesetImage("iso-level2", "tiles");
+    
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
     this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
 
@@ -96,7 +96,7 @@ export default class Stage1 extends Phaser.Scene {
   moveNextStage() {
     this.time.addEvent({
       callback: () => {
-        this.scene.start("stage2");
+        this.scene.start("stage3");
       },
       delay: 1000,
     });

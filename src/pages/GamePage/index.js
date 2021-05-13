@@ -8,16 +8,21 @@ import GameStartModalView from "../../components/Modal/GameStartModalView";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import Stage1 from "../../phaser/scenes/Stage1";
 import Stage2 from "../../phaser/scenes/Stage2";
+import Stage3 from "../../phaser/scenes/Stage3";
 import Preloader from "../../phaser/scenes/Preloader";
 import { gameProgress } from "../../constants/gameState";
 import { updateGameProgress, gameProgressSelector } from "../../redux/slices/gameSlice";
 
 export const config = {
   type: Phaser.WEBGL,
-  width: 800,
-  height: 600,
+  scale: {
+    width: "100%",
+    height: "100%",
+    mode: Phaser.Scale.FIT,
+    parent: "game-container",
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
   backgroundColor: "#FFFFFF",
-  parent: "game-container",
   physics: {
 		default: "arcade",
 		arcade: {
@@ -29,7 +34,7 @@ export const config = {
 		mode: Phaser.Scale.ScaleModes.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH
 	},
-  scene: [Preloader, Stage1, Stage2],
+  scene: [Preloader, Stage1, Stage2, Stage3],
 };
 
 const GamePage = () => {

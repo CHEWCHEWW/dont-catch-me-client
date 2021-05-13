@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import GlobalStyle from "./theme/globalStyle";
 import App from "./components/App";
-console.log(store);
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>
