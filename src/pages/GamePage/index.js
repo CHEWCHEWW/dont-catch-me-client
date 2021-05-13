@@ -7,6 +7,7 @@ import Modal from "../../components/Modal";
 import GameStartModalView from "../../components/Modal/GameStartModalView";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import Stage1 from "../../phaser/scenes/Stage1";
+import Stage2 from "../../phaser/scenes/Stage2";
 import Preloader from "../../phaser/scenes/Preloader";
 import { gameProgress } from "../../constants/gameState";
 import { updateGameProgress, gameProgressSelector } from "../../redux/slices/gameSlice";
@@ -28,7 +29,7 @@ export const config = {
 		mode: Phaser.Scale.ScaleModes.FIT,
 		autoCenter: Phaser.Scale.CENTER_BOTH
 	},
-  scene: [Preloader, Stage1],
+  scene: [Preloader, Stage1, Stage2],
 };
 
 const GamePage = () => {
