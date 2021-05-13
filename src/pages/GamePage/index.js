@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
 
 import Modal from "../../components/Modal";
 import GameStartModalView from "../../components/Modal/GameStartModalView";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
+import GameClearModalView from "../../components/Modal/GameClearModalView";
 import Stage1 from "../../phaser/scenes/Stage1";
 import Stage2 from "../../phaser/scenes/Stage2";
 import Stage3 from "../../phaser/scenes/Stage3";
@@ -58,8 +58,17 @@ const GamePage = () => {
     dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
   };
 
+  const handleGameClearModalClick = () => {
+    history.push("/records");
+
+    dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
+  };
+
   return (
     <>
+      <Modal>
+        <GameClearModalView onClick={handleGameClearModalClick} />
+      </Modal>
       {progress === gameProgress.GAME_BEFORE_START && (
         <Modal>
           <GameStartModalView onClick={handleGameStartModalClick} />
@@ -68,6 +77,11 @@ const GamePage = () => {
       {progress === gameProgress.GAME_OVER && (
         <Modal>
           <GameOverModalView onClick={handleGameOverModalClick} />
+        </Modal>
+      )}
+      {progress === gameProgress.GAME_CLEAR && (
+        <Modal>
+          <GameClearModalView onClick={handleGameClearModalClick} />
         </Modal>
       )}
       <div id="game-container" />

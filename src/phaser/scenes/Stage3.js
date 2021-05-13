@@ -96,7 +96,8 @@ export default class Stage3 extends Phaser.Scene {
   moveNextStage() {
     this.time.addEvent({
       callback: () => {
-        this.scene.start("stage2");
+        this.scene.pause();
+        store.dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
       },
       delay: 1000,
     });
