@@ -6,7 +6,7 @@ import ModalView from "../shared/ModalView";
 const GameOverModalView = ({ onClick }) => {
   return (
     <ModalView padding={20} width={500} height={400}>
-      <ModalContent onClick={onClick}>
+      <ModalContent>
         <TextBoard>
           <div>LOSE :(</div>
         </TextBoard>
