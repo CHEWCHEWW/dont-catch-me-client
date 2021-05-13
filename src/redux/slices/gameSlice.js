@@ -4,6 +4,9 @@ import { gameProgress } from "../../constants/gameState";
 
 const initialState = {
   progress: gameProgress.GAME_BEFORE_START,
+  username: "",
+  score: "",
+  clearTime: "",
 };
 
 const gameSlice = createSlice({

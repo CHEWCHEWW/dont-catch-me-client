@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import ModalView from "../shared/ModalView";
+import { saveGameClearUserRecord } from "../../api";
+import { uuidv4 } from "../../utils/uuid";
 
 const GameClearModalView = ({ onClick }) => {
   const [formData, setFormData] = useState({ name: "" });
@@ -21,7 +23,8 @@ const GameClearModalView = ({ onClick }) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log(24);
+
+    saveGameClearUserRecord({ id: uuidv4(), record });
   };
 
   return (
