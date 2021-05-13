@@ -7,7 +7,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     super(scene, x, y, texture);
 
     this.lastDirection = Direction.None;
-    this.lastTilePosition = { x: -1, y: -1 };
+    this.lastTilePosition = { x: 0, y: 0 };
 
     this.targetIndicator = scene.add
       .text(0, 0, "x")
@@ -15,6 +15,10 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       .setDepth(1000);
 
     this.enableTargetMarker(true);
+  }
+
+  setTargetIndicatorColor(color) {
+    this.targetIndicator.setColor(color);
   }
 
   get currentDirection() {
@@ -30,17 +34,11 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     
     const body = this.body;
 
-    body.setBounce(0).setCollideWorldBounds(false);
-
     const x = body.position.x;
     const y = body.position.y;
 
     const gx = Math.floor(x / 128) * 128;
-    const gy = Math.floor(y / 128) * 128;
-
-    if (this.lastTilePosition.x === gx && this.lastTilePosition.y === gy) {
-      return;
-    }
+    const gy = Math.floor(y / 64) * 64;
 
     body.position.x = gx;
     body.position.y = gy;
@@ -75,6 +73,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
         this.play("hero-running-left", true);
         body.setVelocity(-speed, speed * 0.5);
         break;
+      }
+      case Direction.None: {
+        body.setVelocity(0, 0);
       }
       default: {
         break;
