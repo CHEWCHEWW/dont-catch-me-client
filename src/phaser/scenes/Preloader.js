@@ -6,7 +6,9 @@ export default class Preloader extends Phaser.Scene {
 
     this.load.image("tiles", "iso-12-tileset.png");
     this.load.image("coin", "coin.png");
-    this.load.tilemapTiledJSON("map", "iso-level1.json");
+    this.load.tilemapTiledJSON("level1-map", "iso-level1.json");
+    this.load.tilemapTiledJSON("level2-map", "iso-level2.json");
+    this.load.tilemapTiledJSON("level3-map", "iso-level3.json");
 
     this.load.image("hero", "hero.png");
 
