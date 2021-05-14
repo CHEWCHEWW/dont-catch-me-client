@@ -14,6 +14,10 @@ const StartPage = () => {
     history.push("/game");
   };
 
+  const handleMatchingPageButton = () => {
+    history.push("/match");
+  };
+
   const handleRecordsButton = () => {
     history.push("/records");
   };
@@ -28,6 +32,7 @@ const StartPage = () => {
       <MainCard>
         <Buttons>
           <MainButton name="Single Play" onClick={handleSinglePlayButton} />
+          <MainButton name="Multi Play" onClick={handleMatchingPageButton} />
           <MainButton name="Record" onClick={handleRecordsButton} />
         </Buttons>
         <SpriteImage />
