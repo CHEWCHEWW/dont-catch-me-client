@@ -1,6 +1,6 @@
-export async function saveGameClearUserRecord({ id, record }) {
+export const saveGameClearUserRecord = async ({ id, record }) => {
   const response = await fetch(
-    `${process.env.SERVER_PORT}/api/interviewers/${id}`, {
+    `${process.env.SERVER_PORT}/api/result/${id}`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
@@ -13,4 +13,4 @@ export async function saveGameClearUserRecord({ id, record }) {
   const { result } = await response.json();
 
   return result;
-}
+};
