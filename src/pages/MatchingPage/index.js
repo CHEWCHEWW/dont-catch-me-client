@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,9 +9,8 @@ import Modal from "../../components/Modal";
 import RoomEntry from "../../components/RoomEntry";
 import RoomInfoCard from "../../components/RoomInfoCard";
 import PlayerInfoForm from "../../components/PlayerInfoForm";
-import { makeNewRoom } from "../../redux/slices/socketSlice";
 import { uuidv4 } from "../../utils/uuid";
-
+import useKakao from "../../hooks/useKakao";
 const dummyRoomList = [
   {
     key: "adfdafafaf",
@@ -47,17 +46,21 @@ const dummyRoomList = [
 
 const MatchingPage = () => {
   const dispatch = useDispatch();
+  const { userName, userID, isReady } = useSelector(userInfoSelector);
+  const { handleMessageSend } = useKakao();
+  
   const [isRoomModalOpen, setIsRoomModalOpen] = useState(false); 
-  const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
   const [roomName, setRoomName] = useState("");
   const [playerInfo, setPlayerInfo] = useState({
-    userName: "",
-    userID: "",
+    userName,
+    isReady,
     roll: "rabbit",
-    isReady: false,
   });
-
   const history = useHistory();
+  
+  const onClick = () => {
+    
+  };
 
   const setPlayerInfoByName = ({ name, value }) => {
     setPlayerInfo((prev) => ({
@@ -66,21 +69,8 @@ const MatchingPage = () => {
     }));
   };
 
-  const handleRoomNameChange = ({ target: { value } }) => {
-    setRoomName(value);
-  }
-
   const handleMakeRoomButtonClick = () => {
     setIsRoomModalOpen(true);
-  };
-
-  const handleMakeRoom = (ev) => {
-    ev.preventDefault();
-
-    const roomID = uuidv4();
-
-    setIsRoomModalOpen(false);
-    dispatch(makeNewRoom({ roomName, roomID, userID }));
   };
 
   const handleJoinMatchingPage = (ev) => {
@@ -89,15 +79,20 @@ const MatchingPage = () => {
     const userID = uuidv4();
 
     setPlayerInfoByName({ name: "userID", value: userID });
-    setIsJoinModalOpen(false);
+    dispatch(enterMatchingPage({ userName: playerInfo.userName, userID }));
+  };
+
+  const handleMakeRoom = (ev) => {
+    ev.preventDefault();
+
+    const roomID = uuidv4();
+
+    setIsRoomModalOpen(false);
+    dispatch(makeNewRoom({ roomName, roomID, userID: playerInfo.userID }));
   };
 
   const handleBackButtonClick = () => {
     history.push("/");
-  };
-
-  const handleRoomClick = (ev) => {
-    console.log(ev);
   };
 
   const handleEditRollButtonClick = (ev) => {
@@ -118,9 +113,14 @@ const MatchingPage = () => {
     setPlayerInfoByName({ name, value });
   };
 
+  const handleRoomNameChange = ({ target: { value } }) => {
+    setRoomName(value);
+  }
+
   return (
     <PageWrapper>
-      {isJoinModalOpen && (
+      <button onClick={handleMessageSend}>hy</button>
+      {userName?.length === 0 && (
         <Modal>
           <JoinMatchingRoomModalView 
             onSubmit={handleJoinMatchingPage} 

@@ -4,8 +4,8 @@ const useKakao = () => {
   useEffect(() => {
     Kakao.init(process.env.KAKAO_KEY);
   }, []);
-
-  const handleMessageSend = () => {
+ 
+  const handleMessageSend = (invitationCode) => {
     Kakao.Link.sendDefault({
       objectType: "feed",
       content: {
@@ -13,7 +13,6 @@ const useKakao = () => {
         description: "너는?",
         link: {
           webUrl: "http://localhost:3000",
-          mobileWebUrl: "",
         },
         imageUrl: "",
       },
@@ -22,7 +21,6 @@ const useKakao = () => {
           title: "게임 참여하기",
           link: {
             webUrl: "http://localhost:3000",
-            mobileWebUrl: "",
           }
         }
       ]

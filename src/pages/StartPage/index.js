@@ -3,7 +3,8 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import heroRabbit from "../../../public/hero-running-right.png";
-import MainButton from "../../components/MainButton"
+import MainButton from "../../components/MainButton";
+import Buttons from "../../components/shared/Buttons";
 
 const clouds = [1, 2, 3, 4, 5, 6, 7];
 
@@ -15,7 +16,7 @@ const StartPage = () => {
   };
 
   const handleMatchingPageButton = () => {
-    history.push("/match");
+    history.push("/join");
   };
 
   const handleRecordsButton = () => {
@@ -58,13 +59,6 @@ const MainCard = styled.div`
   justify-content: center;
   border-radius: 20px;
   align-items: center;
-`;
-
-const Buttons = styled.div`
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;
 
 const SpriteImage = styled.div`
