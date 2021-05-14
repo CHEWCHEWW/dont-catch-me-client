@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import ModalView from "../shared/ModalView";
+import ModalContent from "../shared/ModalContent";
 
 const GameStartModalView = ({ onClick }) => {
   return (
@@ -15,16 +16,6 @@ const GameStartModalView = ({ onClick }) => {
     </ModalView>
   );
 };
-
-const ModalContent = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: pink;
-  align-items: center;
-  justify-content: center;
-`;
 
 const TextBoard = styled.div`
   width: 80%;

@@ -3,11 +3,13 @@ import { applyMiddleware } from "redux";
 import logger from "redux-logger"
 
 import game from "./redux/slices/gameSlice"; 
+import socket from "./redux/slices/socketSlice";
 import socketMiddleware from "./redux/middleware/socket";
-;
+
 const store = configureStore({
   reducer: {
-    game
+    game,
+    socket,
   },
   middleware: (getDefaultMiddleware) => {
     if (process.env.NODE_ENV !== "production") {

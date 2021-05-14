@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ModalView from "../shared/ModalView";
 import { saveGameClearUserRecord } from "../../api";
 import { uuidv4 } from "../../utils/uuid";
+import ModalContent from "../shared/ModalContent";
 
 const GameClearModalView = ({ onClick }) => {
   const [formData, setFormData] = useState({ name: "" });
@@ -38,15 +39,5 @@ const GameClearModalView = ({ onClick }) => {
     </ModalView>
   );
 };
-
-const ModalContent = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: pink;
-  align-items: center;
-  justify-content: center;
-`;
 
 export default GameClearModalView;

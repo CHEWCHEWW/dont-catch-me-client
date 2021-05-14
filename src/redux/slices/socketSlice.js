@@ -1,21 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { gameProgress } from "../../constants/gameState";
-
 const initialState = {
-  message: "",
+  roomList: [],
+  currentRoom: {
+    players: [],
+    roomName: "",
+    roomID: "",
+    state: "",
+  },
+  userName: "",
+  userID: "",
 };
 
 const socketSlice = createSlice({
   name: "socket",
   initialState,
   reducers: {
-    sendSocketMessage(state, { payload }) {
-      state.message = payload;
-    }
+    enterRoom() {},
+    makeNewRoom(state, { payload: { roomName, roomID } }) {
+      state.currentRoom.roomName = roomName;
+      state.currentRoom.roomID = roomID;
+    },
+    joinNewPlayer(state, { payload }) {
+      state.currentRoom.players.concat(payload);
+    },
+
   },
 });
 
-export const { sendSocketMessage } = socketSlice.actions;
+export const { makeNewRoom, joinNewPlayer } = socketSlice.actions;
 
 export default socketSlice.reducer;

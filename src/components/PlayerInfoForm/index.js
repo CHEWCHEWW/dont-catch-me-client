@@ -6,7 +6,7 @@ import RadioInput from "../RadioInput";
 const PlayerInfoForm = ({ onSubmit, onChange, isDisabled, name }) => {
   return (
     <EditStateField onSubmit={onSubmit}>
-      <input type="text" name="name" value={name} onChange={onChange} disabled={isDisabled} />
+      <input type="text" name="userName" value={name} onChange={onChange} disabled={isDisabled} />
       <div name="roll" onChange={onChange}>
         <RadioInput 
           name="roll" 
