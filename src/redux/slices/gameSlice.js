@@ -1,4 +1,4 @@
-import { createSlice, createAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { gameProgress } from "../../constants/gameState";
 
@@ -14,16 +14,12 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     updateGameProgress(state, { payload }) {
-      console.log(payload);
       state.progress = payload;
     },
-    sendSocketMessage(state, { payload }) {
-      state.score = payload;
-    }
   },
 });
 
-export const { updateGameProgress, sendSocketMessage } = gameSlice.actions;
+export const { updateGameProgress } = gameSlice.actions;
 
 export const gameProgressSelector = ({ game }) => game;
 
