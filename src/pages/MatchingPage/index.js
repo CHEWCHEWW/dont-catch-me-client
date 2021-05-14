@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import MakeRoomModalView from "../../components/Modal/MakeRoomModalView";
+import JoinMatchingRoomModalView from "../../components/Modal/JoinMatchingRoomModalView";
 import Modal from "../../components/Modal";
 import RoomEntry from "../../components/RoomEntry";
 import RoomInfoCard from "../../components/RoomInfoCard";
 import PlayerInfoForm from "../../components/PlayerInfoForm";
+import { makeNewRoom } from "../../redux/slices/socketSlice";
+import { uuidv4 } from "../../utils/uuid";
 
 const dummyRoomList = [
   {
@@ -42,17 +46,50 @@ const dummyRoomList = [
 ];
 
 const MatchingPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const dispatch = useDispatch();
+  const [isRoomModalOpen, setIsRoomModalOpen] = useState(false); 
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(true);
+  const [roomName, setRoomName] = useState("");
   const [playerInfo, setPlayerInfo] = useState({
-    name: "",
-    playerRoll: "rabbit",
+    userName: "",
+    userID: "",
+    roll: "rabbit",
     isReady: false,
   });
 
   const history = useHistory();
 
+  const setPlayerInfoByName = ({ name, value }) => {
+    setPlayerInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleRoomNameChange = ({ target: { value } }) => {
+    setRoomName(value);
+  }
+
   const handleMakeRoomButtonClick = () => {
-    setIsModalOpen(!isModalOpen);
+    setIsRoomModalOpen(true);
+  };
+
+  const handleMakeRoom = (ev) => {
+    ev.preventDefault();
+
+    const roomID = uuidv4();
+
+    setIsRoomModalOpen(false);
+    dispatch(makeNewRoom({ roomName, roomID, userID }));
+  };
+
+  const handleJoinMatchingPage = (ev) => {
+    ev.preventDefault();
+
+    const userID = uuidv4();
+
+    setPlayerInfoByName({ name: "userID", value: userID });
+    setIsJoinModalOpen(false);
   };
 
   const handleBackButtonClick = () => {
@@ -61,13 +98,6 @@ const MatchingPage = () => {
 
   const handleRoomClick = (ev) => {
     console.log(ev);
-  };
-
-  const setPlayerInfoByName = ({ name, value }) => {
-    setPlayerInfo((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   const handleEditRollButtonClick = (ev) => {
@@ -90,9 +120,22 @@ const MatchingPage = () => {
 
   return (
     <PageWrapper>
-      {isModalOpen && (
+      {isJoinModalOpen && (
         <Modal>
-          <MakeRoomModalView onClick={handleMakeRoomButtonClick} />
+          <JoinMatchingRoomModalView 
+            onSubmit={handleJoinMatchingPage} 
+            onChange={handleFormChange} 
+            userName={playerInfo.userName} 
+          />
+        </Modal>
+      )}
+      {isRoomModalOpen && (
+        <Modal>
+          <MakeRoomModalView 
+            onSubmit={handleMakeRoom} 
+            onChange={handleRoomNameChange} 
+            roomName={roomName} 
+          />
         </Modal>
       )}
       <Column>

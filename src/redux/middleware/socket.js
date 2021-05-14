@@ -7,6 +7,7 @@ const socketMiddleware = (url) => {
     const socket = io.connect(url);
 
     socket.on("somePlayerJoin", (message) => {
+      console.log(socket.id);
       store.dispatch(sendSocketMessage(message));
     });
 
