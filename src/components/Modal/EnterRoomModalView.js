@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ModalView from "../shared/ModalView";
 import ModalContent from "../shared/ModalContent";
 
-const JoinMatchingRoomModalView = ({ userName, onChange, onSubmit }) => {
+const EnterRoomModalView = ({ userName, onChange, onSubmit }) => {
   return (
     <ModalView padding={20} width={400} height={300}>
       <ModalContent>
@@ -22,4 +22,4 @@ const ModalForm = styled.form`
   flex-direction: column;
 `;
 
-export default JoinMatchingRoomModalView;
+export default EnterRoomModalView;

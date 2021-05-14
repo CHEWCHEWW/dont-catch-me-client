@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../../theme/theme";
 import StartPage from "../../pages/StartPage";
 import GamePage from "../../pages/GamePage";
-import MatchingPage from "../../pages/MatchingPage";
+import JoinPage from "../../pages/JoinPage";
 
 import DummyPage from "../../pages/DummyPage";
 
@@ -19,8 +19,8 @@ const App = () => {
         <Route path="/game">
           <GamePage />
         </Route>
-        <Route path="/match">
-          <MatchingPage />
+        <Route path="/join">
+          <JoinPage />
         </Route>
         <Route path="/records">
           <DummyPage />

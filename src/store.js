@@ -1,15 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { applyMiddleware } from "redux";
 import logger from "redux-logger"
 
 import game from "./redux/slices/gameSlice"; 
-import socket from "./redux/slices/socketSlice";
+import user from "./redux/slices/userSlice";
+import room from "./redux/slices/roomSlice";
 import socketMiddleware from "./redux/middleware/socket";
 
 const store = configureStore({
   reducer: {
     game,
-    socket,
+    user,
+    room,
   },
   middleware: (getDefaultMiddleware) => {
     if (process.env.NODE_ENV !== "production") {
