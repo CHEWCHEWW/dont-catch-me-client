@@ -7,10 +7,10 @@ const MakeRoomModalView = ({ onClick }) => {
   return (
     <ModalView padding={20} width={400} height={300}>
       <ModalContent>
-        <form>
+        <ModalForm>
           <input type="text" />
           <input type="submit" onClick={onClick} value="MAKE" />
-        </form>
+        </ModalForm>
       </ModalContent>
     </ModalView>
   );
@@ -24,6 +24,11 @@ const ModalContent = styled.div`
   background: pink;
   align-items: center;
   justify-content: center;
+`;
+
+const ModalForm = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
 export default MakeRoomModalView;
