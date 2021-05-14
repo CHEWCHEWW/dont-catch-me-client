@@ -41,7 +41,7 @@ const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
   const dispatch = useDispatch();
   const history = useHistory();
-  
+
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
       const game = new Phaser.Game(config);
@@ -66,9 +66,6 @@ const GamePage = () => {
 
   return (
     <>
-      <Modal>
-        <GameClearModalView onClick={handleGameClearModalClick} />
-      </Modal>
       {progress === gameProgress.GAME_BEFORE_START && (
         <Modal>
           <GameStartModalView onClick={handleGameStartModalClick} />

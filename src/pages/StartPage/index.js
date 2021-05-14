@@ -111,7 +111,7 @@ const Clouds = styled.div`
   .cloud:nth-child(1) {
     top: 105px;
     left: 5px;
-    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
   }
 
   .cloud:nth-child(2) { 
@@ -122,25 +122,25 @@ const Clouds = styled.div`
   .cloud:nth-child(3) {
     top: 70px;
     left: 570px;
-    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
   }
 
   .cloud:nth-child(4) {
     top: 210px;
     left: 750px;
-    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
   }
 
   .cloud:nth-child(5) {
     top: 130px;
     left: 1000px;
-    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
   }
 
   .cloud:nth-child(6) {
     top: 65px;
     left: 1250px;
-    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
   }
 
   .cloud:nth-child(7) { 
