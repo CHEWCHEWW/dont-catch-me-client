@@ -60,26 +60,31 @@ const MatchingPage = () => {
     console.log(ev);
   };
 
-  const handleEditRollButtonClick = (ev) => {
-    ev.preventDefault();
-    
-    if (playerInfo.isReady) {
-      return;
-    }
-
-    setPlayerInfo((prev) => ({
-      ...prev,
-      isReady: true,
-    }))
-    
-    dummyRoomList[0].players.push(playerInfo);
-  };
-
-  const handleFormChange = ({ target: { value, name }}) => {
+  const setPlayerInfoByName = ({ name, value }) => {
     setPlayerInfo((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleEditRollButtonClick = (ev) => {
+    ev.preventDefault();
+    
+    if (playerInfo.isReady) {
+      setPlayerInfoByName({ name: "isReady", value: false });
+
+      return;
+    }
+    console.log(playerInfo);
+    setPlayerInfoByName({ name: "isReady", value: true });
+
+    dummyRoomList[0].players.push(playerInfo);
+  };
+
+  const handleFormChange = ({ target: { name, value }}) => {
+    console.log(name)
+    console.log(value);
+    setPlayerInfoByName({ name, value });
   };
 
   return (
@@ -113,14 +118,14 @@ const MatchingPage = () => {
             ))}
           </PlayerList>
           <EditStateField onSubmit={handleEditRollButtonClick}>
-            <input type="text" name="name" value={playerInfo.name} onChange={handleFormChange} />
-            <div name="playerRoll" onChange={handleFormChange}>
-              <input type="radio" name="playerRoll" value="rabbit" defaultChecked/>
+            <input type="text" name="name" value={playerInfo.name} onChange={handleFormChange} disabled={playerInfo.isReady} />
+            <div name="roll" onChange={handleFormChange}>
+              <input type="radio" name="roll" value="rabbit" disabled={playerInfo.isReady} defaultChecked />
               <label>rabbit</label>
-              <input type="radio" name="playerRoll" value="carrot" />
+              <input type="radio" name="roll" value="carrot" disabled={playerInfo.isReady} />
               <label>carrot</label>
             </div>
-            <input type="submit" />
+            <input type="submit" value={playerInfo.isReady ? "Edit" : "Ready"} />
           </EditStateField>
         </div>
       </Column>
