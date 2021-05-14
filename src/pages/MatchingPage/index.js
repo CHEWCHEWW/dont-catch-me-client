@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+import MakeRoomModalView from "../../components/Modal/MakeRoomModalView"
+import Modal from "../../components/Modal";
+
 const dummyRoomList = [
   { key:"adfdafafaf", name: "happy", player: 6, state: "ready" },
   { key:"fagah", name: "happy", player: 6, state: "play" },
@@ -17,6 +20,9 @@ const MatchingPage = () => {
 
   return (
     <PageWrapper>
+      <Modal>
+        <MakeRoomModalView />
+      </Modal>
       <Column>
         {dummyRoomList.map((room) => (
           <div key={room.key} onClick={handleRoomClick}>
