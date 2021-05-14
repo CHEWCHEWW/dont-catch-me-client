@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   roomID: "",
-  creator: "",
   players: [],
 };
 
@@ -10,9 +9,8 @@ const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
-    setNewRoom(state, { payload: { roomID, creator } }) {
+    setNewRoom(state, { payload: { roomID } }) {
       state.roomID = roomID;
-      state.creator = creator;
     }
   },
 });
