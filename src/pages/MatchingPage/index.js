@@ -2,20 +2,50 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import MakeRoomModalView from "../../components/Modal/MakeRoomModalView"
+import MakeRoomModalView from "../../components/Modal/MakeRoomModalView";
 import Modal from "../../components/Modal";
 
 const dummyRoomList = [
-  { key:"adfdafafaf", name: "happy", players: [{ name: "happy", state: "ready", roll: "carrot" }, { name: "jenny", state: "ready", roll: "rabbit" }, { name: "chew", state: "...", roll: "rabbit" }], state: "open" },
-  { key:"fagah", name: "happy", players: ["happy", "caca"], state: "play" },
-  { key:"hdjhgjdhj", name: "happy", players: ["happy", "roopy"], state: "ready" },
-  { key:"aetarg", name: "happy", players: ["happy", "jieun", "haha"], state: "ready" },
-  { key:"adfad", name: "happy", players: ["happy", "room"], state: "play" },
-  { key:"adfdragerfgafafaf", name: "happy", players: ["happy"], state: "ready" },
+  {
+    key: "adfdafafaf",
+    name: "happy",
+    players: [
+      { name: "happy", isReady: true, roll: "carrot" },
+      { name: "jenny", isReady: true, roll: "rabbit" },
+      { name: "chew", isReady: false, roll: "rabbit" },
+    ],
+    state: "open",
+  },
+  { key: "fagah", name: "happy", players: ["happy", "caca"], state: "play" },
+  {
+    key: "hdjhgjdhj",
+    name: "happy",
+    players: ["happy", "roopy"],
+    state: "ready",
+  },
+  {
+    key: "aetarg",
+    name: "happy",
+    players: ["happy", "jieun", "haha"],
+    state: "ready",
+  },
+  { key: "adfad", name: "happy", players: ["happy", "room"], state: "play" },
+  {
+    key: "adfdragerfgafafaf",
+    name: "happy",
+    players: ["happy"],
+    state: "ready",
+  },
 ];
 
 const MatchingPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [playerInfo, setPlayerInfo] = useState({
+    name: "",
+    playerRoll: "rabbit",
+    isReady: false,
+  });
+
   const history = useHistory();
 
   const handleMakeRoomButtonClick = () => {
@@ -28,6 +58,28 @@ const MatchingPage = () => {
 
   const handleRoomClick = (ev) => {
     console.log(ev);
+  };
+
+  const handleEditRollButtonClick = (ev) => {
+    ev.preventDefault();
+    
+    if (playerInfo.isReady) {
+      return;
+    }
+
+    setPlayerInfo((prev) => ({
+      ...prev,
+      isReady: true,
+    }))
+    
+    dummyRoomList[0].players.push(playerInfo);
+  };
+
+  const handleFormChange = ({ target: { value, name }}) => {
+    setPlayerInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -55,11 +107,21 @@ const MatchingPage = () => {
             {dummyRoomList[0].players.map((player, index) => (
               <div key={index}>
                 {player.name}
-                {player.state}
+                {player.isReady ? "ready" : "unReady"}
                 {player.roll}
               </div>
             ))}
           </PlayerList>
+          <EditStateField onSubmit={handleEditRollButtonClick}>
+            <input type="text" name="name" value={playerInfo.name} onChange={handleFormChange} />
+            <div name="playerRoll" onChange={handleFormChange}>
+              <input type="radio" name="playerRoll" value="rabbit" defaultChecked/>
+              <label>rabbit</label>
+              <input type="radio" name="playerRoll" value="carrot" />
+              <label>carrot</label>
+            </div>
+            <input type="submit" />
+          </EditStateField>
         </div>
       </Column>
     </PageWrapper>
@@ -85,8 +147,15 @@ const Column = styled.div`
 `;
 
 const PlayerList = styled.div`
-  width: 90%;
+  width: 80%;
   height: 80%;
+  background: pink;
+`;
+
+const EditStateField = styled.form`
+  width: 80%;
+  height: 10%;
+  background: gray;
 `;
 
 export default MatchingPage;
