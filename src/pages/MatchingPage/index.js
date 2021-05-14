@@ -4,6 +4,9 @@ import styled from "styled-components";
 
 import MakeRoomModalView from "../../components/Modal/MakeRoomModalView";
 import Modal from "../../components/Modal";
+import RoomEntry from "../../components/RoomEntry";
+import RoomInfoCard from "../../components/RoomInfoCard";
+import PlayerInfoForm from "../../components/PlayerInfoForm";
 
 const dummyRoomList = [
   {
@@ -49,7 +52,7 @@ const MatchingPage = () => {
   const history = useHistory();
 
   const handleMakeRoomButtonClick = () => {
-    setIsModalOpen(true);
+    setIsModalOpen(!isModalOpen);
   };
 
   const handleBackButtonClick = () => {
@@ -75,15 +78,13 @@ const MatchingPage = () => {
 
       return;
     }
-    console.log(playerInfo);
+    
     setPlayerInfoByName({ name: "isReady", value: true });
 
     dummyRoomList[0].players.push(playerInfo);
   };
 
   const handleFormChange = ({ target: { name, value }}) => {
-    console.log(name)
-    console.log(value);
     setPlayerInfoByName({ name, value });
   };
 
@@ -91,16 +92,17 @@ const MatchingPage = () => {
     <PageWrapper>
       {isModalOpen && (
         <Modal>
-          <MakeRoomModalView />
+          <MakeRoomModalView onClick={handleMakeRoomButtonClick} />
         </Modal>
       )}
       <Column>
         {dummyRoomList.map((room) => (
-          <div key={room.key} onClick={handleRoomClick}>
-            <h3>name: {room.name}</h3>
-            <h5>player: {room.players.length}</h5>
-            <h5>state: {room.state}</h5>
-          </div>
+          <RoomEntry 
+            key={room.key} 
+            name={room.name} 
+            playerCount={room.players.length} 
+            state={room.state} 
+          />
         ))}
         <button onClick={handleMakeRoomButtonClick}>Make Room</button>
         <button onClick={handleBackButtonClick}>Back</button>
@@ -110,23 +112,20 @@ const MatchingPage = () => {
           <h2>{dummyRoomList[0].name}</h2>
           <PlayerList>
             {dummyRoomList[0].players.map((player, index) => (
-              <div key={index}>
-                {player.name}
-                {player.isReady ? "ready" : "unReady"}
-                {player.roll}
-              </div>
+              <RoomInfoCard 
+                key={index} 
+                name={player.name} 
+                isReady={player.isReady} 
+                roll={player.roll} 
+              />
             ))}
           </PlayerList>
-          <EditStateField onSubmit={handleEditRollButtonClick}>
-            <input type="text" name="name" value={playerInfo.name} onChange={handleFormChange} disabled={playerInfo.isReady} />
-            <div name="roll" onChange={handleFormChange}>
-              <input type="radio" name="roll" value="rabbit" disabled={playerInfo.isReady} defaultChecked />
-              <label>rabbit</label>
-              <input type="radio" name="roll" value="carrot" disabled={playerInfo.isReady} />
-              <label>carrot</label>
-            </div>
-            <input type="submit" value={playerInfo.isReady ? "Edit" : "Ready"} />
-          </EditStateField>
+          <PlayerInfoForm 
+            name={playerInfo.name} 
+            onChange={handleFormChange}
+            onSubmit={handleEditRollButtonClick} 
+            isDisabled={playerInfo.isReady} 
+          />
         </div>
       </Column>
     </PageWrapper>
@@ -155,12 +154,6 @@ const PlayerList = styled.div`
   width: 80%;
   height: 80%;
   background: pink;
-`;
-
-const EditStateField = styled.form`
-  width: 80%;
-  height: 10%;
-  background: gray;
 `;
 
 export default MatchingPage;
