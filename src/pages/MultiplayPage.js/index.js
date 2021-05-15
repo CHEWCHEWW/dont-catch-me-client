@@ -22,16 +22,16 @@ export const config = {
   },
   backgroundColor: "#FFFFFF",
   physics: {
-		default: "arcade",
-		arcade: {
-			gravity: { y: 0 },
-			debug: true
-		}
-	},
-	scale: {
-		mode: Phaser.Scale.ScaleModes.FIT,
-		autoCenter: Phaser.Scale.CENTER_BOTH
-	},
+    default: "arcade",
+    arcade: {
+      gravity: { y: 0 },
+      debug: true,
+    },
+  },
+  scale: {
+    mode: Phaser.Scale.ScaleModes.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+  },
   scene: [Preloader, MultiplayerStage],
 };
 
