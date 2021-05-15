@@ -10,15 +10,22 @@ import ModalContent from "../shared/ModalContent";
 const EnterRoomModalView = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [invitationCode, setInvitationCode] = useState("");
+  const [enterInfo, setEnterInfo] = useState({
+    invitationCode: "",
+    username: "",
+  });
 
-  const handleInvitationCodeChange = ({ target: { value } }) => {
-    setInvitationCode(value);
+  const handleInputChange = ({ target: { name, value } }) => {
+    setEnterInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleInvitationCodeSubmit = (ev) => {
     ev.preventDefault();
 
+    dispatch(enterRoom({ roomId: enterInfo.invitationCode, username: enterInfo.username }));
     history.push(`/lobby/${invitationCode}`);
   };
 
@@ -26,7 +33,8 @@ const EnterRoomModalView = () => {
     <ModalView padding={20} width={400} height={300}>
       <ModalContent>
         <ModalForm onSubmit={handleInvitationCodeSubmit}>
-          <input type="text" name="invitiaionCode" value={invitationCode} onChange={handleInvitationCodeChange} />
+          <input type="text" name="username" value={enterInfo.invitationCode} onChange={handleInputChange} />
+          <input type="text" name="invitiaionCode" value={enterInfo.invitationCode} onChange={handleInputChange} />
           <input type="submit" value="Join" />
         </ModalForm>
       </ModalContent>

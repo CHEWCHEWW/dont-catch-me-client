@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-import { createRoomSuccess, joinUserSuccess } from "../slices/multiplaySlice";
+import { createRoomSuccess, joinUserSuccess, changeSomeUserState, changeMyState } from "../slices/multiplaySlice";
 
 const socketMiddleware = (url) => {
   return (store) => {
@@ -11,8 +11,15 @@ const socketMiddleware = (url) => {
     });
 
     socket.on("joinUserSuccess", ({ members, creatorId, userId, roomId }) => {
-      console.log(3000);
       store.dispatch(joinUserSuccess({ creatorId, members, userId, roomId }));
+    });
+
+    socket.on("changeSomeUserState", ({ players }) => {
+      store.dispatch(changeSomeUserState({ players }));
+    });
+
+    socket.on("changeMyState", ({ username, role, isReady }) => {
+      store.dispatch(changeMyState({ username, role, isReady }));
     });
 
     socket.on("error", ({ message }) => {
