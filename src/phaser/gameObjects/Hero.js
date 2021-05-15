@@ -42,6 +42,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
         body.setVelocity(-speed, -speed * 0.5);
       }
     } else if (keysDown.right) {
+      console.log(this);
       if (boardLayer.getTileAtWorldXY(this.x - TileSize.x + 1, this.y + TileSize.y + 0.5)) {
         this.play("hero-running-right", true);
         body.setVelocity(speed, speed * 0.5);

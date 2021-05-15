@@ -13,14 +13,7 @@ export default class Multiplayer extends Phaser.Scene {
   }
 
   create() {
-    this.map = this.add.tilemap("level1-map");
-
-    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
-
-    this.otherPlayers = [];
-
-    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
-    this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
+    this.setTileMap();
 
     socket.on("loadPlayers", ({ player, otherPlayers }) => {
       this.player = new Hero(this, player.x, player.y, "hero");
@@ -43,88 +36,71 @@ export default class Multiplayer extends Phaser.Scene {
         Phaser.Physics.Arcade.DYNAMIC_BODY
       );
 
-      this.add.existing(this.player);
-      this.player.body.setSize(64, 120, true);
-      this.player.setTint(0xfffc3b);
-
-      if (this.player) {
-        this.physics.add.overlap(
-          this.player,
-          this.coins,
-          this.handlePlayerGetCoin,
-          this.checkIsCanPlayerGetCoin,
-          this
-        );
-      }
-
+      this.createPlayer(this.player);
+      
       this.otherPlayers.forEach((player) => {
-        this.add.existing(player);
-
-        player.body.setSize(64, 120, true);
-
-        this.physics.add.overlap(
-          player,
-          this.coins,
-          this.handlePlayerGetCoin,
-          this.checkIsCanPlayerGetCoin(player),
-          this
-        );
+        this.createPlayer(player);
       });
+
+      this.player.setTint(0xfffc3b);
 
       this.playerQueuedPosition = {
         x: this.player.x,
         y: this.player.y,
       };
 
-      this.physics.add.overlap(
-        this.player,
-        this.coins,
-        this.handlePlayerGetCoin,
-        this.checkIsCanPlayerGetCoin(this.player),
-        this,
-      );
-
-      this.cameras.main.setZoom(0.5);
-      this.cameras.main.startFollow(this.player, true);
+      this.setCamera();
     });
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.setCoinToMap();
 
-    // // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
+    // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
     // this.countDown = this.add.text(32, 32);
-
-    // this.physics.add.collider(this.pla, [this.enemy, this.enemy1], () => {
-    //   this.stopGame();
-    //   this.moveNextStage();
-    // });
-
-    if (this.player) {
-    }
   }
 
   update(time, delta) {
     // this.countDown.setText("current" + this.timer.getProgress().toString().substr(0, 4));
-    this.player?.handleMovement(delta, this.cursors, this.boardLayer);
 
     if (this.player) {
+      this.player.handleMovement(delta, this.cursors, this.boardLayer);
+
       if (
         this.player.x !== this.playerQueuedPosition.x ||
-        this.player?.y !== this.playerQueuedPosition.y
+        this.player.y !== this.playerQueuedPosition.y
       ) {
-        socket.emit("movePlayer", { x: this.player?.x, y: this.player?.y });
+        socket.emit("movePlayer", {
+          x: this.player.x,
+          y: this.player.y,
+          anims: this.player.anims.currentAnim.key,
+        });
       }
     }
-
-    socket.on("somePlayerMove", ({ x, y, id }) => {
+    
+    socket.on("somePlayerMove", ({ x, y, id, anims }) => {
       const [targetPlayer] = this.otherPlayers.filter(
         (player) => player.id === id
       );
 
       targetPlayer.x = x;
       targetPlayer.y = y;
+      targetPlayer.play(anims, true);
     });
+  }
+
+  setTileMap() {
+    this.map = this.add.tilemap("level1-map");
+
+    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
+
+    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
+    this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
+  }
+
+  setCamera() {
+    this.cameras.main.setZoom(0.5);
+    this.cameras.main.startFollow(this.player, true);
   }
 
   setCoinToMap() {
@@ -138,6 +114,20 @@ export default class Multiplayer extends Phaser.Scene {
 
       body.setCircle(38, 26, -6);
     });
+  }
+
+  createPlayer(player) {
+    this.add.existing(player);
+
+    player.body.setSize(64, 120, true);
+
+    this.physics.add.overlap(
+      player,
+      this.coins,
+      this.handlePlayerGetCoin,
+      this.checkIsCanPlayerGetCoin(player),
+      this,
+    );
   }
 
   stopGame() {
