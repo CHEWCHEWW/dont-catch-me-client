@@ -1,22 +1,28 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { enterRoom } from "../../redux/slices/multiplaySlice";
 import PlayerCard from "../../components/PlayerCard";
 import PlayerInfoForm from "../../components/PlayerInfoForm";
+import { gameProgress } from "../../constants/gameState";
 
 const LobbyPage = () => {
   const dispatch = useDispatch();
-  const players = useSelector(({ multiple }) => multiple.roomState.players);
-  const userInfo = useSelector(({ multiple }) => multiple.userState);
-  
+  const { players, progress } = useSelector(({ multiple }) => multiple.roomState);
+  const history = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(enterRoom({ roomId: id }));
   }, []);
+
+  useEffect(() => {
+    if (progress === gameProgress.GAME_START) {
+      history.push("/game");
+    }
+  }, [progress]);
 
   return (
     <PageWrapper>
@@ -28,11 +34,8 @@ const LobbyPage = () => {
           role={player.role} 
         />
       ))}
-      <PlayerInfoForm 
-        isReady={userInfo.isReady} 
-        username={userInfo.username} 
-        role={userInfo.role}
-      />
+      <PlayerInfoForm />
+      <button>Game Start</button>
     </PageWrapper>
   );
 };

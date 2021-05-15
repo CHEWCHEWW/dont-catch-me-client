@@ -39,11 +39,20 @@ const multiSlice = createSlice({
       userState.username = username;
       userState.isReady = isReady;
       userState.role = role;
-    }
+    },
+    updateGameProgress({ roomState }, { payload }) {
+      roomState.progress = payload;
+    },
   },
 });
 
-export const { joinUserSuccess, createRoomSuccess, changeSomeUserState, changeMyState } = multiSlice.actions;
+export const { 
+  joinUserSuccess, 
+  createRoomSuccess, 
+  changeSomeUserState, 
+  changeMyState,
+  updateGameProgress,
+} = multiSlice.actions;
 
 export const makeNewRoom = createAction("room/makeNewRoom");
 export const enterRoom = createAction("room/enterRoom");
