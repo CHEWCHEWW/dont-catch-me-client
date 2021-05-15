@@ -11,12 +11,11 @@ const LobbyPage = () => {
   const dispatch = useDispatch();
   const players = useSelector(({ multiple }) => multiple.roomState.players);
   const userInfo = useSelector(({ multiple }) => multiple.userState);
+  
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(enterRoom({ roomId: id }));
-    console.log(players);
-    console.log(userInfo);
   }, []);
 
   return (
@@ -29,7 +28,11 @@ const LobbyPage = () => {
           role={player.role} 
         />
       ))}
-      <PlayerInfoForm />
+      <PlayerInfoForm 
+        isReady={userInfo.isReady} 
+        username={userInfo.username} 
+        role={userInfo.role}
+      />
     </PageWrapper>
   );
 };

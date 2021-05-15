@@ -21,22 +21,32 @@ const multiSlice = createSlice({
   name: "multiple",
   initialState,
   reducers: {
-    joinUserSuccess(state, { payload: { members, creatorId, userId, roomId } }) {
-      state.userState.userId = userId;
-      state.roomState.players = members;
-      state.roomState.creatorId = creatorId;
-      state.roomState.roomId = roomId;
+    joinUserSuccess({ userState, roomState }, { payload: { members, creatorId, userId, roomId, username } }) {
+      userState.userId = userId;
+      userState.username = username;
+      roomState.players = members;
+      roomState.creatorId = creatorId;
+      roomState.roomId = roomId;
     },
-    createRoomSuccess(state, { payload: { roomId, creatorId } }) {
-      state.creatorId = creatorId;
-      state.roomId = roomId;
+    createRoomSuccess({ roomState }, { payload: { roomId, creatorId } }) {
+      roomState.creatorId = creatorId;
+      roomState.roomId = roomId;
     },
+    changeSomeUserState({ roomState }, { payload: { players } }) {
+      roomState.players = players;
+    },
+    changeMyState({ userState }, { payload: { username, isReady, role } }) {
+      userState.username = username;
+      userState.isReady = isReady;
+      userState.role = role;
+    }
   },
 });
 
-export const { joinUserSuccess, createRoomSuccess } = multiSlice.actions;
+export const { joinUserSuccess, createRoomSuccess, changeSomeUserState, changeMyState } = multiSlice.actions;
 
 export const makeNewRoom = createAction("room/makeNewRoom");
 export const enterRoom = createAction("room/enterRoom");
+export const changeReadyState = createAction("room/changeReadyState");
 
 export default multiSlice.reducer;
