@@ -14,7 +14,7 @@ const socketMiddleware = (url) => {
     return (next) => (action) => {
       const [type, actionName] = action.type.split("/");
 
-      if (type !== "game") {
+      if (type !== "single") {
         socket.emit(actionName, action.payload);
       }
 

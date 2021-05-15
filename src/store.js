@@ -1,15 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger"
 
-import game from "./redux/slices/gameSlice"; 
-import user from "./redux/slices/userSlice";
+import single from "./redux/slices/singlePlaySlice"; 
+import multiple from "./redux/slices/multiplaySlice";
 import room from "./redux/slices/roomSlice";
 import socketMiddleware from "./redux/middleware/socket";
 
 const store = configureStore({
   reducer: {
-    game,
-    user,
+    single,
+    multiple,
     room,
   },
   middleware: (getDefaultMiddleware) => {

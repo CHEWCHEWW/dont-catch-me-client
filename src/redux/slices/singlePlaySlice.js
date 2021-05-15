@@ -9,8 +9,8 @@ const initialState = {
   clearTime: "",
 };
 
-const gameSlice = createSlice({
-  name: "game",
+const singlePlaySlice = createSlice({
+  name: "single",
   initialState,
   reducers: {
     updateGameProgress(state, { payload }) {
@@ -19,8 +19,8 @@ const gameSlice = createSlice({
   },
 });
 
-export const { updateGameProgress } = gameSlice.actions;
+export const { updateGameProgress } = singlePlaySlice.actions;
 
-export const gameProgressSelector = ({ game }) => game;
+export const gameProgressSelector = ({ single }) => single;
 
-export default gameSlice.reducer;
+export default singlePlaySlice.reducer;

@@ -11,7 +11,7 @@ import Stage2 from "../../phaser/scenes/Stage2";
 import Stage3 from "../../phaser/scenes/Stage3";
 import Preloader from "../../phaser/scenes/Preloader";
 import { gameProgress } from "../../constants/gameState";
-import { updateGameProgress, gameProgressSelector } from "../../redux/slices/gameSlice";
+import { updateGameProgress, gameProgressSelector } from "../../redux/slices/singlePlaySlice";
 
 export const config = {
   type: Phaser.WEBGL,

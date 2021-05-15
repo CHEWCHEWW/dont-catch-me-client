@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({ name, value, isDisabled, isDefaultChecked }) => {
+const RadioInput = ({ name, value, isDisabled, isDefaultChecked }) => {
   return (
     <>
       <input 
@@ -15,4 +15,4 @@ const Input = ({ name, value, isDisabled, isDefaultChecked }) => {
   );
 };
 
-export default Input;
+export default RadioInput;

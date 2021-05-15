@@ -3,7 +3,7 @@ import Enemy from "../gameObjects/Enemy";
 import ChaseHeroAI from "../ai/ChaseHeroAI";
 
 import store from "../../store";
-import { updateGameProgress } from "../../redux/slices/gameSlice";
+import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
 import { gameProgress } from "../../constants/gameState";
 
 export default class Stage3 extends Phaser.Scene {
@@ -13,12 +13,12 @@ export default class Stage3 extends Phaser.Scene {
 
   create() {
     this.map = this.add.tilemap("level3-map");
-    console.log(this.map);
+    
     const tileset = this.map.addTilesetImage("iso-level3", "tiles");
-    console.log(tileset);
+
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
     this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
-    console.log(this.boardLayer);
+
     this.hero = new Hero(this, 150, 550, "hero");
     this.enemy = new Enemy(this, 200, 200, "hero");
     this.enemy1 = new Enemy(this, 100, 150, "hero");
