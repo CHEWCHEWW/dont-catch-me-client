@@ -1,6 +1,13 @@
 import { io } from "socket.io-client";
 
-import { createRoomSuccess, joinUserSuccess, changeSomeUserState, changeMyState } from "../slices/multiplaySlice";
+import { gameProgress } from "../../constants/gameState";
+import { 
+  updateGameProgress, 
+  createRoomSuccess, 
+  joinUserSuccess, 
+  changeSomeUserState, 
+  changeMyState,
+} from "../slices/multiplaySlice";
 
 const socketMiddleware = (url) => {
   return (store) => {
@@ -20,6 +27,10 @@ const socketMiddleware = (url) => {
 
     socket.on("changeMyState", ({ username, role, isReady }) => {
       store.dispatch(changeMyState({ username, role, isReady }));
+    });
+
+    socket.on("startGame", () => {
+      store.dispatch(updateGameProgress(gameProgress.GAME_START));
     });
 
     socket.on("error", ({ message }) => {
