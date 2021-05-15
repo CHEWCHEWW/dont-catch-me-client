@@ -107,17 +107,17 @@ export default class Stage1 extends Phaser.Scene {
     // });
   }
 
-  handlePlayerGetCoin(object1, object2) {
-    object2.destroy(true);
+  handlePlayerGetCoin(hero, coin) {
+    coin.destroy(true);
 
     this.coinCount--;
 	}
 
-	checkIsCanPlayerGetCoin(object1, object2) {
+	checkIsCanPlayerGetCoin(hero, coin) {
 		if (!this.hero) {
 			return false;
 		}
     
-		return this.hero.canGetCoin(object2);
+		return this.hero.canGetCoin(coin);
 	}
 }
