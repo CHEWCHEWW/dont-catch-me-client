@@ -1,12 +1,14 @@
 import { io } from "socket.io-client";
 
+import { createRoomSuccess } from "../slices/roomSlice";
+
 const socketMiddleware = (url) => {
   return (store) => {
     const socket = io.connect(url);
 
-    socket.on("somePlayerJoin", (message) => {
-      console.log(socket.id);
-      store.dispatch();
+    socket.on("createRoomSuccess", ({ creatorId, roomId }) => {
+      console.log(creatorId, roomId);
+      store.dispatch(createRoomSuccess({ creatorId, roomId }));
     });
 
     return (next) => (action) => {

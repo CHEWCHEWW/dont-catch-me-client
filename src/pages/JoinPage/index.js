@@ -1,36 +1,22 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 import Buttons from "../../components/shared/Buttons";
 import EnterRoomModalView from "../../components/Modal/EnterRoomModalView";
+import MakeInvitaionModalView from "../../components/Modal/MakeRoomModalView";
 import MainButton from "../../components/MainButton";
 import Modal from "../../components/Modal";
-import useKakao from "../../hooks/useKakao";
-import { setNewRoom } from "../../redux/slices/roomSlice";
 
 const JoinPage = () => {
-  const { handleMessageSend } = useKakao();
-  const history = useHistory();
-  const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
+  // const roomID = useSelector(({ room }) => room.roomID);
   const [isEnterRoomModalOpen, setIsEnterRoomModalOpen] = useState(false);
-  const roomID = useSelector(({ room }) => room.roomID);
-  const dispatch = useDispatch();
+  const [isInvitationModalOpen, setIsInvitationModalOpen] = useState(false);
   
   const handleEnterButtonClick = () => {
-    if (!roomID) {
-      setIsEnterRoomModalOpen(true);
-
-      return;
-    }
-
-    history.push(`/${roomID}`);
+    setIsEnterRoomModalOpen(!isEnterRoomModalOpen);
   };
 
   const handleInvitationButtonCLick = () => {
-    handleMessageSend("aesdfdsd");
-
-    dispatch(setNewRoom({ roomID: "aesdfdsd", }));
+    setIsInvitationModalOpen(!isInvitationModalOpen);
   };
 
   return (
@@ -40,8 +26,16 @@ const JoinPage = () => {
           <EnterRoomModalView />
         </Modal>
       )}
-      <MainButton name="초대하기" onClick={handleInvitationButtonCLick} />
+      {isInvitationModalOpen && (
+        <Modal>
+          <MakeInvitaionModalView 
+            onMoveNextPage={setIsEnterRoomModalOpen} 
+            onExit={setIsInvitationModalOpen} 
+          />
+        </Modal>
+      )}
       <MainButton name="입장하기" onClick={handleEnterButtonClick} />
+      <MainButton name="초대하기" onClick={handleInvitationButtonCLick} />
     </Buttons>
   );
 };

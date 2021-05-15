@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 import { enterRoom } from "../../redux/slices/roomSlice";
 import ModalView from "../shared/ModalView";
 import ModalContent from "../shared/ModalContent";
 
-
 const EnterRoomModalView = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [invitationCode, setInvitationCode] = useState("");
 
   const handleInvitationCodeChange = ({ target: { value } }) => {
@@ -18,7 +19,8 @@ const EnterRoomModalView = () => {
   const handleInvitationCodeSubmit = (ev) => {
     ev.preventDefault();
 
-    dispatch(enterRoom({ roomID: invitationCode }));
+    dispatch(enterRoom({ roomId: invitationCode }));
+    history.push(`/${invitationCode}`);
   };
 
   return (

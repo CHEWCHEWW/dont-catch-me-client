@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  roomID: "",
+  roomId: "",
+  creatorId: "",
   players: [],
 };
 
@@ -9,14 +10,19 @@ const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
-    setNewRoom(state, { payload: { roomID } }) {
-      state.roomID = roomID;
-    }
+    createRoomSuccess(state, { payload: { roomId, creatorId } }) {
+      state.creatorId = creatorId;
+      state.roomId = roomId;
+    },
+    enterRoom(state, { payload: { roomId } }) {
+      state.roomId = roomId;
+    },
+
   },
 });
 
-export const { setNewRoom } = roomSlice.actions;
+export const { createRoomSuccess, enterRoom } = roomSlice.actions;
 
-export const userInfoSelector = ({ room }) => socket.userInfo;
+export const makeNewRoom = createAction("room/makeNewRoom");
 
 export default roomSlice.reducer;
