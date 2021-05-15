@@ -3,7 +3,7 @@ import Enemy from "../gameObjects/Enemy";
 import ChaseHeroAI from "../ai/ChaseHeroAI";
 
 import store from "../../store";
-import { updateGameProgress } from "../../redux/slices/gameSlice";
+import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
 import { gameProgress } from "../../constants/gameState";
 
 export default class Stage1 extends Phaser.Scene {
