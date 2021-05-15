@@ -10,6 +10,11 @@ export default class Multiplayer extends Phaser.Scene {
 
   init() {
     socket.emit("gameInit");
+
+    this.registry.values.score = {
+      rabbit: 0,
+      carrot: 0,
+    };
   }
 
   create() {
@@ -17,6 +22,8 @@ export default class Multiplayer extends Phaser.Scene {
 
     socket.on("loadPlayers", ({ player, otherPlayers }) => {
       this.player = new Hero(this, player.x, player.y, "hero");
+      this.player.id = player.userId;
+      this.player.role = player.role;
 
       this.otherPlayers = Object.values(otherPlayers).map((playerInfo) => {
         const player = new Hero(
@@ -27,6 +34,7 @@ export default class Multiplayer extends Phaser.Scene {
         );
 
         player.id = playerInfo.userId;
+        player.id = playerInfo.role;
 
         return player;
       });
@@ -77,6 +85,10 @@ export default class Multiplayer extends Phaser.Scene {
         });
       }
     }
+
+    if (this.coinCount === 0) {
+      this.stopGame();
+    }
     
     socket.on("somePlayerMove", ({ x, y, id, anims }) => {
       const [targetPlayer] = this.otherPlayers.filter(
@@ -86,6 +98,16 @@ export default class Multiplayer extends Phaser.Scene {
       targetPlayer.x = x;
       targetPlayer.y = y;
       targetPlayer.play(anims, true);
+    });
+
+    socket.on("updateCount", ({ score }) => {
+      this.registry.values.score = { ...score };
+      console.log(this.registry.values);
+    });
+
+    socket.on("getGameResult", ({ result }) => {
+      console.log(result);
+      this.scene.pause();
     });
   }
 
@@ -133,35 +155,32 @@ export default class Multiplayer extends Phaser.Scene {
   stopGame() {
     this.time.addEvent({
       callback: () => {
-        this.scene.pause();
-        // store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+        socket.emit("gameOver", {
+          score: this.registry.values.score,
+          role: this.player.role,
+        });
       },
       delay: 1000,
-    });
+    });    
   }
 
-  moveNextStage() {
-    this.time.addEvent({
-      callback: () => {
-        this.scene.pause();
-      },
-      delay: 1000,
-    });
-  }
-
-  handlePlayerGetCoin(object1, object2) {
-    object2.destroy(true);
-
+  handlePlayerGetCoin(player, coin) {
+    coin.destroy(true);
+    
     this.coinCount--;
+
+    if (player.id === this.player.id) {
+      socket.emit("userGetCoin", { role: player.role, point: 10 });
+    }
   }
 
   checkIsCanPlayerGetCoin(player) {
-    return (object1, object2) => {
+    return (object, coin) => {
       if (!player) {
         return false;
       }
   
-      return player.canGetCoin(object2);
+      return player.canGetCoin(coin);
     };
   }
 }
