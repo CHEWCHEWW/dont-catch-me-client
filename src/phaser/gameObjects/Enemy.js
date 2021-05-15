@@ -55,22 +55,22 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     
     switch (direction) {
       case Direction.Left: {
-        this.play("hero-running-back-left", true);
+        this.play("hero-idle-back-left", true);
         body.setVelocity(-speed, -speed * 0.5);
         break;
       }
       case Direction.Right: {
-        this.play("hero-running-right", true);
+        this.play("hero-idle-right", true);
         body.setVelocity(speed, speed * 0.5);
         break;
       }
       case Direction.Up: {
-        this.play("hero-running-back-right", true);
+        this.play("hero-idle-back-right", true);
         body.setVelocity(speed, -speed * 0.5);
         break;
       }
       case Direction.Down: {
-        this.play("hero-running-left", true);
+        this.play("hero-idle-left", true);
         body.setVelocity(-speed, speed * 0.5);
         break;
       }

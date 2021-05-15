@@ -38,23 +38,23 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     if (keysDown.left) {
       if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
-        this.play("hero-running-back-left", true);
+        this.play("enemy-running-back-left", true);
         body.setVelocity(-speed, -speed * 0.5);
       }
     } else if (keysDown.right) {
       console.log(this);
       if (boardLayer.getTileAtWorldXY(this.x - TileSize.x + 1, this.y + TileSize.y + 0.5)) {
-        this.play("hero-running-right", true);
+        this.play("enemy-running-right", true);
         body.setVelocity(speed, speed * 0.5);
       }
     } else if (keysDown.up) {
       if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
-        this.play("hero-running-back-right", true);
+        this.play("enemy-running-back-right", true);
         body.setVelocity(speed, -speed * 0.5);
       }
     } else if (keysDown.down) {
       if (boardLayer.getTileAtWorldXY(this.x - TileSize.x + 1, this.y + TileSize.y + 0.5)) {
-        this.play("hero-running-left", true);
+        this.play("enemy-running-left", true);
         body.setVelocity(-speed, speed * 0.5);
       }
     }

@@ -17,6 +17,21 @@ export default class Preloader extends Phaser.Scene {
     this.load.atlas("hero-running-back-left", "hero-running-back-left.png", "hero-running-back-left.json");
     this.load.atlas("hero-running-back-right", "hero-running-back-right.png", "hero-running-back-right.json");
 
+    this.load.atlas("hero-idle-left", "hero-idle-left.png", "hero-idle-left.json");
+    this.load.atlas("hero-idle-right", "hero-idle-right.png", "hero-idle-right.json");
+    this.load.atlas("hero-idle-back-left", "hero-idle-back-left.png", "hero-idle-back-left.json");
+    this.load.atlas("hero-idle-back-right", "hero-idle-back-right.png", "hero-idle-back-right.json");
+
+    this.load.atlas("enemy-idle-left", "enemy-idle-left.png", "enemy-idle-left.json");
+    this.load.atlas("enemy-idle-right", "enemy-idle-right.png", "enemy-idle-right.json");
+    this.load.atlas("enemy-idle-back-left", "enemy-idle-back-left.png", "enemy-idle-back-left.json");
+    this.load.atlas("enemy-idle-back-right", "enemy-idle-back-right.png", "enemy-idle-back-right.json");
+
+    this.load.atlas("enemy-running-left", "enemy-running-left.png", "enemy-running-left.json");
+    this.load.atlas("enemy-running-right", "enemy-running-right.png", "enemy-running-right.json");
+    this.load.atlas("enemy-running-back-left", "enemy-running-back-left.png", "enemy-running-back-left.json");
+    this.load.atlas("enemy-running-back-right", "enemy-running-back-right.png", "enemy-running-back-right.json");
+
     this.load.on("progress", this.updateLoading, { newGraphics: this.newGraphics, loadingText: this.loadingText });
     this.load.on("complete", this.completeLoading, { scene: this.scene });
   }
@@ -69,6 +84,162 @@ export default class Preloader extends Phaser.Scene {
         start: 1,
         end: 5,
         prefix: "hero-running-back-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-running-right",
+      frameRate: -5,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-running-right", {
+        start: 1,
+        end: 8,
+        prefix: "enemy-running-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-running-left",
+      frameRate: 15,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-running-left", {
+        start: 1,
+        end: 8,
+        prefix: "enemy-running-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-running-back-left",
+      frameRate: 10,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-running-back-left", {
+        start: 1,
+        end: 8,
+        prefix: "enemy-running-back-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-running-back-right",
+      frameRate: 50,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-running-back-right", {
+        start: 1,
+        end: 8,
+        prefix: "enemy-running-back-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-idle-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-idle-right", {
+        start: 1,
+        end: 6,
+        prefix: "hero-idle-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-idle-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-idle-left", {
+        start: 1,
+        end: 6,
+        prefix: "hero-idle-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-idle-back-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-idle-back-left", {
+        start: 1,
+        end: 6,
+        prefix: "hero-idle-back-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-idle-back-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-idle-back-right", {
+        start: 1,
+        end: 6,
+        prefix: "hero-idle-back-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-idle-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-idle-right", {
+        start: 1,
+        end: 6,
+        prefix: "enemy-idle-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-idle-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-idle-left", {
+        start: 1,
+        end: 6,
+        prefix: "enemy-idle-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-idle-back-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-idle-back-left", {
+        start: 1,
+        end: 6,
+        prefix: "enemy-idle-back-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "enemy-idle-back-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("enemy-idle-back-right", {
+        start: 1,
+        end: 6,
+        prefix: "enemy-idle-back-right",
         zeroPad: 2,
         suffix: ".png",
       }),
