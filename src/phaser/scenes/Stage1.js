@@ -15,7 +15,7 @@ export default class Stage1 extends Phaser.Scene {
     this.map = this.add.tilemap("level1-map");
 
     const tileset = this.map.addTilesetImage("iso-level1", "tiles");
-    this.registry.values.happy = "24";
+
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
     this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
 

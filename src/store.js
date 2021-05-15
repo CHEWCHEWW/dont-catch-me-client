@@ -12,10 +12,10 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => {
     if (process.env.NODE_ENV !== "production") {
-      return getDefaultMiddleware().concat([logger, socketMiddleware(process.env.SERVER_PORT)]);
+      return getDefaultMiddleware().concat([logger, socketMiddleware()]);
     }
 
-    return getDefaultMiddleware().concat([logger, socketMiddleware(process.env.SERVER_PORT)]);
+    return getDefaultMiddleware().concat([logger, socketMiddleware()]);
   },
   devTools: process.env.NODE_ENV !== "production",
 });
