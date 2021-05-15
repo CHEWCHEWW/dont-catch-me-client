@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../../theme/theme";
 import StartPage from "../../pages/StartPage";
 import GamePage from "../../pages/GamePage";
+import MultiPlayPage from "../../pages/MultiplayPage.js";
 import JoinPage from "../../pages/JoinPage";
 import LobbyPage from "../../pages/LobbyPage";
 
@@ -25,6 +26,9 @@ const App = () => {
         </Route>
         <Route path="/lobby/:id">
           <LobbyPage />
+        </Route>
+        <Route path="/multiplay">
+          <MultiPlayPage />
         </Route>
         <Route path="/records">
           <DummyPage />

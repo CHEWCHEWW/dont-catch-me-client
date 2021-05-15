@@ -20,13 +20,13 @@ const LobbyPage = () => {
 
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
-      history.push("/game");
+      history.push("/multiplay");
     }
   }, [progress]);
 
   return (
     <PageWrapper>
-      {players.map((player, index) => (
+      {Object.values(players).map((player, index) => (
         <PlayerCard 
           key={index} 
           name={player.username} 

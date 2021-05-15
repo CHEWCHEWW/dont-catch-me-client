@@ -1,5 +1,3 @@
-import { io } from "socket.io-client";
-
 import { gameProgress } from "../../constants/gameState";
 import { 
   updateGameProgress, 
@@ -8,11 +6,10 @@ import {
   changeSomeUserState, 
   changeMyState,
 } from "../slices/multiplaySlice";
+import { socket } from "../../utils/socket";
 
-const socketMiddleware = (url) => {
+const socketMiddleware = () => {
   return (store) => {
-    const socket = io.connect(url);
-
     socket.on("createRoomSuccess", ({ creatorId, roomId }) => {
       store.dispatch(createRoomSuccess({ creatorId, roomId }));
     });

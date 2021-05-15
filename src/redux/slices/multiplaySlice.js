@@ -6,7 +6,7 @@ const initialState = {
   roomState: {
     roomId: "",
     creatorId: "",
-    players: [],
+    players: {},
     progress: gameProgress.GAME_BEFORE_START,
   },
   userState: {
