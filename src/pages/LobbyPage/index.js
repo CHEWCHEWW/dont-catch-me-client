@@ -35,7 +35,6 @@ const LobbyPage = () => {
         />
       ))}
       <PlayerInfoForm />
-      <button>Game Start</button>
     </PageWrapper>
   );
 };
