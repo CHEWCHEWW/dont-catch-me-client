@@ -13,7 +13,7 @@ export default class Stage3 extends Phaser.Scene {
 
   create() {
     this.map = this.add.tilemap("level3-map");
-    
+
     const tileset = this.map.addTilesetImage("iso-level3", "tiles");
 
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
@@ -114,11 +114,11 @@ export default class Stage3 extends Phaser.Scene {
     this.coinCount--;
 	}
 
-	checkIsCanPlayerGetCoin(object1, object2) {
-		if (!this.hero) {
-			return false;
-		}
-    
-		return this.hero.canGetCoin(object2);
-	}
+  checkIsCanPlayerGetCoin(object1, object2) {
+    if (!this.hero) {
+      return false;
+    }
+
+    return this.hero.canGetCoin(object2);
+  }
 }

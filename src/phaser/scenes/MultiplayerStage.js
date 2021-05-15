@@ -179,7 +179,7 @@ export default class Multiplayer extends Phaser.Scene {
       if (!player) {
         return false;
       }
-  
+
       return player.canGetCoin(coin);
     };
   }

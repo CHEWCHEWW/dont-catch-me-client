@@ -114,10 +114,10 @@ export default class Stage2 extends Phaser.Scene {
 	}
 
 	checkIsCanPlayerGetCoin(object1, object2) {
-		if (!this.hero) {
-			return false;
-		}
-    
-		return this.hero.canGetCoin(object2);
-	}
+    if (!this.hero) {
+      return false;
+    }
+
+    return this.hero.canGetCoin(object2);
+  }
 }
