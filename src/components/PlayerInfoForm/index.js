@@ -7,15 +7,15 @@ const PlayerInfoForm = ({ onSubmit, onChange, isDisabled, name }) => {
   return (
     <EditStateField onSubmit={onSubmit}>
       <input type="text" name="userName" value={name} onChange={onChange} disabled={isDisabled} />
-      <div name="roll" onChange={onChange}>
+      <div name="role" onChange={onChange}>
         <RadioInput 
-          name="roll" 
+          name="role" 
           value="rabbit" 
           isDisabled={isDisabled} 
           isDefaultChecked={true} 
         />
         <RadioInput 
-          name="roll" 
+          name="role" 
           value="carrot" 
           isDisabled={isDisabled}
           isDefaultChecked={false} 

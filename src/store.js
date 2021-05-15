@@ -3,14 +3,12 @@ import logger from "redux-logger"
 
 import single from "./redux/slices/singlePlaySlice"; 
 import multiple from "./redux/slices/multiplaySlice";
-import room from "./redux/slices/roomSlice";
 import socketMiddleware from "./redux/middleware/socket";
 
 const store = configureStore({
   reducer: {
     single,
     multiple,
-    room,
   },
   middleware: (getDefaultMiddleware) => {
     if (process.env.NODE_ENV !== "production") {

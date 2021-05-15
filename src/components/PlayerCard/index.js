@@ -1,13 +1,13 @@
 import React from "react";
 
-const RoomInfoCard = ({ name, isReady, roll }) => {
+const PlayerCard = ({ name, isReady, role }) => {
   return (
     <div>
       {name}
       {isReady ? "ready" : "unReady"}
-      {roll}
+      {role}
     </div>
   );
 };
 
-export default RoomInfoCard;
+export default PlayerCard;

@@ -6,6 +6,7 @@ import { theme } from "../../theme/theme";
 import StartPage from "../../pages/StartPage";
 import GamePage from "../../pages/GamePage";
 import JoinPage from "../../pages/JoinPage";
+import LobbyPage from "../../pages/LobbyPage";
 
 import DummyPage from "../../pages/DummyPage";
 
@@ -21,6 +22,9 @@ const App = () => {
         </Route>
         <Route path="/join">
           <JoinPage />
+        </Route>
+        <Route path="/lobby/:id">
+          <LobbyPage />
         </Route>
         <Route path="/records">
           <DummyPage />

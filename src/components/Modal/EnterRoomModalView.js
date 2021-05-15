@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import { enterRoom } from "../../redux/slices/roomSlice";
+import { enterRoom } from "../../redux/slices/multiplaySlice";
 import ModalView from "../shared/ModalView";
 import ModalContent from "../shared/ModalContent";
 
@@ -19,8 +19,7 @@ const EnterRoomModalView = () => {
   const handleInvitationCodeSubmit = (ev) => {
     ev.preventDefault();
 
-    dispatch(enterRoom({ roomId: invitationCode }));
-    history.push(`/${invitationCode}`);
+    history.push(`/lobby/${invitationCode}`);
   };
 
   return (
