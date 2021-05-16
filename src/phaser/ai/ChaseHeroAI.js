@@ -28,21 +28,19 @@ export default class ChaseHeroAI {
     let lastClosedDirection = Direction.None;
     let lastClosedDistance = -1;
 
-    const targetX = this.hero.body.position.x;
-    const targetY = this.hero.body.position.y;
+    const targetX = this.hero.x;
+    const targetY = this.hero.y;
 
-    const currentX = this.enemy.body.position.x;
-    const currentY = this.enemy.body.position.y;
-    
-    const backwardsPosition = getOppositeDirection(this.enemy.currentDirection);
-    
+    const currentX = this.enemy.x;
+    const currentY = this.enemy.y;
+        
     const directions = getOrderedDirections();
     const shuffledDirections = shuffleOrder(directions);
     
     for (const direction of shuffledDirections) {
       const position = getPositionByDirection(currentX, currentY, direction);
       
-      if (!this.board.getTileAtWorldXY(position.x, position.y)) {
+      if (!this.board.getTileAtWorldXY(position.x + 12, position.y + 60)) {
         continue;
       }
 

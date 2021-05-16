@@ -20,11 +20,6 @@ export default class Stage1 extends Phaser.Scene {
 
   create() {
     this.setTileMap();
-    this.add.text(128, 128, 'This is a test.', {
-      fontFamily: 'Reggae One'
-    });
-    // this.scoreText = this.add
-    //   .bitmapText(580, 30, "adf", `SCORE ${this.registry.values.score}`);
 
     this.hero = new Hero(this, 150, 550, "hero");
     this.enemy = new Enemy(this, 200, 200, "enemy");
@@ -135,6 +130,8 @@ export default class Stage1 extends Phaser.Scene {
 
   handlePlayerGetCoin(hero, coin) {
     coin.destroy(true);
+
+    this.hero.getCoin();
 
     this.coinCount--;
 	}

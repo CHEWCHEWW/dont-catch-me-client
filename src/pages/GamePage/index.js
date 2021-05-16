@@ -46,7 +46,6 @@ const GamePage = () => {
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
       const game = new Phaser.Game(config);
-      console.log(game);
     }
   }, [progress]);
 

@@ -34,6 +34,17 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     this.play("hero-idle-left");
   }
 
+  getCoin() {
+    this.coinMessage = this.scene.add.image(this.x, this.y - 50, "add-coin");
+
+    this.scene.time.addEvent({
+      callback: () => {
+        this.coinMessage.setVisible(false);
+      },
+      delay: 200,
+    });
+  }
+
   handleMovement(delta, cursors, boardLayer) {
     if (!cursors) {
       return;
