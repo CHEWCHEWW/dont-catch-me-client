@@ -1,5 +1,11 @@
 import Phaser from "phaser";
 
+const WebFontConfig = {
+  google: {
+    families: ['Rajdhani']
+  }
+};
+
 export default class Preloader extends Phaser.Scene {
   preload() {
     this.setLoading();
@@ -11,6 +17,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.tilemapTiledJSON("level3-map", "iso-level3.json");
 
     this.load.image("hero", "hero.png");
+    this.load.image("enemy", "enemy.png");
 
     this.load.atlas("hero-running-left", "hero-running-left.png", "hero-running-left.json");
     this.load.atlas("hero-running-right", "hero-running-right.png", "hero-running-right.json");

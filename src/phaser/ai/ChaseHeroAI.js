@@ -5,7 +5,6 @@ import {
 } from "../../utils/directions";
 import { Direction } from "../../constants/direction";
 import { shuffleOrder } from "../../utils/random";
-import { TileSize } from "../../constants/tile";
 
 export default class ChaseHeroAI {
   constructor(hero, enemy, board) {
