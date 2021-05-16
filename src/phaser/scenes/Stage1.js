@@ -21,9 +21,14 @@ export default class Stage1 extends Phaser.Scene {
   create() {
     this.setTileMap();
 
-    this.hero = new Hero(this, 150, 550, "hero");
+    this.score = this.add.text(0, 0, `score: ${this.registry.values.score}`, { fontSize: "20px", color: "#000000" });
+    this.countDown = this.add.text(0, 0, `time:  ${this.registry.values.time}`, { fontSize: "20px", color: "#000000" });
+
+    this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
+
+    this.hero = new Hero(this, 100, 550, "hero");
     this.enemy = new Enemy(this, 200, 200, "enemy");
-    this.enemy1 = new Enemy(this, 100, 150, "enemy");
+    this.enemy1 = new Enemy(this, 600, 500, "enemy");
 
     this.enemy.setTargetIndicatorColor('#FCB4E3'); // 앞으로 삭제 될 예정..
     this.enemy1.setTargetIndicatorColor('#FCB72C');
@@ -52,10 +57,7 @@ export default class Stage1 extends Phaser.Scene {
     this.setCoinToMap();
 
 		this.cameras.main.startFollow(this.hero, true);
-    this.cameras.main.setZoom(0.8);
-
-    this.timer = this.time.delayedCall(30000, this.gameOver, [], this);
-    this.countDown = this.add.text(32, 32);
+    this.cameras.main.setZoom(1.2);
 
     if (this.hero) {
 			this.physics.add.overlap(this.hero, this.coins, this.handlePlayerGetCoin, this.checkIsCanPlayerGetCoin, this);
@@ -63,7 +65,15 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   update(time, delta) {
-    this.countDown.setText("current" + this.timer.getProgress().toString().substr(0, 4));
+    this.score.x = this.hero.body.position.x + 330;
+    this.score.y = this.hero.body.position.y - 240;
+
+    this.score.setText(`score: ${this.registry.values.score}`);
+
+    this.countDown.x = this.hero.body.position.x + 180;
+    this.countDown.y = this.hero.body.position.y - 240;
+
+    this.countDown.setText(`time: ${this.timer.getProgress().toString().substr(0, 4)}`);
     
     this.hero?.handleMovement(delta, this.cursors, this.boardLayer, this.coinLayer);
 
@@ -106,7 +116,9 @@ export default class Stage1 extends Phaser.Scene {
     // 이 사이에 다음 페이지로 넘어간다는 로고 띄우기..!
     this.time.addEvent({
       callback: () => {
-        store.dispatch(updateGameProgress(gameProgress.GAME_OVER)); // event로 바꿔주기
+        this.scene.start("stage2");
+
+        // store.dispatch(updateGameProgress(gameProgress.GAME_OVER)); // event로 바꿔주기
       },
       delay: 2000,
     });
@@ -134,6 +146,7 @@ export default class Stage1 extends Phaser.Scene {
     this.hero.getCoin();
 
     this.coinCount--;
+    this.registry.values.score += 10;
 	}
 
 	checkIsCanPlayerGetCoin(hero, coin) {

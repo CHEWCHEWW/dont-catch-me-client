@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import heroRabbit from "../../../public/hero-running-right.png";
+import rabbit from "../../../public/enemy-running-right.png";
 import MainButton from "../../components/MainButton";
 import Buttons from "../../components/shared/Buttons";
 
@@ -64,7 +64,7 @@ const MainCard = styled.div`
 const SpriteImage = styled.div`
   height: 128px;
   width: 768px;
-  background: url(${heroRabbit}) 0px 0px;
+  background: url(${rabbit}) 0px 0px;
   animation: play 0.9s steps(4) infinite;
 
   @keyframes play {
