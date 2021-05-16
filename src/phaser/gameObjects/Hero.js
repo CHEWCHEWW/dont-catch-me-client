@@ -116,19 +116,19 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   setIdlePlay() {
     switch (this.lastDirection) {
       case Direction.Left: {
-        this.play("enemy-idle-back-left");
+        this.play("hero-running-back-left");
         break;
       }
       case Direction.Right: {
-        this.play("enemy-idle-right");
+        this.play("hero-running-right");
         break;
       }
       case Direction.Up: {
-        this.play("enemy-idle-back-right");
+        this.play("hero-running-back-right");
         break;
       }
       case Direction.Down: {
-        this.play("enemy-idle-left");
+        this.play("hero-running-left");
         break;
       }
       default:
