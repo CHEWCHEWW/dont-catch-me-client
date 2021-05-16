@@ -4,10 +4,6 @@ import Enemy from "../gameObjects/Enemy";
 import { socket } from "../../utils/socket";
 
 export default class Multiplayer extends Phaser.Scene {
-  constructor() {
-    super("stage1");
-  }
-
   init() {
     socket.emit("gameInit");
 
@@ -121,7 +117,7 @@ export default class Multiplayer extends Phaser.Scene {
   }
 
   setCamera() {
-    this.cameras.main.setZoom(0.5);
+    this.cameras.main.setZoom(1.1);
     this.cameras.main.startFollow(this.player, true);
   }
 

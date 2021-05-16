@@ -21,8 +21,8 @@ export default class Stage1 extends Phaser.Scene {
   create() {
     this.setTileMap();
 
-    this.score = this.add.text(0, 0, `score: ${this.registry.values.score}`, { fontSize: "20px", color: "#000000" });
-    this.countDown = this.add.text(0, 0, `time:  ${this.registry.values.time}`, { fontSize: "20px", color: "#000000" });
+    this.score = this.add.bitmapText(0, 0, "font", `SCORE: ${this.registry.values.score}`);
+    this.countDown = this.add.bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`);
 
     this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
 
@@ -57,7 +57,7 @@ export default class Stage1 extends Phaser.Scene {
     this.setCoinToMap();
 
 		this.cameras.main.startFollow(this.hero, true);
-    this.cameras.main.setZoom(1.2);
+    this.cameras.main.setZoom(1);
 
     if (this.hero) {
 			this.physics.add.overlap(this.hero, this.coins, this.handlePlayerGetCoin, this.checkIsCanPlayerGetCoin, this);
@@ -65,15 +65,15 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   update(time, delta) {
-    this.score.x = this.hero.body.position.x + 330;
-    this.score.y = this.hero.body.position.y - 240;
+    this.score.x = this.hero.body.position.x + 370;
+    this.score.y = this.hero.body.position.y - 300;
 
-    this.score.setText(`score: ${this.registry.values.score}`);
+    this.score.setText(`SCORE: ${this.registry.values.score}`);
 
-    this.countDown.x = this.hero.body.position.x + 180;
-    this.countDown.y = this.hero.body.position.y - 240;
+    this.countDown.x = this.hero.body.position.x + 200;
+    this.countDown.y = this.hero.body.position.y - 300;
 
-    this.countDown.setText(`time: ${this.timer.getProgress().toString().substr(0, 4)}`);
+    this.countDown.setText(`TIME: ${this.timer.getProgress().toString().substr(0, 4)}`);
     
     this.hero?.handleMovement(delta, this.cursors, this.boardLayer, this.coinLayer);
 
@@ -116,9 +116,7 @@ export default class Stage1 extends Phaser.Scene {
     // 이 사이에 다음 페이지로 넘어간다는 로고 띄우기..!
     this.time.addEvent({
       callback: () => {
-        this.scene.start("stage2");
-
-        // store.dispatch(updateGameProgress(gameProgress.GAME_OVER)); // event로 바꿔주기
+        store.dispatch(updateGameProgress(gameProgress.GAME_OVER)); // event로 바꿔주기
       },
       delay: 2000,
     });
