@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 
 import Modal from "../../components/Modal";
 import GameStartModalView from "../../components/Modal/GameStartModalView";
@@ -45,6 +46,7 @@ const GamePage = () => {
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
       const game = new Phaser.Game(config);
+      console.log(game);
     }
   }, [progress]);
 

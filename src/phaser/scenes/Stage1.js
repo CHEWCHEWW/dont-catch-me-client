@@ -11,18 +11,26 @@ export default class Stage1 extends Phaser.Scene {
     super("stage1");
   }
 
-  create() {
-    this.map = this.add.tilemap("level1-map");
-    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
+  init() {
+    this.cameras.main.fadeIn(500, 0, 0, 0);
 
-    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
-    this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
+    this.registry.values.score = 0;
+    this.registry.values.time = 0;
+  }
+
+  create() {
+    this.setTileMap();
+    this.add.text(128, 128, 'This is a test.', {
+      fontFamily: 'Reggae One'
+    });
+    // this.scoreText = this.add
+    //   .bitmapText(580, 30, "adf", `SCORE ${this.registry.values.score}`);
 
     this.hero = new Hero(this, 150, 550, "hero");
-    this.enemy = new Enemy(this, 200, 200, "hero");
-    this.enemy1 = new Enemy(this, 100, 150, "hero");
+    this.enemy = new Enemy(this, 200, 200, "enemy");
+    this.enemy1 = new Enemy(this, 100, 150, "enemy");
 
-    this.enemy.setTargetIndicatorColor('#FCB4E3');
+    this.enemy.setTargetIndicatorColor('#FCB4E3'); // 앞으로 삭제 될 예정..
     this.enemy1.setTargetIndicatorColor('#FCB72C');
 
     this.add.existing(this.hero);
@@ -31,13 +39,19 @@ export default class Stage1 extends Phaser.Scene {
     
     this.physics.world.enable([this.hero, this.enemy, this.enemy1], Phaser.Physics.Arcade.DYNAMIC_BODY);
     
-    this.hero.body.setSize(64, 120, true);
+    this.hero.body.setSize(40, 110, true);
     this.enemy.body.setSize(40, 110, true);
     this.enemy1.body.setSize(40, 110, true);
 
     this.enemy.setAI(new ChaseHeroAI(this.hero, this.enemy, this.boardLayer));
     this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));
-    
+
+    this.physics.add.collider([this.enemy, this.enemy1]);
+
+    this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
+      // this.stopGame();
+    });
+
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.setCoinToMap();
@@ -45,28 +59,32 @@ export default class Stage1 extends Phaser.Scene {
 		this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(0.8);
 
-    // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
-    // this.countDown = this.add.text(32, 32);
-
-    this.physics.add.collider([this.enemy, this.enemy1]);
-
-    this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      this.moveNextStage();
-    });
+    this.timer = this.time.delayedCall(30000, this.gameOver, [], this);
+    this.countDown = this.add.text(32, 32);
 
     if (this.hero) {
 			this.physics.add.overlap(this.hero, this.coins, this.handlePlayerGetCoin, this.checkIsCanPlayerGetCoin, this);
 		}
-    this.cameras.main.fadeIn(500, 0, 0, 0);
   }
 
   update(time, delta) {
-    // this.countDown.setText("current" + this.timer.getProgress().toString().substr(0, 4));
+    this.countDown.setText("current" + this.timer.getProgress().toString().substr(0, 4));
+    
     this.hero?.handleMovement(delta, this.cursors, this.boardLayer, this.coinLayer);
 
     if (this.coinCount === 0) {
       this.moveNextStage();
     }
+  }
+
+  setTileMap() {
+    this.map = this.add.tilemap("level1-map");
+    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
+    
+    this.boardLayer = this.map.createLayer("Tile Layer 1", tileset);
+    this.coinLayer = this.map.createLayer("Tile Layer 2", tileset).setCollisionByProperty({ collides: true });
+
+    this.coinLayer.setCollision(6);
   }
 
   setCoinToMap() {
@@ -79,25 +97,29 @@ export default class Stage1 extends Phaser.Scene {
 			const body = coin.body;
 
 			body.setCircle(38, 26, -6);
+
+      this.physics.add.staticGroup(coin, this.hero);
 		});
   }
 
   stopGame() {
-    this.time.addEvent({
-      callback: () => {
-        this.scene.pause();
-        store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
-      },
-      delay: 1000,
-    });
-  }
-
-  moveNextStage() {
     this.cursors = null;
 
     this.enemy.unSubscribeAI();
     this.enemy1.unSubscribeAI();
     this.hero.setDie();
+    // 이 사이에 다음 페이지로 넘어간다는 로고 띄우기..!
+    this.time.addEvent({
+      callback: () => {
+        store.dispatch(updateGameProgress(gameProgress.GAME_OVER)); // event로 바꿔주기
+      },
+      delay: 2000,
+    });
+  }
+
+  moveNextStage() {
+    this.enemy.unSubscribeAI();
+    this.enemy1.unSubscribeAI();
     // 이 사이에 다음 페이지로 넘어간다는 로고 띄우기..!
     this.time.addEvent({
       callback: () => {
@@ -107,7 +129,7 @@ export default class Stage1 extends Phaser.Scene {
           this.scene.start("stage2");
         });
       },
-      delay: 3000,
+      delay: 2000,
     });
   }
 

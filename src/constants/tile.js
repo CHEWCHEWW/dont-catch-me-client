@@ -1,1 +1,1 @@
-export const TileSize = { x: 128, y: 64 };
+export const TileSize = { x: 64, y: 32 };

@@ -33,6 +33,17 @@
   "renderorder": "right-down",
   "tiledversion": "1.6.0",
   "tileheight": 64,
+  "tiles": [
+    {
+      "id":6,
+      "properties":[
+             {
+              "name":"collides",
+              "type":"bool",
+              "value":true
+             }]
+    } 
+  ],
   "tilesets": [{
     "columns": 1,
     "firstgid": 1,

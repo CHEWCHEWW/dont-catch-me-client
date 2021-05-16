@@ -14,6 +14,14 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     
     this.heroState = HeroState.Normal;
     this.lastDirection = Direction.None;
+
+    this.targetIndicator = scene.add
+      .text(0, 0, "x")
+      .setOrigin(2)
+      .setDepth(1000);
+
+    this.targetIndicator.setColor('#FF0400');
+    this.targetIndicator.setVisible(true);
   }
 
   preUpdate(time, delta) {
@@ -23,7 +31,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
       return;
     }
 
-    this.play("enemy-idle-left");
+    this.play("hero-idle-left");
   }
 
   handleMovement(delta, cursors, boardLayer) {
@@ -38,59 +46,37 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     this.keysDown = this.getKeysDownState(cursors);
     
     const speed = 200;
+    this.targetIndicator.setPosition(this.x + 12, this.y + 60);
 
     if (this.keysDown.left) {
-      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
-        this.play("enemy-running-back-left", true);
+      if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 - TileSize.y)) {
+        this.play("hero-idle-back-left", true);
         body.setVelocity(-speed, -speed * 0.5);
 
         this.lastDirection = Direction.Left;
       }
     } else if (this.keysDown.right) {
-      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x + 1, this.y + TileSize.y + 0.5)) {
-        this.play("enemy-running-right", true);
+      if (boardLayer.getTileAtWorldXY(this.x + 12 + TileSize.x, this.y + 60 + TileSize.y)) {
+        this.play("hero-idle-right", true);
         body.setVelocity(speed, speed * 0.5);
 
         this.lastDirection = Direction.Right;
       }
     } else if (this.keysDown.up) {
-      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x - 1, this.y + TileSize.y - 0.5)) {
-        this.play("enemy-running-back-right", true);
+      if (boardLayer.getTileAtWorldXY(this.x + 12 + TileSize.x, this.y + 60 - TileSize.y)) {
+        this.play("hero-idle-back-right", true);
         body.setVelocity(speed, -speed * 0.5);
 
         this.lastDirection = Direction.Up;
       }
     } else if (this.keysDown.down) {
-      if (boardLayer.getTileAtWorldXY(this.x - TileSize.x + 1, this.y + TileSize.y + 0.5)) {
-        this.play("enemy-running-left", true);
+      if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 + TileSize.y)) {
+        this.play("hero-idle-left", true);
         body.setVelocity(-speed, speed * 0.5);
 
         this.lastDirection = Direction.Down;
       }
     } 
-    // else {
-    //   switch (this.lastDirection) {
-    //     case Direction.Left: {
-    //       this.play("enemy-idle-back-left");
-    //       break;
-    //     }
-    //     case Direction.Right: {
-    //       console.log("right");
-    //       this.play("enemy-idle-right");
-    //       break;
-    //     }
-    //     case Direction.Up: {
-    //       this.play("enemy-idle-back-right");
-    //       break;
-    //     }
-    //     case Direction.Down: {
-    //       this.play("enemy-idle-left");
-    //       break;
-    //     }
-    //     default:
-    //       break;
-    //   }
-    // }
   }
 
   getKeysDownState(cursors) {
@@ -117,4 +103,27 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     return Phaser.Math.Distance.BetweenPointsSquared(heroPosition, coinPosition) <= 7000;
 	}
+
+  setIdlePlay() {
+    switch (this.lastDirection) {
+      case Direction.Left: {
+        this.play("enemy-idle-back-left");
+        break;
+      }
+      case Direction.Right: {
+        this.play("enemy-idle-right");
+        break;
+      }
+      case Direction.Up: {
+        this.play("enemy-idle-back-right");
+        break;
+      }
+      case Direction.Down: {
+        this.play("enemy-idle-left");
+        break;
+      }
+      default:
+        break;
+    }
+  }
 }
