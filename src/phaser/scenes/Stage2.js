@@ -45,6 +45,7 @@ export default class Stage2 extends Phaser.Scene {
 
 		this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(0.8);
+    this.cameras.main.fadeIn(1000, 0, 0, 0);
 
     // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
     this.countDown = this.add.text(32, 32);
@@ -94,17 +95,17 @@ export default class Stage2 extends Phaser.Scene {
   }
 
   moveNextStage() {
-    this.time.addEvent({
-      callback: () => {
-        this.scene.start("stage3");
-      },
-      delay: 1000,
+    this.cursors = null;
+
+    this.enemy.unSubscribeAI();
+    this.enemy1.unSubscribeAI();
+    this.hero.setDie();
+
+    this.cameras.main.fadeOut(3000, 50, 50, 50);
+
+    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+      this.scene.start("stage3");
     });
-    // this.cameras.main.fadeOut(1000, 0, 0, 0);
-    
-    // this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, (camera, effect) => {
-    //   this.scene.start("stage2");
-    // });
   }
 
   handlePlayerGetCoin(object1, object2) {

@@ -39,6 +39,8 @@ const socketMiddleware = () => {
 
       if (type !== "single") {
         socket.emit(actionName, action.payload);
+
+        return;
       }
 
       return next(action);
