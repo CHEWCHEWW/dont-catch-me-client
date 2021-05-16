@@ -44,7 +44,7 @@ export default class Stage1 extends Phaser.Scene {
     this.physics.add.collider([this.enemy, this.enemy1]);
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      // this.stopGame();
+      this.stopGame();
     });
 
     this.cursors = this.input.keyboard.createCursorKeys();

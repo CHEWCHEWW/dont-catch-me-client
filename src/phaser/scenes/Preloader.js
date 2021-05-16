@@ -31,6 +31,11 @@ export default class Preloader extends Phaser.Scene {
     this.load.atlas("hero-idle-back-left", "hero-idle-back-left.png", "hero-idle-back-left.json");
     this.load.atlas("hero-idle-back-right", "hero-idle-back-right.png", "hero-idle-back-right.json");
 
+    this.load.atlas("hero-die-left", "hero-die-left.png", "hero-die-left.json");
+    this.load.atlas("hero-die-right", "hero-die-right.png", "hero-die-right.json");
+    this.load.atlas("hero-die-back-left", "hero-die-back-left.png", "hero-die-back-left.json");
+    this.load.atlas("hero-die-back-right", "hero-die-back-right.png", "hero-die-back-right.json");
+
     this.load.atlas("enemy-idle-left", "enemy-idle-left.png", "enemy-idle-left.json");
     this.load.atlas("enemy-idle-right", "enemy-idle-right.png", "enemy-idle-right.json");
     this.load.atlas("enemy-idle-back-left", "enemy-idle-back-left.png", "enemy-idle-back-left.json");
@@ -52,7 +57,7 @@ export default class Preloader extends Phaser.Scene {
       repeat: -1,
       frames: this.anims.generateFrameNames("hero-running-right", {
         start: 1,
-        end: 5,
+        end: 6,
         prefix: "hero-running-right",
         zeroPad: 2,
         suffix: ".png",
@@ -65,7 +70,7 @@ export default class Preloader extends Phaser.Scene {
       repeat: -1,
       frames: this.anims.generateFrameNames("hero-running-left", {
         start: 1,
-        end: 5,
+        end: 6,
         prefix: "hero-running-left",
         zeroPad: 2,
         suffix: ".png",
@@ -78,7 +83,7 @@ export default class Preloader extends Phaser.Scene {
       repeat: -1,
       frames: this.anims.generateFrameNames("hero-running-back-left", {
         start: 1,
-        end: 5,
+        end: 6,
         prefix: "hero-running-back-left",
         zeroPad: 2,
         suffix: ".png",
@@ -91,8 +96,60 @@ export default class Preloader extends Phaser.Scene {
       repeat: -1,
       frames: this.anims.generateFrameNames("hero-running-back-right", {
         start: 1,
-        end: 5,
+        end: 6,
         prefix: "hero-running-back-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-die-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-die-right", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-die-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-die-left", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-die-back-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-die-back-right", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-back-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    this.anims.create({
+      key: "hero-die-back-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: this.anims.generateFrameNames("hero-die-back-left", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-back-left",
         zeroPad: 2,
         suffix: ".png",
       }),

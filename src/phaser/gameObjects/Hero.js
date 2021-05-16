@@ -30,8 +30,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     if (this.heroState === HeroState.Normal) {
       return;
     }
-
-    this.play("hero-idle-left");
   }
 
   getCoin() {
@@ -100,7 +98,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   }
 
   setDie() {
-    this.play("hero-idle-left");
+    this.play("hero-die-right", true);
     this.body.setVelocity(0, 0);
   }
 
