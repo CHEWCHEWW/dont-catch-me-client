@@ -45,6 +45,7 @@ export default class Stage3 extends Phaser.Scene {
 
 		this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(0.8);
+    this.cameras.main.fadeIn(1000, 0, 0, 0);
 
     // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
     this.countDown = this.add.text(32, 32);
@@ -53,7 +54,7 @@ export default class Stage3 extends Phaser.Scene {
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
       // this.stopGame();
-      this.moveNextStage();
+      // this.moveNextStage();
     });
 
     if (this.hero) {
@@ -96,7 +97,10 @@ export default class Stage3 extends Phaser.Scene {
   moveNextStage() {
     this.time.addEvent({
       callback: () => {
-        this.scene.pause();
+        this.cameras.main.fadeOut(1000, 0, 0, 0);
+        setTimeout(() => {
+          this.scene.pause();
+        }, 1000);
         store.dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
       },
       delay: 1000,

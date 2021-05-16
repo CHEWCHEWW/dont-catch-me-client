@@ -13,7 +13,6 @@ export default class Stage1 extends Phaser.Scene {
 
   create() {
     this.map = this.add.tilemap("level1-map");
-
     const tileset = this.map.addTilesetImage("iso-level1", "tiles");
 
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
@@ -47,18 +46,18 @@ export default class Stage1 extends Phaser.Scene {
     this.cameras.main.setZoom(0.8);
 
     // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
-    this.countDown = this.add.text(32, 32);
+    // this.countDown = this.add.text(32, 32);
 
     this.physics.add.collider([this.enemy, this.enemy1]);
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      // this.stopGame();
       this.moveNextStage();
     });
 
     if (this.hero) {
 			this.physics.add.overlap(this.hero, this.coins, this.handlePlayerGetCoin, this.checkIsCanPlayerGetCoin, this);
 		}
+    this.cameras.main.fadeIn(500, 0, 0, 0);
   }
 
   update(time, delta) {
@@ -94,17 +93,22 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   moveNextStage() {
+    this.cursors = null;
+
+    this.enemy.unSubscribeAI();
+    this.enemy1.unSubscribeAI();
+    this.hero.setDie();
+    // 이 사이에 다음 페이지로 넘어간다는 로고 띄우기..!
     this.time.addEvent({
       callback: () => {
-        this.scene.start("stage2");
+        this.cameras.main.fadeOut(3000, 50, 50, 50);
+
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+          this.scene.start("stage2");
+        });
       },
-      delay: 1000,
+      delay: 3000,
     });
-    // this.cameras.main.fadeOut(1000, 0, 0, 0);
-    
-    // this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_IN_COMPLETE, (camera, effect) => {
-    //   this.scene.start("stage2");
-    // });
   }
 
   handlePlayerGetCoin(hero, coin) {

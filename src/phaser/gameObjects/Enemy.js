@@ -81,12 +81,15 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
         break;
       }
     }
-
-    this.lastDirection = direction;
   }
   
   setAI(ai) {
     this.ai = ai;
+  }
+
+  unSubscribeAI() {
+    this.ai = null;
+    this.body.setVelocity(0, 0);
   }
 
   enableTargetMarker(isEnable) {

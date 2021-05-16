@@ -21,7 +21,10 @@ const multiSlice = createSlice({
   name: "multiple",
   initialState,
   reducers: {
-    joinUserSuccess({ userState, roomState }, { payload: { members, creatorId, userId, roomId, username } }) {
+    joinUserSuccess(
+      { userState, roomState },
+      { payload: { members, creatorId, userId, roomId, username } }
+    ) {
       userState.userId = userId;
       userState.username = username;
       roomState.players = members;
@@ -46,16 +49,16 @@ const multiSlice = createSlice({
   },
 });
 
-export const { 
-  joinUserSuccess, 
-  createRoomSuccess, 
-  changeSomeUserState, 
+export const {
+  joinUserSuccess,
+  createRoomSuccess,
+  changeSomeUserState,
   changeMyState,
   updateGameProgress,
 } = multiSlice.actions;
 
-export const makeNewRoom = createAction("room/makeNewRoom");
-export const enterRoom = createAction("room/enterRoom");
-export const changeReadyState = createAction("room/changeReadyState");
+export const makeNewRoom = createAction("multiple/makeNewRoom");
+export const enterRoom = createAction("multiple/enterRoom");
+export const changeReadyState = createAction("multiple/changeReadyState");
 
 export default multiSlice.reducer;
