@@ -3,40 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
+import { singleConfig } from "../../phaser/config";
 import Modal from "../../components/Modal";
 import GameStartModalView from "../../components/Modal/GameStartModalView";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import GameClearModalView from "../../components/Modal/GameClearModalView";
-import Stage1 from "../../phaser/scenes/Stage1";
-import Stage2 from "../../phaser/scenes/Stage2";
-import Stage3 from "../../phaser/scenes/Stage3";
-import Preloader from "../../phaser/scenes/Preloader";
 import { gameProgress } from "../../constants/gameState";
 import { updateGameProgress, gameProgressSelector } from "../../redux/slices/singlePlaySlice";
 
-export const config = {
-  type: Phaser.WEBGL,
-  scale: {
-    width: "100%",
-    height: "100%",
-    mode: Phaser.Scale.FIT,
-    parent: "game-container",
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
-  backgroundColor: "#77DAF5",
-  physics: {
-    default: "arcade",
-    arcade: {
-      gravity: { y: 0 },
-      debug: true,
-    },
-  },
-  scale: {
-    mode: Phaser.Scale.ScaleModes.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
-  scene: [Preloader, Stage1, Stage2, Stage3],
-};
 
 const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
@@ -45,7 +19,7 @@ const GamePage = () => {
 
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
-      const game = new Phaser.Game(config);
+      const game = new Phaser.Game(singleConfig);
     }
   }, [progress]);
 
