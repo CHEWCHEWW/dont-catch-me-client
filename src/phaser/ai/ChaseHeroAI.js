@@ -14,7 +14,7 @@ export default class ChaseHeroAI {
   }
 
   get speed() {
-    return 150;
+    return 110;
   }
 
   get targetPosition() {

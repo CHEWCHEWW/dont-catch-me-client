@@ -23,7 +23,7 @@ export const config = {
     parent: "game-container",
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "#77DAF5",
   physics: {
     default: "arcade",
     arcade: {
