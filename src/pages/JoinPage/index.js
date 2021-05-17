@@ -9,6 +9,7 @@ import { makeNewRoom } from "../../redux/slices/multiplaySlice";
 import useKakao from "../../hooks/useKakao";
 import { generateRandomCode } from "../../utils/random";
 import PageWrapper from "../../components/shared/PageWrapper";
+import PageCard from "../../components/shared/PageCard";
 
 const JoinPage = () => {
   const [invitationCode, setInvitationCode] = useState("");
@@ -38,21 +39,25 @@ const JoinPage = () => {
     history.push("/");
   };
 
+  const handleInputClick = () => { // copy 되었다고 알림 띄우기
+    window.navigator.clipboard.writeText(invitationUrl);
+  };
+
   return (
     <PageWrapper>
-      <PageCard>
+      <PageCard width={500} height={400}>
         <Content>
           <Title>Make Room</Title>
-          <Input type="text" value={invitationUrl} readOnly/>
-          <ButtonBoard>
-            <Buttons>
+          <Input type="text" value={invitationUrl} onClick={handleInputClick} readOnly/>
+          <ButtonField>
+            <SmallButtonField>
               <Button onClick={handleInvitationButtonClick}>Share</Button>
-              <Button onClick={handleEnterButtonClick}>Entrance</Button>
-            </Buttons>
+              <Button onClick={handleEnterButtonClick}>Enter</Button>
+            </SmallButtonField>
             <BackButton onClick={handleBackButtonClick}>
               <FontAwesomeIcon icon={faUndo} />
             </BackButton>
-          </ButtonBoard>
+          </ButtonField>
         </Content>
       </PageCard>
     </PageWrapper>
@@ -65,7 +70,7 @@ const Title = styled.h2`
   margin-bottom: 0;
 `;
 
-const ButtonBoard = styled.div`
+const ButtonField = styled.div`
   display: flex;
   width: 90%;
   height: 30%;
@@ -75,26 +80,29 @@ const ButtonBoard = styled.div`
   justify-content: center;
 `;
 
-const Buttons = styled.div`
+const SmallButtonField = styled.div`
   display: flex;
   width: 100%;
-  height: 30%;
+  height: 35%;
   align-items: center;
   justify-content: center;
 `;
 
 const Button = styled.div`
-  min-width: 40%;
+  display: flex;
+  width: 40%;
   height: 100%;
   margin: 5px;
   border-radius: 5px;
-  background: blue;
+  justify-content: center;
+  align-items: center;
+  background: pink;
 `;
 
 const BackButton = styled.button`
   width: 83%;
-  height: 30%;
-  background: red;
+  height: 35%;
+  background: gray;
   margin-top: 10px;
   border-radius: 5px;
   border: 0px;
@@ -114,16 +122,7 @@ const Input = styled.input`
   border-radius: 5px;
   border: 0;
   margin-top: 70px;
-`;
-
-const PageCard = styled.div`
-  width: 500px;
-  height: 400px;
-  display: flex;
-  justify-content: center;
-  border-radius: 5px;
-  align-items: center;
-  background: #F9F7F4;
+  text-align: center;
 `;
 
 export default JoinPage;

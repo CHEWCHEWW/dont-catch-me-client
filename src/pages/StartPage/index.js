@@ -7,6 +7,7 @@ import deadCarrot from "../../../public/hero-die-left.png";
 
 import MainButton from "../../components/MainButton";
 import PageWrapper from "../../components/shared/PageWrapper";
+import PageCard from "../../components/shared/PageCard";
 
 const StartPage = () => {
   const history = useHistory();
@@ -25,7 +26,7 @@ const StartPage = () => {
   console.log(walkingRabbit);
   return (
     <PageWrapper>
-      <PageCard>
+      <PageCard width={850} height={650}>
         <TitleBox>
           <Title>
             <TitleText>
@@ -39,25 +40,15 @@ const StartPage = () => {
             <SpriteRabbit />
           </Sprites>
         </TitleBox>
-        <Buttons>
+        <ButtonField>
           <MainButton name="Single Play" onClick={handleSinglePlayButton} />
           <MainButton name="Multi Play" onClick={handleMatchingPageButton} />
           <MainButton name="Record" onClick={handleRecordsButton} />
-        </Buttons>
+        </ButtonField>
       </PageCard>
     </PageWrapper>
   );
 };
-
-const PageCard = styled.div`
-  width: 850px;
-  height: 650px;
-  display: flex;
-  justify-content: center;
-  border-radius: 5px;
-  align-items: center;
-  background: #F9F7F4;
-`;
 
 const TitleBox = styled.div`
   display: flex;
@@ -129,7 +120,7 @@ const SpriteCarrot = styled.div`
   }
 `;
 
-const Buttons = styled.div`
+const ButtonField = styled.div`
   width: 500px;
   display: flex;
   margin-top: 320px;
