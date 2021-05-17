@@ -5,70 +5,70 @@ import ChaseHeroAI from "../ai/ChaseHeroAI";
 import store from "../../store";
 import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
 import { gameProgress } from "../../constants/gameState";
+import { Level2 } from "../../constants/enemyList";
 
 export default class Stage2 extends Phaser.Scene {
   constructor() {
     super("stage2");
   }
 
+  init() {
+    this.cameras.main.fadeIn(500, 0, 0, 0);
+  }
+
   create() {
-    this.map = this.add.tilemap("level2-map");
-    
-    const tileset = this.map.addTilesetImage("iso-level2", "tiles");
-    
-    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
-    this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
+    this.setBackground(2);
 
-    this.hero = new Hero(this, 150, 550, "hero");
-    this.enemy = new Enemy(this, 200, 200, "hero");
-    this.enemy1 = new Enemy(this, 100, 150, "hero");
+    this.setStatusBar();
 
-    this.enemy.setTargetIndicatorColor('#FCB4E3');
-    this.enemy1.setTargetIndicatorColor('#FCB72C');
+    this.setCharacters(Level2);
 
-    this.add.existing(this.hero);
-    this.add.existing(this.enemy);
-    this.add.existing(this.enemy1);
-    
-    this.physics.world.enable([this.hero, this.enemy, this.enemy1], Phaser.Physics.Arcade.DYNAMIC_BODY);
-    
-    this.hero.body.setSize(64, 120, true);
-    this.enemy.body.setSize(40, 110, true);
-    this.enemy1.body.setSize(40, 110, true);
-
-    this.enemy.setAI(new ChaseHeroAI(this.hero, this.enemy, this.boardLayer));
-    this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));
+    this.setCoinToMap();
     
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.setCoinToMap();
-
-		this.cameras.main.startFollow(this.hero, true);
-    this.cameras.main.setZoom(0.8);
-    this.cameras.main.fadeIn(1000, 0, 0, 0);
-
-    // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
-    this.countDown = this.add.text(32, 32);
-
-    this.physics.add.collider([this.enemy, this.enemy1]);
-
-    this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      // this.stopGame();
-      this.moveNextStage();
-    });
-
-    if (this.hero) {
-			this.physics.add.overlap(this.hero, this.coins, this.handlePlayerGetCoin, this.checkIsCanPlayerGetCoin, this);
-		}
+    this.cameras.main.startFollow(this.hero, true);
+    this.cameras.main.setZoom(1);
   }
 
   update(time, delta) {
-    // this.countDown.setText("current" + this.timer.getProgress().toString().substr(0, 4));
-    this.hero?.handleMovement(delta, this.cursors, this.boardLayer, this.coinLayer);
+    this.score.x = this.hero.body.position.x + 350;
+    this.score.y = this.hero.body.position.y - 300;
+
+    this.score.setText(`SCORE: ${this.registry.values.score}`);
+
+    this.countDown.x = this.hero.body.position.x + 180;
+    this.countDown.y = this.hero.body.position.y - 300;
+
+    const currentTime = this.timer.getProgress().toString().substr(0, 4);
+
+    this.countDown.setText(`TIME: ${currentTime}`);
+
+    this.hero?.handleMovement(
+      delta,
+      this.cursors,
+      this.boardLayer,
+      this.coinLayer
+    );
 
     if (this.coinCount === 0) {
       this.moveNextStage();
     }
+  }
+
+  setBackground(level) {
+    this.map = this.add.tilemap(`level${level}-map`);
+
+    const tileset = this.map.addTilesetImage(`iso-level${level}`, "tiles");
+
+    this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
+    this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
+
+    this.add.image(1300, 400, "cloud").setDepth(1);
+    this.add.image(0, 0, "cloud").setDepth(1);
+    this.add.image(-800, 200, "cloud").setDepth(1);
+    this.add.image(600, 150, "cloud").setDepth(1);
+    this.add.image(-1300, 600, "cloud").setDepth(1);
   }
 
   setCoinToMap() {
@@ -77,48 +77,140 @@ export default class Stage2 extends Phaser.Scene {
     this.coinCount = this.coins.length;
 
     this.coins.forEach((coin) => {
-			this.physics.add.existing(coin);
-			const body = coin.body;
+      this.physics.add.existing(coin);
+      const body = coin.body;
 
-			body.setCircle(38, 26, -6);
-		});
+      body.setCircle(38, 26, -6);
+      coin.setDepth(4);
+    });
+    
+    if (this.hero) {
+      this.physics.add.overlap(
+        this.hero,
+        this.coins,
+        this.handlePlayerGetCoin,
+        this.checkIsCanPlayerGetCoin,
+        this
+      );
+    }
   }
 
-  stopGame() {
+  setStatusBar() {
+    this.score = this.add
+      .bitmapText(0, 0, "font", `SCORE: ${this.registry.values.score}`)
+      .setDepth(7);
+    this.countDown = this.add
+      .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
+      .setDepth(7);
+
+    this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
+  }
+
+  setCharacters(enemyList) {
+    this.hero = new Hero(this, 100, 550, "hero");
+
+    this.add.existing(this.hero).setDepth(5);
+
+    this.physics.world.enable(
+      this.hero,
+      Phaser.Physics.Arcade.DYNAMIC_BODY
+    );
+
+    this.hero.body.setSize(40, 110, true);
+    
+    this.enemies = enemyList.map((enemy) => {
+      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
+
+      newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
+
+      this.add.existing(newEnemy).setDepth(5);
+
+      this.physics.world.enable(
+        newEnemy,
+        Phaser.Physics.Arcade.DYNAMIC_BODY
+      );
+      
+      newEnemy.body.setSize(40, 110, true);
+
+      const ai = enemy.ai;
+      
+      switch (ai) {
+        case "chase": {
+          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
+          break;
+        }
+        default:
+          break;
+      }
+
+      return newEnemy;
+    });
+
+    this.physics.add.collider(this.enemies);
+    
+    this.physics.add.collider(this.hero, this.enemies, () => {
+      this.moveNextStage();
+      // this.stopStage();
+    });
+  }
+
+  stopStage() {
+    this.cursors = null;
+
+    this.handleEnemyUnSubscribeAI();
+
+    this.hero.setDie();
+
     this.time.addEvent({
       callback: () => {
-        this.scene.pause();
-        store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+        store.dispatch(updateGameProgress(gameProgress.GAME_OVER)); // event로 바꿔주기
       },
-      delay: 1000,
+      delay: 2000,
     });
   }
 
   moveNextStage() {
     this.cursors = null;
 
-    this.enemy.unSubscribeAI();
-    this.enemy1.unSubscribeAI();
-    this.hero.setDie();
+    this.handleEnemyUnSubscribeAI();
 
-    this.cameras.main.fadeOut(3000, 50, 50, 50);
+    this.hero.setWin();
 
-    this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-      this.scene.start("stage3");
+    this.time.addEvent({
+      callback: () => {
+        this.cameras.main.fadeOut(3000, 50, 50, 50);
+
+        this.cameras.main.once(
+          Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
+          () => {
+            this.scene.start("stage3");
+          }
+        );
+      },
+      delay: 2000,
     });
   }
 
-  handlePlayerGetCoin(object1, object2) {
-    object2.destroy(true);
+  handlePlayerGetCoin(hero, coin) {
+    coin.destroy(true);
+
+    hero.getCoin();
 
     this.coinCount--;
-	}
+    this.registry.values.score += 10;
+  }
 
-	checkIsCanPlayerGetCoin(object1, object2) {
-    if (!this.hero) {
+  checkIsCanPlayerGetCoin(hero, coin) {
+    if (!hero) {
       return false;
     }
 
-    return this.hero.canGetCoin(object2);
+    return hero.canGetCoin(coin);
+  }
+
+  handleEnemyUnSubscribeAI() {
+    this.enemies.forEach((enemy) => {
+      enemy.unSubscribeAI();
+    });
   }
 }
