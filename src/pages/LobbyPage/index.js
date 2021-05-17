@@ -10,7 +10,7 @@ import { gameProgress } from "../../constants/gameState";
 
 const LobbyPage = () => {
   const dispatch = useDispatch();
-  const { players, progress } = useSelector(({ multiple }) => multiple.roomState);
+  const { players, progress } = useSelector(({ multiple }) => multiple.room);
   const history = useHistory();
   const { id } = useParams();
 

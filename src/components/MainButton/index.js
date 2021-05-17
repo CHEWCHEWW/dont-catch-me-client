@@ -10,8 +10,8 @@ const MainButton = ({ name, onClick }) => {
 };
 
 const Button = styled.button`
-  width: 65%;
-  height: 50px;
+  width: 60%;
+  height: 55px;
   border-radius: 5px;
   margin: 12px auto;
   background: white;
