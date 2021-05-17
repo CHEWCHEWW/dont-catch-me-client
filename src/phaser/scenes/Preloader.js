@@ -89,7 +89,10 @@ export default class Preloader extends Phaser.Scene {
     this.load.image("tiles", "iso-12-tileset.png");
     this.load.image("coin", "coin.png");
     this.load.image("add-coin", "add-coin.png");
+    
     this.load.image("start", "start.png");
+    this.load.image("win", "win.png");
+    this.load.image("lose", "lose.png");
 
     this.load.bitmapFont("font", "font.png", "font.fnt");
     

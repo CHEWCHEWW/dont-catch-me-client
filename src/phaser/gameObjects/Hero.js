@@ -97,7 +97,15 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     };
   }
 
+  setWin() {
+    this.body.setVelocity(0, 0);
+
+    this.resultMessasge = this.scene.add.image(this.x, this.y - 100, "win").setDepth(7);
+  }
+
   setDie() {
+    // this.resultMessasge = this.scene.add.image(this.x, this.y - 100, "lose").setDepth(7);
+
     this.play("hero-die-right", true);
     this.body.setVelocity(0, 0);
   }
