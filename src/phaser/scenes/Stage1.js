@@ -19,10 +19,11 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(1000, 400, "cloud").setDepth(1);
+    this.add.image(1300, 400, "cloud").setDepth(1);
     this.add.image(0, 0, "cloud").setDepth(1);
     this.add.image(-800, 200, "cloud").setDepth(1);
     this.add.image(600, 150, "cloud").setDepth(1);
+    this.add.image(-1300, 600, "cloud").setDepth(1);
 
     this.setTileMap();
 
@@ -108,9 +109,9 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   setTileMap() {
-    this.map = this.add.tilemap("level1-map");
+    this.map = this.add.tilemap("level3-map");
 
-    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
+    const tileset = this.map.addTilesetImage("iso-level3", "tiles");
 
     this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
     this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
