@@ -18,10 +18,10 @@ const GamePage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (progress === gameProgress.GAME_START) {
+    // if (progress === gameProgress.GAME_START) {
       const game = new Phaser.Game(singleConfig);
-    }
-  }, [progress]);
+    // }
+  }, []);
 
   const handleGameStartModalClick = () => {
     dispatch(updateGameProgress(gameProgress.GAME_START));

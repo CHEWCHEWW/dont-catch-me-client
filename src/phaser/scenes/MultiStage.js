@@ -3,7 +3,7 @@ import Enemy from "../gameObjects/Enemy";
 
 import { socket } from "../../utils/socket";
 
-export default class Multiplayer extends Phaser.Scene {
+export default class MultiStage extends Phaser.Scene {
   init() {
     socket.emit("gameInit");
 

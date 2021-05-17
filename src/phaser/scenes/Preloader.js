@@ -84,6 +84,8 @@ export default class Preloader extends Phaser.Scene {
   }
 
   loadBackgroundResource() {
+    this.load.image("cloud", "clouds.png");
+
     this.load.image("tiles", "iso-12-tileset.png");
     this.load.image("coin", "coin.png");
     this.load.image("add-coin", "add-coin.png");
