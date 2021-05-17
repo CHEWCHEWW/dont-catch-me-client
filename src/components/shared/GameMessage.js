@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 const GameMessage = styled.div`
   font-size: 12rem;
   text-align: center;

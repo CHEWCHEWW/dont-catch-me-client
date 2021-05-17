@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import ModalView from "../shared/ModalView";
+import UserNameForm from "../UserNameForm";
 import { saveGameClearUserRecord } from "../../api";
 import { uuidv4 } from "../../utils/uuid";
 import ModalContent from "../shared/ModalContent";
+import GameMessage from "../shared/GameMessage";
 
 const GameClearModalView = ({ onClick }) => {
-  const [formData, setFormData] = useState({ name: "" });
+  const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = ({
@@ -29,12 +31,15 @@ const GameClearModalView = ({ onClick }) => {
   };
 
   return (
-    <ModalView padding={20} width={500} height={400}>
+    <ModalView padding={20} width={700} height={400}>
       <ModalContent>
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="name" value={formData.name} onChange={handleInputChange}></input>
-          <input type="submit" value="Submit!" />
-        </form>
+        <GameMessage>CLEAR</GameMessage>
+        <UserNameForm 
+          onSubmit={handleSubmit} 
+          value={formData.name} 
+          onChange={handleInputChange} 
+          name="username" 
+        />
       </ModalContent>
     </ModalView>
   );

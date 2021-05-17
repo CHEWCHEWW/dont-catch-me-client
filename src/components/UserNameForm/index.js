@@ -1,10 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const UserNameForm = () => {
+const UserNameForm = ({ onSubmit, value, onChange, name = "" }) => {
   return (
-    <Form>
-      <Input type="text" placeholder="Please enter your name" />
+    <Form onSubmit={onSubmit}>
+      <Input 
+        type="text" 
+        placeholder="Please enter your name"
+        value={value}
+        name={name}
+        onChange={onChange}
+      />
       <Input type="submit" value="go" />
     </Form>
   );

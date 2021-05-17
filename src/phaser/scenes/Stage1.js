@@ -19,7 +19,8 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   create() {
-    console.log(this.scene);
+    this.game.events.emit("gameStart");
+
     this.add.image(1300, 400, "cloud").setDepth(1);
     this.add.image(0, 0, "cloud").setDepth(1);
     this.add.image(-800, 200, "cloud").setDepth(1);
@@ -63,7 +64,8 @@ export default class Stage1 extends Phaser.Scene {
     this.physics.add.collider([this.enemy, this.enemy1]);
 
     this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      this.stopStage();
+      this.moveNextStage();
+      // this.stopStage();
     });
 
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -138,7 +140,7 @@ export default class Stage1 extends Phaser.Scene {
     this.enemy.unSubscribeAI();
     this.enemy1.unSubscribeAI();
     this.hero.setDie();
-    // 이 사이에 다음 페이지로 넘어간다는 로고 띄우기..!
+
     this.time.addEvent({
       callback: () => {
         store.dispatch(updateGameProgress(gameProgress.GAME_OVER)); // event로 바꿔주기
@@ -148,9 +150,12 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   moveNextStage() {
+    this.cursors = null;
+
     this.enemy.unSubscribeAI();
     this.enemy1.unSubscribeAI();
-    // 이 사이에 다음 페이지로 넘어간다는 로고 띄우기..!
+    this.hero.setWin();
+
     this.time.addEvent({
       callback: () => {
         this.cameras.main.fadeOut(3000, 50, 50, 50);
