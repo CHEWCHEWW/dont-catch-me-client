@@ -2,13 +2,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import rabbit from "../../../public/rabbit.gif";
-import rabb from "../../../public/main-rabbit.png";
-import carrot from "../../../public/hero-running-right.png";
-import dieCarrot from "../../../public/hero-die-left.png";
+import walkingRabbit from "../../../public/rabbit.png";
+import deadCarrot from "../../../public/hero-die-left.png";
 
 import MainButton from "../../components/MainButton";
-import Buttons from "../../components/shared/Buttons";
 
 const StartPage = () => {
   const history = useHistory();
@@ -24,7 +21,7 @@ const StartPage = () => {
   const handleRecordsButton = () => {
     history.push("/records");
   };
-  console.log(rabbit);
+  console.log(walkingRabbit);
   return (
     <PageWrapper>
       <MainCard>
@@ -57,11 +54,12 @@ const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #81EBF3;
 `;
 
 const MainCard = styled.div`
-  width: 800px;
-  height: 600px;
+  width: 850px;
+  height: 650px;
   display: flex;
   justify-content: center;
   border-radius: 5px;
@@ -75,23 +73,23 @@ const TitleBox = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: "Fjalla One", sans-serif;
+  font: "Fjalla One", sans-serif;
   max-width: 225px;
-  transform: translateX(-50%) rotate(-8deg);
-  margin-top: 20%;
-  margin-left: 50%;
+  transform: translateX(-50%) rotate(-7.5deg);
+  margin-top: 12%;
+  margin-left: 48%;
 `;
 
 const TitleText = styled.h1`
   color: #fff;
   font-size: 90px;
   margin: 0;
-  line-height: 98%;
+  line-height: 95%;
   letter-spacing: 5px;
 
   .title {
     float: left;
-    transform: skew(-8deg);
+    transform: skew(-7.5deg);
     text-shadow: #533d4a 1px 1px, #533d4a 2px 2px, #533d4a 3px 3px, #533d4a 4px 4px, #533d4a 5px 5px, #533d4a 6px 6px;
 
     &:nth-child(1) {
@@ -108,29 +106,43 @@ const TitleText = styled.h1`
 
 const Sprites = styled.div`
   display: flex;
-  margin-left: 20px;
+  margin-left: 40px;
 `;
 
 const SpriteRabbit = styled.div`
-  width: 210px;
+  width: 211px;
   height: 256px;
   margin-top: 10px;
-  background: url(${rabb}) 0px 0px;
-  animation: play 0.7s steps(2) infinite;
+  background: url(${walkingRabbit}) 0px 0px;
+  animation: play 0.4s steps(3) infinite;
 
   @keyframes play {
-    100% {
-      background-position: -1000px;
-    }
+    from { background-position: 0px; }
+    to { background-position: -1536px; }
   }
 `;
 
 const SpriteCarrot = styled.div`
-  width: 115px;
+  width: 128px;
   height: 128px;
   margin-top: 165px;
   margin-left: 35px;
-  background: url(${dieCarrot}) 0px 0px;
+  transform: scale(1.1);
+  background: url(${deadCarrot}) 0px 0px no-repeat;
+  animation: play 0.7s steps(6) infinite;
+
+  @keyframes play {
+    from { background-position: 0px; }
+    to { background-position: -768px; }
+  }
+`;
+
+const Buttons = styled.div`
+  width: 500px;
+  display: flex;
+  margin-top: 320px;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export default StartPage;
