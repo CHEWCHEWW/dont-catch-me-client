@@ -5,7 +5,7 @@ import styled from "styled-components";
 import RadioInput from "../RadioInput";
 import { changeReadyState } from "../../redux/slices/multiplaySlice";
 
-const PlayerInfoForm = () => {
+const UserInfoForm = () => {
   const dispatch = useDispatch();
   const { isReady, username, role } = useSelector(({ multiple }) => multiple.user);
 
@@ -37,8 +37,14 @@ const PlayerInfoForm = () => {
 
   return (
     <EditStateField onSubmit={handleFormSubmit}>
-      <input type="text" name="username" value={playerInfo.name} onChange={handleFormChange} disabled={isReady} />
-      <div name="role" onChange={handleFormChange}>
+      <TextInput 
+        type="text" 
+        name="username" 
+        value={playerInfo.name} 
+        onChange={handleFormChange} 
+        disabled={isReady} 
+      />
+      <RadioField name="role" onChange={handleFormChange}>
         <RadioInput 
           name="role" 
           value="rabbit" 
@@ -51,16 +57,41 @@ const PlayerInfoForm = () => {
           isDisabled={isReady}
           isDefaultChecked={role === "rabbit" ? false : true} 
         />
-      </div>
-      <input type="submit" value={isReady ? "Edit" : "Ready"} onClick={handleButtonClick} />
+      </RadioField>
+      <Button type="submit" value={isReady ? "Edit" : "Ready"} onClick={handleButtonClick} />
     </EditStateField>
   );
 };
 
 const EditStateField = styled.form`
-  width: 80%;
-  height: 10%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 41%;
   background: gray;
+  align-items: center;
 `;
 
-export default PlayerInfoForm;
+const RadioField = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 0;
+`;
+
+const TextInput = styled.input`
+  width: 80%;
+  height: 12%;
+  margin-top: 20px;
+`;
+
+const Button = styled.input`
+  width: 50%;
+  height: 25%;
+  margin-top: 20px;
+  background: white;
+  border: 0;
+  font-size: 20px;
+`;
+
+export default UserInfoForm;

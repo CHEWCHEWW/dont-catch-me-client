@@ -7,7 +7,7 @@ import StartPage from "../../pages/StartPage";
 import GamePage from "../../pages/GamePage";
 import MultiPlayPage from "../../pages/MultiplayPage.js";
 import JoinPage from "../../pages/JoinPage";
-import LobbyPage from "../../pages/LobbyPage";
+import WaitingPage from "../../pages/WaitingPage";
 import RecordPage from "../../pages/RecordPage";
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
           <JoinPage />
         </Route>
         <Route path="/lobby/:id">
-          <LobbyPage />
+          <WaitingPage />
         </Route>
         <Route path="/multiplay">
           <MultiPlayPage />

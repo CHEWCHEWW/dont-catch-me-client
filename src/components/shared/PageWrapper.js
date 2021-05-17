@@ -6,7 +6,7 @@ const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #A2ECEF;
+  background: linear-gradient(to bottom, #405166 0%, #656f6f 100%);
 `;
 
 export default PageWrapper;

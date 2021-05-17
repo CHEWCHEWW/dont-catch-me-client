@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const Buttons = styled.div`
+const ButtonField = styled.div`
   width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
-export default Buttons;
+export default ButtonField;
