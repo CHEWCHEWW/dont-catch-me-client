@@ -10,14 +10,16 @@ import UserNameForm from "../../components/UserNameForm";
 import { gameProgress } from "../../constants/gameState";
 import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
+import { updateGameProgress } from "../../redux/slices/multiplaySlice";
 
 const WaitingPage = () => {
   const dispatch = useDispatch();
-  const { players, progress } = useSelector(({ multiple }) => multiple.room);
-  // const username = useSelector(({ multiple }) => multiple.user.username);
+  const { players, progress, isAllUsersReady } = useSelector(({ multiple }) => multiple.room);
+  const { isReady, username, role } = useSelector(({ multiple }) => multiple.user);
+  
   const history = useHistory();
   const { id } = useParams();
-  const username = "24";
+
   useEffect(() => {
     dispatch(enterRoom({ roomId: id }));
   }, []);
@@ -28,28 +30,9 @@ const WaitingPage = () => {
     }
   }, [progress]);
 
-  const happy = {
-    afadfaf: {
-      username: "dafad",
-      isReady: true,
-      role: "rabbit"
-    },
-    adfafadfa: {
-      username: "adfaffa",
-      isReady: false,
-      role: "carrot"
-    },
-    adfadf: {
-      username: "adfdafag",
-      isReady: true,
-      role: "rabbit"
-    },
-    gdhdh: {
-      username: "afgfdsgsgsg",
-      isReady: false,
-      role: "carrot"
-    }
-  };
+  // const handleStartButtonClick = () => {
+  //   dispatch(updateGameProgress(gameProgress.GAME_START));
+  // }; 
 
   return (
     <PageWrapper>
@@ -63,10 +46,16 @@ const WaitingPage = () => {
           <>
             <Title>Waiting Room</Title>
             <Content>
-              <PlayerList players={happy} />
+              <PlayerList players={players} />
               <UserField>
-                <UserInfoForm />
-                <StartButton>Game Start</StartButton>
+                <UserInfoForm 
+                  isReady={isReady} 
+                  username={username} 
+                  role={role} 
+                />
+                <StartButton disabled={!isAllUsersReady} onClick={handleStartButtonClick}>
+                  Game Start
+                </StartButton>
               </UserField>
             </Content>
           </> 

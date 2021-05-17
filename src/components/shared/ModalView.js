@@ -6,7 +6,7 @@ const Modalview = styled.div`
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
   box-sizing: border-box;
-  background-color: white;
+  background-color: ${({ color }) => color};
   border-radius: 5px;
 `;
 

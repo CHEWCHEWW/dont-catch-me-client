@@ -6,8 +6,8 @@ import ModalContent from "../shared/ModalContent";
 
 const GameStartModalView = ({ onClick }) => {
   return (
-    <ModalView padding={20} width={500} height={400}>
-      <ModalContent>
+    <ModalView padding={20} width={1024} height={768} color="rgba(242, 241, 241, 0.55)">
+      <ModalContent color="rgba(242, 241, 241, 0.55)">
         <TextBoard>
           <div>Rabbit!! Rabbit!!</div>
         </TextBoard>
@@ -20,7 +20,7 @@ const GameStartModalView = ({ onClick }) => {
 const TextBoard = styled.div`
   width: 80%;
   height: 40%;
-  background: white;
+  /* background: rgba(242, 241, 241, 0.55); */
   text-align: center;
 `;
 

@@ -5,9 +5,8 @@ import styled from "styled-components";
 import RadioInput from "../RadioInput";
 import { changeReadyState } from "../../redux/slices/multiplaySlice";
 
-const UserInfoForm = () => {
+const UserInfoForm = ({ isReady, username, role }) => {
   const dispatch = useDispatch();
-  const { isReady, username, role } = useSelector(({ multiple }) => multiple.user);
 
   const [playerInfo, setPlayerInfo] = useState({
     username,
