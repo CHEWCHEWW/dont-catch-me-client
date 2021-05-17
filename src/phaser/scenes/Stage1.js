@@ -5,6 +5,7 @@ import ChaseHeroAI from "../ai/ChaseHeroAI";
 import store from "../../store";
 import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
 import { gameProgress } from "../../constants/gameState";
+import { Level1 } from "../../constants/enemyList";
 
 export default class Stage1 extends Phaser.Scene {
   constructor() {
@@ -14,76 +15,25 @@ export default class Stage1 extends Phaser.Scene {
   init() {
     this.cameras.main.fadeIn(500, 0, 0, 0);
 
-    this.registry.values.score = 0;
-    this.registry.values.time = 0;
+    this.registry.values.score = 0; // 변수
+    this.registry.values.time = 0; // 변수
   }
 
   create() {
-    this.game.events.emit("gameStart");
+    this.game.events.emit("gameStart"); // 변수
 
-    this.add.image(1300, 400, "cloud").setDepth(1);
-    this.add.image(0, 0, "cloud").setDepth(1);
-    this.add.image(-800, 200, "cloud").setDepth(1);
-    this.add.image(600, 150, "cloud").setDepth(1);
-    this.add.image(-1300, 600, "cloud").setDepth(1);
+    this.setBackground(1);
 
-    this.setTileMap();
+    this.setStatusBar();
 
-    this.score = this.add
-      .bitmapText(0, 0, "font", `SCORE: ${this.registry.values.score}`)
-      .setDepth(7);
-    this.countDown = this.add
-      .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
-      .setDepth(7);
-
-    this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
-
-    this.hero = new Hero(this, 100, 550, "hero");
-    this.enemy = new Enemy(this, 200, 200, "enemy");
-    this.enemy1 = new Enemy(this, 600, 500, "enemy");
-
-    this.enemy.setTargetIndicatorColor("#FCB4E3"); // 앞으로 삭제 될 예정..
-    this.enemy1.setTargetIndicatorColor("#FCB72C");
-
-    this.add.existing(this.hero).setDepth(5);
-    this.add.existing(this.enemy).setDepth(5);
-    this.add.existing(this.enemy1).setDepth(5);
-
-    this.physics.world.enable(
-      [this.hero, this.enemy, this.enemy1],
-      Phaser.Physics.Arcade.DYNAMIC_BODY
-    );
-
-    this.hero.body.setSize(40, 110, true);
-    this.enemy.body.setSize(40, 110, true);
-    this.enemy1.body.setSize(40, 110, true);
-
-    this.enemy.setAI(new ChaseHeroAI(this.hero, this.enemy, this.boardLayer));
-    this.enemy1.setAI(new ChaseHeroAI(this.hero, this.enemy1, this.boardLayer));
-
-    this.physics.add.collider([this.enemy, this.enemy1]);
-
-    this.physics.add.collider(this.hero, [this.enemy, this.enemy1], () => {
-      this.moveNextStage();
-      // this.stopStage();
-    });
-
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.setCharacters(Level1);
 
     this.setCoinToMap();
+    
+    this.cursors = this.input.keyboard.createCursorKeys();
 
     this.cameras.main.startFollow(this.hero, true);
     this.cameras.main.setZoom(1);
-
-    if (this.hero) {
-      this.physics.add.overlap(
-        this.hero,
-        this.coins,
-        this.handlePlayerGetCoin,
-        this.checkIsCanPlayerGetCoin,
-        this
-      );
-    }
   }
 
   update(time, delta) {
@@ -111,13 +61,19 @@ export default class Stage1 extends Phaser.Scene {
     }
   }
 
-  setTileMap() {
-    this.map = this.add.tilemap("level1-map");
+  setBackground(level) {
+    this.map = this.add.tilemap(`level${level}-map`);
 
-    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
+    const tileset = this.map.addTilesetImage(`iso-level${level}`, "tiles");
 
     this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
     this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
+
+    this.add.image(1300, 400, "cloud").setDepth(1);
+    this.add.image(0, 0, "cloud").setDepth(1);
+    this.add.image(-800, 200, "cloud").setDepth(1);
+    this.add.image(600, 150, "cloud").setDepth(1);
+    this.add.image(-1300, 600, "cloud").setDepth(1);
   }
 
   setCoinToMap() {
@@ -132,13 +88,82 @@ export default class Stage1 extends Phaser.Scene {
       body.setCircle(38, 26, -6);
       coin.setDepth(4);
     });
+    
+    if (this.hero) {
+      this.physics.add.overlap(
+        this.hero,
+        this.coins,
+        this.handlePlayerGetCoin,
+        this.checkIsCanPlayerGetCoin,
+        this
+      );
+    }
+  }
+
+  setStatusBar() {
+    this.score = this.add
+      .bitmapText(0, 0, "font", `SCORE: ${this.registry.values.score}`)
+      .setDepth(7);
+    this.countDown = this.add
+      .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
+      .setDepth(7);
+
+    this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
+  }
+
+  setCharacters(enemyList) {
+    this.hero = new Hero(this, 100, 550, "hero");
+
+    this.add.existing(this.hero).setDepth(5);
+
+    this.physics.world.enable(
+      this.hero,
+      Phaser.Physics.Arcade.DYNAMIC_BODY
+    );
+
+    this.hero.body.setSize(40, 110, true);
+    
+    this.enemies = enemyList.map((enemy) => {
+      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
+
+      newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
+
+      this.add.existing(newEnemy).setDepth(5);
+
+      this.physics.world.enable(
+        newEnemy,
+        Phaser.Physics.Arcade.DYNAMIC_BODY
+      );
+      
+      newEnemy.body.setSize(40, 110, true);
+
+      const ai = enemy.ai;
+      
+      switch (ai) {
+        case "chase": {
+          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
+          break;
+        }
+        default:
+          break;
+      }
+
+      return newEnemy;
+    });
+
+    this.physics.add.collider(this.enemies);
+    
+    this.physics.add.collider(this.hero, this.enemies, () => {
+      this.moveNextStage();
+      // this.stopStage();
+    });
   }
 
   stopStage() {
     this.cursors = null;
 
-    this.enemy.unSubscribeAI();
-    this.enemy1.unSubscribeAI();
+    this.handleEnemyUnSubscribeAI();
+
     this.hero.setDie();
 
     this.time.addEvent({
@@ -152,8 +177,8 @@ export default class Stage1 extends Phaser.Scene {
   moveNextStage() {
     this.cursors = null;
 
-    this.enemy.unSubscribeAI();
-    this.enemy1.unSubscribeAI();
+    this.handleEnemyUnSubscribeAI();
+
     this.hero.setWin();
 
     this.time.addEvent({
@@ -174,17 +199,23 @@ export default class Stage1 extends Phaser.Scene {
   handlePlayerGetCoin(hero, coin) {
     coin.destroy(true);
 
-    this.hero.getCoin();
+    hero.getCoin();
 
     this.coinCount--;
     this.registry.values.score += 10;
   }
 
   checkIsCanPlayerGetCoin(hero, coin) {
-    if (!this.hero) {
+    if (!hero) {
       return false;
     }
 
-    return this.hero.canGetCoin(coin);
+    return hero.canGetCoin(coin);
+  }
+
+  handleEnemyUnSubscribeAI() {
+    this.enemies.forEach((enemy) => {
+      enemy.unSubscribeAI();
+    });
   }
 }
