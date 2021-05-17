@@ -19,20 +19,19 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   create() {
+    this.add.image(1000, 400, "cloud").setDepth(1);
+    this.add.image(0, 0, "cloud").setDepth(1);
+    this.add.image(-800, 200, "cloud").setDepth(1);
+    this.add.image(600, 150, "cloud").setDepth(1);
+
     this.setTileMap();
 
-    this.score = this.add.bitmapText(
-      0,
-      0,
-      "font",
-      `SCORE: ${this.registry.values.score}`
-    );
-    this.countDown = this.add.bitmapText(
-      0,
-      0,
-      "font",
-      `TIME:  ${this.registry.values.time}`
-    );
+    this.score = this.add
+      .bitmapText(0, 0, "font", `SCORE: ${this.registry.values.score}`)
+      .setDepth(7);
+    this.countDown = this.add
+      .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
+      .setDepth(7);
 
     this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
 
@@ -43,9 +42,9 @@ export default class Stage1 extends Phaser.Scene {
     this.enemy.setTargetIndicatorColor("#FCB4E3"); // 앞으로 삭제 될 예정..
     this.enemy1.setTargetIndicatorColor("#FCB72C");
 
-    this.add.existing(this.hero);
-    this.add.existing(this.enemy);
-    this.add.existing(this.enemy1);
+    this.add.existing(this.hero).setDepth(5);
+    this.add.existing(this.enemy).setDepth(5);
+    this.add.existing(this.enemy1).setDepth(5);
 
     this.physics.world.enable(
       [this.hero, this.enemy, this.enemy1],
@@ -113,12 +112,8 @@ export default class Stage1 extends Phaser.Scene {
 
     const tileset = this.map.addTilesetImage("iso-level1", "tiles");
 
-    this.boardLayer = this.map.createLayer("Tile Layer 1", tileset);
-    this.coinLayer = this.map
-      .createLayer("Tile Layer 2", tileset)
-      .setCollisionByProperty({ collides: true });
-
-    this.coinLayer.setCollision(6);
+    this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
+    this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
   }
 
   setCoinToMap() {
@@ -131,8 +126,7 @@ export default class Stage1 extends Phaser.Scene {
       const body = coin.body;
 
       body.setCircle(38, 26, -6);
-
-      this.physics.add.staticGroup(coin, this.hero);
+      coin.setDepth(4);
     });
   }
 

@@ -4,7 +4,7 @@ import Preloader from "../scenes/Preloader";
 import Stage1 from "../scenes/Stage1";
 import Stage2 from "../scenes/Stage2";
 import Stage3 from "../scenes/Stage3";
-import MultiplayerStage from "../scenes/MultiplayerStage";
+import MultiStage from "../scenes/MultiStage";
 
 export const singleConfig = {
   type: Phaser.WEBGL,
@@ -24,7 +24,7 @@ export const singleConfig = {
     },
   },
   scale: {
-    mode: Phaser.Scale.ScaleModes.FIT,
+    // mode: Phaser.Scale.ScaleModes.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [Preloader, Stage1, Stage2, Stage3],
@@ -51,5 +51,5 @@ export const multiConfig = {
     mode: Phaser.Scale.ScaleModes.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scene: [Preloader, MultiplayerStage],
+  scene: [Preloader, MultiStage],
 };

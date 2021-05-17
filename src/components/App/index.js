@@ -8,8 +8,7 @@ import GamePage from "../../pages/GamePage";
 import MultiPlayPage from "../../pages/MultiplayPage.js";
 import JoinPage from "../../pages/JoinPage";
 import LobbyPage from "../../pages/LobbyPage";
-
-import DummyPage from "../../pages/DummyPage";
+import RecordPage from "../../pages/RecordPage";
 
 const App = () => {
   return (
@@ -31,7 +30,7 @@ const App = () => {
           <MultiPlayPage />
         </Route>
         <Route path="/records">
-          <DummyPage />
+          <RecordPage />
         </Route>
       </Switch>
     </ThemeProvider>
