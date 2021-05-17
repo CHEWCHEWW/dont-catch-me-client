@@ -22,7 +22,7 @@ const Card = styled.div`
 `;
 
 const Title = styled.h2`
-  margin: 0px;
+  margin: 0;
 `;
 
 const Content = styled.h4`

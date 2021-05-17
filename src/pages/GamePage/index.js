@@ -10,7 +10,8 @@ import GameOverModalView from "../../components/Modal/GameOverModalView";
 import GameClearModalView from "../../components/Modal/GameClearModalView";
 import { gameProgress } from "../../constants/gameState";
 import { updateGameProgress, gameProgressSelector } from "../../redux/slices/singlePlaySlice";
-
+import PageWrapper from "../../components/shared/PageWrapper";
+import PageCard from "../../components/shared/PageCard";
 
 const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
@@ -18,9 +19,7 @@ const GamePage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    // if (progress === gameProgress.GAME_START) {
-      const game = new Phaser.Game(singleConfig);
-    // }
+    const game = new Phaser.Game(singleConfig);
   }, []);
 
   const handleGameStartModalClick = () => {
@@ -40,25 +39,31 @@ const GamePage = () => {
   };
 
   return (
-    <>
-      {progress === gameProgress.GAME_BEFORE_START && (
-        <Modal>
-          <GameStartModalView onClick={handleGameStartModalClick} />
-        </Modal>
-      )}
-      {progress === gameProgress.GAME_OVER && (
-        <Modal>
-          <GameOverModalView onClick={handleGameOverModalClick} />
-        </Modal>
-      )}
-      {progress === gameProgress.GAME_CLEAR && (
-        <Modal>
-          <GameClearModalView onClick={handleGameClearModalClick} />
-        </Modal>
-      )}
-      <div id="game-container" />
-    </>
+    <PageWrapper>
+        {progress === gameProgress.GAME_BEFORE_START && (
+          <Modal>
+            <GameStartModalView onClick={handleGameStartModalClick} />
+          </Modal>
+        )}
+        {progress === gameProgress.GAME_OVER && (
+          <Modal>
+            <GameOverModalView onClick={handleGameOverModalClick} />
+          </Modal>
+        )}
+        {progress === gameProgress.GAME_CLEAR && (
+          <Modal>
+            <GameClearModalView onClick={handleGameClearModalClick} />
+          </Modal>
+        )}
+      <PageCard width={1024} height={768}>
+        <GameContainer id="game-container" />
+      </PageCard>
+    </PageWrapper>
   );
 };
+
+const GameContainer = styled.div`
+  border-radius: 10px;
+`;
 
 export default GamePage;

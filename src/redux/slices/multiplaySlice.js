@@ -8,6 +8,7 @@ const initialState = {
     creatorId: "",
     players: {},
     progress: gameProgress.GAME_BEFORE_START,
+    isAllUsersReady: false,
   },
   user: {
     username: "",
@@ -46,6 +47,9 @@ const multiSlice = createSlice({
     updateGameProgress({ room }, { payload }) {
       room.progress = payload;
     },
+    isAllUsersReady({ room }) {
+      room.isAllUsersReady = true;
+    }
   },
 });
 
@@ -55,6 +59,7 @@ export const {
   changeSomeuser,
   changeMyState,
   updateGameProgress,
+  isAllUsersReady,
 } = multiSlice.actions;
 
 export const makeNewRoom = createAction("multiple/makeNewRoom");

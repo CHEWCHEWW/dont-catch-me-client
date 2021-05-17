@@ -19,6 +19,7 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   create() {
+    console.log(this.scene);
     this.add.image(1300, 400, "cloud").setDepth(1);
     this.add.image(0, 0, "cloud").setDepth(1);
     this.add.image(-800, 200, "cloud").setDepth(1);

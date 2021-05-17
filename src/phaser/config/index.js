@@ -9,8 +9,6 @@ import MultiStage from "../scenes/MultiStage";
 export const singleConfig = {
   type: Phaser.WEBGL,
   scale: {
-    width: "100%",
-    height: "100%",
     mode: Phaser.Scale.FIT,
     parent: "game-container",
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -23,18 +21,14 @@ export const singleConfig = {
       debug: true,
     },
   },
-  scale: {
-    // mode: Phaser.Scale.ScaleModes.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
   scene: [Preloader, Stage1, Stage2, Stage3],
 };
 
 export const multiConfig = {
   type: Phaser.WEBGL,
   scale: {
-    width: "100%",
-    height: "100%",
+    // width: "100%",
+    // height: "100%",
     mode: Phaser.Scale.FIT,
     parent: "game-container",
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -46,10 +40,6 @@ export const multiConfig = {
       gravity: { y: 0 },
       debug: true,
     },
-  },
-  scale: {
-    mode: Phaser.Scale.ScaleModes.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [Preloader, MultiStage],
 };

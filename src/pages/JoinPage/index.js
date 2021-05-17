@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { faUndo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { makeNewRoom } from "../../redux/slices/multiplaySlice";
 import useKakao from "../../hooks/useKakao";
@@ -55,7 +53,7 @@ const JoinPage = () => {
               <Button onClick={handleEnterButtonClick}>Enter</Button>
             </SmallButtonField>
             <BackButton onClick={handleBackButtonClick}>
-              <FontAwesomeIcon icon={faUndo} />
+              Back
             </BackButton>
           </ButtonField>
         </Content>
