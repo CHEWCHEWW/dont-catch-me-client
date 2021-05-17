@@ -7,7 +7,7 @@ import { changeReadyState } from "../../redux/slices/multiplaySlice";
 
 const PlayerInfoForm = () => {
   const dispatch = useDispatch();
-  const { isReady, username, role } = useSelector(({ multiple }) => multiple.userState);
+  const { isReady, username, role } = useSelector(({ multiple }) => multiple.user);
 
   const [playerInfo, setPlayerInfo] = useState({
     username,

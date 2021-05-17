@@ -3,13 +3,13 @@ import { createSlice, createAction } from "@reduxjs/toolkit";
 import { gameProgress } from "../../constants/gameState";
 
 const initialState = {
-  roomState: {
+  room: {
     roomId: "",
     creatorId: "",
     players: {},
     progress: gameProgress.GAME_BEFORE_START,
   },
-  userState: {
+  user: {
     username: "",
     userId: "",
     isReady: false,
@@ -22,29 +22,29 @@ const multiSlice = createSlice({
   initialState,
   reducers: {
     joinUserSuccess(
-      { userState, roomState },
+      { user, room },
       { payload: { members, creatorId, userId, roomId, username } }
     ) {
-      userState.userId = userId;
-      userState.username = username;
-      roomState.players = members;
-      roomState.creatorId = creatorId;
-      roomState.roomId = roomId;
+      user.userId = userId;
+      user.username = username;
+      room.players = members;
+      room.creatorId = creatorId;
+      room.roomId = roomId;
     },
-    createRoomSuccess({ roomState }, { payload: { roomId, creatorId } }) {
-      roomState.creatorId = creatorId;
-      roomState.roomId = roomId;
+    createRoomSuccess({ room }, { payload: { roomId, creatorId } }) {
+      room.creatorId = creatorId;
+      room.roomId = roomId;
     },
-    changeSomeUserState({ roomState }, { payload: { players } }) {
-      roomState.players = players;
+    changeSomeuser({ room }, { payload: { players } }) {
+      room.players = players;
     },
-    changeMyState({ userState }, { payload: { username, isReady, role } }) {
-      userState.username = username;
-      userState.isReady = isReady;
-      userState.role = role;
+    changeMyState({ user }, { payload: { username, isReady, role } }) {
+      user.username = username;
+      user.isReady = isReady;
+      user.role = role;
     },
-    updateGameProgress({ roomState }, { payload }) {
-      roomState.progress = payload;
+    updateGameProgress({ room }, { payload }) {
+      room.progress = payload;
     },
   },
 });
@@ -52,7 +52,7 @@ const multiSlice = createSlice({
 export const {
   joinUserSuccess,
   createRoomSuccess,
-  changeSomeUserState,
+  changeSomeuser,
   changeMyState,
   updateGameProgress,
 } = multiSlice.actions;

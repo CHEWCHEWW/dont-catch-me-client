@@ -6,6 +6,7 @@ import walkingRabbit from "../../../public/rabbit.png";
 import deadCarrot from "../../../public/hero-die-left.png";
 
 import MainButton from "../../components/MainButton";
+import PageWrapper from "../../components/shared/PageWrapper";
 
 const StartPage = () => {
   const history = useHistory();
@@ -24,7 +25,7 @@ const StartPage = () => {
   console.log(walkingRabbit);
   return (
     <PageWrapper>
-      <MainCard>
+      <PageCard>
         <TitleBox>
           <Title>
             <TitleText>
@@ -43,21 +44,12 @@ const StartPage = () => {
           <MainButton name="Multi Play" onClick={handleMatchingPageButton} />
           <MainButton name="Record" onClick={handleRecordsButton} />
         </Buttons>
-      </MainCard>
+      </PageCard>
     </PageWrapper>
   );
 };
 
-const PageWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #81EBF3;
-`;
-
-const MainCard = styled.div`
+const PageCard = styled.div`
   width: 850px;
   height: 650px;
   display: flex;
