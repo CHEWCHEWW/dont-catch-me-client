@@ -27,13 +27,11 @@ export const singleConfig = {
 export const multiConfig = {
   type: Phaser.WEBGL,
   scale: {
-    // width: "100%",
-    // height: "100%",
     mode: Phaser.Scale.FIT,
     parent: "game-container",
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "#60E7F7",
   physics: {
     default: "arcade",
     arcade: {

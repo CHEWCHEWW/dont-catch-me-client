@@ -14,8 +14,8 @@ const socketMiddleware = () => {
       store.dispatch(createRoomSuccess({ creatorId, roomId }));
     });
 
-    socket.on("joinUserSuccess", ({ members, creatorId, userId, roomId }) => {
-      store.dispatch(joinUserSuccess({ creatorId, members, userId, roomId }));
+    socket.on("joinUserSuccess", ({ members, creatorId, userId, roomId, username }) => {
+      store.dispatch(joinUserSuccess({ creatorId, members, userId, roomId, username }));
     });
 
     socket.on("changeSomeuser", ({ players }) => {
@@ -39,8 +39,6 @@ const socketMiddleware = () => {
 
       if (type !== "single") {
         socket.emit(actionName, action.payload);
-
-        return;
       }
 
       return next(action);
