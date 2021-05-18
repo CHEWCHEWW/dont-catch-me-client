@@ -120,7 +120,7 @@ export default class MultiStage extends Phaser.Scene {
 
     this.countDown.setText(`TIME: ${currentTime}`);
 
-    this.player.handleMovement(delta, this.cursors, this.boardLayer);
+    this.player.handleMovement(this.cursors, this.boardLayer);
 
     if (
       this.player.x !== this.playerQueuedPosition.x ||
@@ -177,9 +177,11 @@ export default class MultiStage extends Phaser.Scene {
 
     this.coins.forEach((coin) => {
       this.physics.add.existing(coin);
+
       const body = coin.body;
 
       body.setCircle(38, 26, -6);
+      coin.setDepth(4);
     });
   }
 

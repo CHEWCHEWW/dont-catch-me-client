@@ -1,4 +1,4 @@
-import Preloader from "../parent/preloader";
+import Preloader from "../parent/Preloader";
 
 import createHeroAnimations from "../../animations/Hero";
 
