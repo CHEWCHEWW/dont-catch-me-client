@@ -23,10 +23,10 @@ const App = () => {
         <Route path="/join">
           <JoinPage />
         </Route>
-        <Route path="/lobby/:id">
+        <Route path="/waiting/:id">
           <WaitingPage />
         </Route>
-        <Route path="/multiplay">
+        <Route path="/multiplay/:id">
           <MultiPlayPage />
         </Route>
         <Route path="/records">

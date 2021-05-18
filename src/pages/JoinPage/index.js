@@ -21,7 +21,7 @@ const JoinPage = () => {
     
     dispatch(makeNewRoom(randomCode));
 
-    setInvitationUrl(`http://localhost:3000/lobby/${randomCode}`);
+    setInvitationUrl(`http://localhost:3000/waiting/${randomCode}`);
     setInvitationCode(randomCode);
   }, []);
 
@@ -30,7 +30,7 @@ const JoinPage = () => {
   };
 
   const handleEnterButtonClick = () => {
-    history.push(`lobby/${invitationCode}`);
+    history.push(`waiting/${invitationCode}`);
   };
 
   const handleBackButtonClick = () => {

@@ -27,7 +27,7 @@ const socketMiddleware = () => {
     });
 
     socket.on("startGame", () => {
-      store.dispatch(updateGameProgress(gameProgress.GAME_START));
+      store.dispatch(updateGameProgress(gameProgress.GAME_ALL_PLAYER_READY));
     });
 
     socket.on("error", ({ message }) => {
