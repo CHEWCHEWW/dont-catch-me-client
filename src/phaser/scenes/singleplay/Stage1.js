@@ -6,7 +6,6 @@ import store from "../../../store";
 import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
 import { gameProgress } from "../../../constants/gameState";
 import { Level1 } from "../../../constants/enemyList";
-import { ThemeProvider } from "styled-components";
 
 export default class Stage1 extends Phaser.Scene {
   constructor() {
@@ -39,6 +38,10 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   update(time, delta) {
+    if (!this.hero) {
+      return;
+    }
+
     this.score.x = this.hero.body.position.x + 350;
     this.score.y = this.hero.body.position.y - 300;
 
@@ -51,11 +54,9 @@ export default class Stage1 extends Phaser.Scene {
 
     this.countDown.setText(`TIME: ${currentTime}`);
 
-    this.hero?.handleMovement(
-      delta,
+    this.hero.handleMovement(
       this.cursors,
       this.boardLayer,
-      this.coinLayer
     );
 
     if (this.coinCount === 0 && !this.isStopped) {
@@ -136,7 +137,7 @@ export default class Stage1 extends Phaser.Scene {
 
     this.handleEnemyUnSubscribeAI();
 
-    this.hero.setDie();
+    this.hero.setLose();
 
     this.time.addEvent({
       callback: () => {

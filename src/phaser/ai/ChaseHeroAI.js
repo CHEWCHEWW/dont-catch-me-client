@@ -1,6 +1,6 @@
 import {
   getOrderedDirections,
-  getOppositeDirection,
+  getSideDirection,
   getPositionByDirection,
 } from "../../utils/directions";
 import { Direction } from "../../constants/direction";
@@ -33,8 +33,9 @@ export default class ChaseHeroAI {
 
     const currentX = this.enemy.x;
     const currentY = this.enemy.y;
-        
-    const directions = getOrderedDirections();
+    
+    const sideDirection = getSideDirection(this.enemy.currentDirection);
+    const directions = getOrderedDirections((direction) => direction !== sideDirection);
     const shuffledDirections = shuffleOrder(directions);
     
     for (const direction of shuffledDirections) {
@@ -60,6 +61,6 @@ export default class ChaseHeroAI {
       }
     }
 
-    return lastClosedDirection;
+    return lastClosedDirection !== Direction.None ? lastClosedDirection : sideDirection;
   }
 }

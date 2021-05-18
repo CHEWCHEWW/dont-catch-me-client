@@ -159,7 +159,7 @@ export default class Stage3 extends Phaser.Scene {
 
     this.handleEnemyUnSubscribeAI();
 
-    this.hero.setDie();
+    this.hero.setLose();
 
     this.time.addEvent({
       callback: () => {

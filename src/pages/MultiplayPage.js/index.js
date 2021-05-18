@@ -27,12 +27,6 @@ const MultiplayPage = () => {
     dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
   };
 
-  const handleGameClearModalClick = () => {
-    history.push("/");
-
-    dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
-  };
-
   return (
     <PageWrapper>
       <PageCard>
