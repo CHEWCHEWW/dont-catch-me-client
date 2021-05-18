@@ -161,6 +161,7 @@ export default class Stage extends Phaser.Scene {
     this.cursors = null;
 
     this.handleEnemyUnSubscribeAI();
+    this.hero.setLose();
 
     this.time.addEvent({
       callback: () => {
