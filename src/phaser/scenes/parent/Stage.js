@@ -1,16 +1,12 @@
-import Hero from "../../../gameObjects/Hero";
-import Enemy from "../../../gameObjects/Enemy";
-import ChaseHeroAI from "../../../ai/ChaseHeroAI";
+import Hero from "../../gameObjects/Hero";
+import Enemy from "../../gameObjects/Enemy";
+import ChaseHeroAI from "../../ai/ChaseHeroAI";
 
-import store from "../../../../store";
-import { updateGameProgress } from "../../../../redux/slices/singlePlaySlice";
-import { gameProgress } from "../../../../constants/gameState";
+import store from "../../../store";
+import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
+import { gameProgress } from "../../../constants/gameState";
 
 export default class Stage extends Phaser.Scene {
-  // constructor() {
-  //   super("stage1");
-  // }
-
   init() {
     this.cameras.main.fadeIn(500, 0, 0, 0);
     
@@ -18,12 +14,6 @@ export default class Stage extends Phaser.Scene {
   }
 
   create() {
-    // this.game.events.emit("gameStart"); // 특이점
-
-    // this.setBackground(1); // 특이점
-
-    // this.setCharacters(Level1); // 특이점
-
     this.setStatusBar();
 
     this.setCoinToMap();
@@ -54,12 +44,6 @@ export default class Stage extends Phaser.Scene {
       this.cursors,
       this.boardLayer,
     );
-
-    // if (this.coinCount === 0 && !this.isCleared) { // 특이점
-    //   this.moveNextStage();
-
-    //   this.isCleared = true;
-    // }
   }
 
   setBackground(level) {
@@ -194,7 +178,7 @@ export default class Stage extends Phaser.Scene {
     this.hero.setWin();
 
     this.time.addEvent({
-      callback: () => { //특이점
+      callback: () => {
         this.cameras.main.fadeOut(3000, 50, 50, 50);
 
         this.cameras.main.once(
