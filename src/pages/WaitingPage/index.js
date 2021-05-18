@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -6,11 +6,11 @@ import styled from "styled-components";
 import { enterRoom } from "../../redux/slices/multiplaySlice";
 import PlayerList from "../../components/PlayerList";
 import UserInfoForm from "../../components/UserInfoForm";
-import UserNameForm from "../../components/UserNameForm";
+import UsernameForm from "../../components/UsernameForm";
 import { gameProgress } from "../../constants/gameState";
 import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
-import { updateGameProgress } from "../../redux/slices/multiplaySlice";
+import { updateGameProgress, changeReadyState } from "../../redux/slices/multiplaySlice";
 
 const WaitingPage = () => {
   const dispatch = useDispatch();
@@ -20,9 +20,11 @@ const WaitingPage = () => {
   const history = useHistory();
   const { id } = useParams();
 
-  useEffect(() => {
-    dispatch(enterRoom({ roomId: id }));
-  }, []);
+  const [playerName, setPlayerName] = useState("");
+
+  // useEffect(() => {
+  //   dispatch(enterRoom({ roomId: id }));
+  // }, []);
 
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
@@ -30,17 +32,27 @@ const WaitingPage = () => {
     }
   }, [progress]);
 
-  // const handleStartButtonClick = () => {
-  //   dispatch(updateGameProgress(gameProgress.GAME_START));
-  // }; 
+  const handleUsernameFormChange = ({ target: { value } }) => {
+    setPlayerName(value);
+  };
+
+  const handleUsernameFormSubmit = (ev) => {
+    ev.preventDefault();
+
+    dispatch(enterRoom({ username: playerName, roomId: id }));
+  };
 
   return (
     <PageWrapper>
       <PageCard width={800} height={500} isColumn={true}>
-        {username.length ? (
+        {!username ? (
           <>
             <h1>Before Waiting...</h1>
-            <UserNameForm />
+            <UsernameForm 
+              onChange={handleUsernameFormChange}
+              onSubmit={handleUsernameFormSubmit}
+              value={playerName}
+            />
           </>
         ) : (
           <>
@@ -53,7 +65,7 @@ const WaitingPage = () => {
                   username={username} 
                   role={role} 
                 />
-                <StartButton disabled={!isAllUsersReady} onClick={handleStartButtonClick}>
+                <StartButton disabled={!isAllUsersReady}>
                   Game Start
                 </StartButton>
               </UserField>

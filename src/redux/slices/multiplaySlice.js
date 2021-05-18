@@ -49,7 +49,7 @@ const multiSlice = createSlice({
     },
     isAllUsersReady({ room }) {
       room.isAllUsersReady = true;
-    }
+    },
   },
 });
 
@@ -60,6 +60,7 @@ export const {
   changeMyState,
   updateGameProgress,
   isAllUsersReady,
+  addUsername,
 } = multiSlice.actions;
 
 export const makeNewRoom = createAction("multiple/makeNewRoom");

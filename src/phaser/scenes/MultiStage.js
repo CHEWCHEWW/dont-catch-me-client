@@ -1,11 +1,12 @@
 import Hero from "../gameObjects/Hero";
-import Enemy from "../gameObjects/Enemy";
 
 import { socket } from "../../utils/socket";
 
 export default class MultiStage extends Phaser.Scene {
   init() {
     socket.emit("gameInit");
+
+    this.cameras.main.fadeIn(500, 0, 0, 0);
 
     this.registry.values.score = {
       rabbit: 0,
@@ -14,10 +15,11 @@ export default class MultiStage extends Phaser.Scene {
   }
 
   create() {
-    this.setTileMap();
+    this.setBackground();
 
     socket.on("loadPlayers", ({ player, otherPlayers }) => {
-      this.player = new Hero(this, player.x, player.y, "hero");
+      this.player = new Hero(this, player.x, player.y, player.role === "rabbit" ? "enemy" : "hero");
+
       this.player.id = player.userId;
       this.player.role = player.role;
 
@@ -26,11 +28,11 @@ export default class MultiStage extends Phaser.Scene {
           this,
           playerInfo.x,
           playerInfo.y,
-          playerInfo.role === "rabbit" ? "hero" : "hero"
+          playerInfo.role === "rabbit" ? "enemy" : "hero"
         );
 
         player.id = playerInfo.userId;
-        player.id = playerInfo.role;
+        player.role = playerInfo.role;
 
         return player;
       });
@@ -46,8 +48,6 @@ export default class MultiStage extends Phaser.Scene {
         this.createPlayer(player);
       });
 
-      this.player.setTint(0xfffc3b);
-
       this.playerQueuedPosition = {
         x: this.player.x,
         y: this.player.y,
@@ -60,12 +60,21 @@ export default class MultiStage extends Phaser.Scene {
 
     this.setCoinToMap();
 
-    // this.timer = this.time.delayedCall(10000, this.gameOver, [], this);
-    // this.countDown = this.add.text(32, 32);
+    this.setStatusBar();
   }
 
   update(time, delta) {
-    // this.countDown.setText("current" + this.timer.getProgress().toString().substr(0, 4));
+    this.score.x = this.hero.body.position.x + 350;
+    this.score.y = this.hero.body.position.y - 300;
+
+    this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} CARROT: ${this.registry.values.score.carrot}`);
+
+    this.countDown.x = this.hero.body.position.x + 180;
+    this.countDown.y = this.hero.body.position.y - 300;
+
+    const currentTime = this.timer.getProgress().toString().substr(0, 4);
+
+    this.countDown.setText(`TIME: ${currentTime}`);
 
     if (this.player) {
       this.player.handleMovement(delta, this.cursors, this.boardLayer);
@@ -93,6 +102,7 @@ export default class MultiStage extends Phaser.Scene {
 
       targetPlayer.x = x;
       targetPlayer.y = y;
+
       targetPlayer.play(anims, true);
     });
 
@@ -107,18 +117,36 @@ export default class MultiStage extends Phaser.Scene {
     });
   }
 
-  setTileMap() {
+  setBackground() {
     this.map = this.add.tilemap("level1-map");
 
     const tileset = this.map.addTilesetImage("iso-level1", "tiles");
 
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
     this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
+
+    this.add.image(1300, 400, "cloud").setDepth(1);
+    this.add.image(0, 0, "cloud").setDepth(1);
+    this.add.image(-800, 200, "cloud").setDepth(1);
+    this.add.image(600, 150, "cloud").setDepth(1);
+    this.add.image(-1300, 600, "cloud").setDepth(1);
   }
 
   setCamera() {
-    this.cameras.main.setZoom(1.1);
+    this.cameras.main.setZoom(1);
     this.cameras.main.startFollow(this.player, true);
+  }
+
+  setStatusBar() {
+    this.score = this.add
+      .bitmapText(0, 0, "font", `Rabbit: ${this.registry.values.score.rabbit} Carrot: ${this.registry.values.score.carrot}`)
+      .setDepth(7);
+
+    this.countDown = this.add
+      .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
+      .setDepth(7);
+
+    this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
   }
 
   setCoinToMap() {
