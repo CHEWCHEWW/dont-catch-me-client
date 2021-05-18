@@ -1,49 +1,26 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import styled from "styled-components";
 
 import RadioInput from "../RadioInput";
-import { changeReadyState } from "../../redux/slices/multiplaySlice";
 
-const UserInfoForm = ({ isReady, username, role }) => {
-  const dispatch = useDispatch();
-
-  const [playerInfo, setPlayerInfo] = useState({
-    username,
-    role,
-    isReady
-  });
-
-  const handleFormChange = ({ target: { name, value } }) => {
-    setPlayerInfo((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleButtonClick = () => {
-    setPlayerInfo((prev) => ({
-      ...prev,
-      isReady: !isReady,
-    }));
-  };
-
-  const handleFormSubmit = (ev) => {
-    ev.preventDefault();
-    
-    dispatch(changeReadyState({ ...playerInfo, }));
-  };
-
+const UserInfoForm = ({ 
+  isReady, 
+  username, 
+  role, 
+  onChange, 
+  onClick, 
+  onSubmit 
+}) => {
   return (
-    <EditStateField onSubmit={handleFormSubmit}>
+    <EditStateField onSubmit={onSubmit}>
       <TextInput 
         type="text" 
         name="username" 
-        value={playerInfo.name} 
-        onChange={handleFormChange} 
+        value={username} 
+        onChange={onChange} 
         disabled={isReady} 
       />
-      <RadioField name="role" onChange={handleFormChange}>
+      <RadioField name="role" onChange={onChange}>
         <RadioInput 
           name="role" 
           value="rabbit" 
@@ -57,7 +34,7 @@ const UserInfoForm = ({ isReady, username, role }) => {
           isDefaultChecked={role === "rabbit" ? false : true} 
         />
       </RadioField>
-      <Button type="submit" value={isReady ? "Edit" : "Ready"} onClick={handleButtonClick} />
+      <Button type="submit" value={isReady ? "Edit" : "Ready"} onClick={onClick} />
     </EditStateField>
   );
 };

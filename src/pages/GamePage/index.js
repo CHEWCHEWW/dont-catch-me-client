@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import { singleConfig } from "../../phaser/config";
+import config from "../../phaser/scenes/singleplay";
 import Modal from "../../components/Modal";
-import GameStartModalView from "../../components/Modal/GameStartModalView";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import GameClearModalView from "../../components/Modal/GameClearModalView";
 import { gameProgress } from "../../constants/gameState";
@@ -19,7 +18,7 @@ const GamePage = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const game = new Phaser.Game(singleConfig);
+    const game = new Phaser.Game(config);
 
     game.events.on("gameStart", () => {
       dispatch(updateGameProgress(gameProgress.GAME_START));

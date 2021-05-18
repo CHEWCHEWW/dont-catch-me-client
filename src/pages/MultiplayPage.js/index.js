@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { multiConfig } from "../../phaser/config";
+import config from "../../phaser/scenes/multiplay";
 import Modal from "../../components/Modal";
 import GameStartModalView from "../../components/Modal/GameStartModalView";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
@@ -17,7 +17,7 @@ const MultiplayPage = () => {
 
   useEffect(() => {
     if (progress === gameProgress.GAME_START) {
-      const game = new Phaser.Game(multiConfig);
+      const game = new Phaser.Game(config);
     }
   }, [progress]);
 

@@ -36,7 +36,7 @@ const multiSlice = createSlice({
       room.creatorId = creatorId;
       room.roomId = roomId;
     },
-    changeSomeuser({ room }, { payload: { players } }) {
+    changeSomeUserState({ room }, { payload: { players } }) {
       room.players = players;
     },
     changeMyState({ user }, { payload: { username, isReady, role } }) {
@@ -56,7 +56,7 @@ const multiSlice = createSlice({
 export const {
   joinUserSuccess,
   createRoomSuccess,
-  changeSomeuser,
+  changeSomeUserState,
   changeMyState,
   updateGameProgress,
   isAllUsersReady,

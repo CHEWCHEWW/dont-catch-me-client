@@ -1,8 +1,12 @@
-import Hero from "../gameObjects/Hero";
+import Hero from "../../gameObjects/Hero";
 
-import { socket } from "../../utils/socket";
+import { socket } from "../../../utils/socket";
 
 export default class MultiStage extends Phaser.Scene {
+  constructor() {
+    super("multi");
+  }
+
   init() {
     socket.emit("gameInit");
 
@@ -64,31 +68,33 @@ export default class MultiStage extends Phaser.Scene {
   }
 
   update(time, delta) {
-    this.score.x = this.hero.body.position.x + 350;
-    this.score.y = this.hero.body.position.y - 300;
+    if (!this.player) {
+      return;
+    }
+
+    this.score.x = this.player.body.position.x + 350;
+    this.score.y = this.player.body.position.y - 300;
 
     this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} CARROT: ${this.registry.values.score.carrot}`);
 
-    this.countDown.x = this.hero.body.position.x + 180;
-    this.countDown.y = this.hero.body.position.y - 300;
+    this.countDown.x = this.player.body.position.x + 180;
+    this.countDown.y = this.player.body.position.y - 300;
 
     const currentTime = this.timer.getProgress().toString().substr(0, 4);
 
     this.countDown.setText(`TIME: ${currentTime}`);
 
-    if (this.player) {
-      this.player.handleMovement(delta, this.cursors, this.boardLayer);
+    this.player.handleMovement(delta, this.cursors, this.boardLayer);
 
-      if (
-        this.player.x !== this.playerQueuedPosition.x ||
-        this.player.y !== this.playerQueuedPosition.y
-      ) {
-        socket.emit("movePlayer", {
-          x: this.player.x,
-          y: this.player.y,
-          anims: this.player.anims.currentAnim.key,
-        });
-      }
+    if (
+      this.player.x !== this.playerQueuedPosition.x ||
+      this.player.y !== this.playerQueuedPosition.y
+    ) {
+      socket.emit("movePlayer", {
+        x: this.player.x,
+        y: this.player.y,
+        anims: this.player.anims.currentAnim.key,
+      });
     }
 
     if (this.coinCount === 0) {
