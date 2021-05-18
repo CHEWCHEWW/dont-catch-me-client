@@ -39,7 +39,7 @@ const WaitingPage = () => {
     if (progress === gameProgress.GAME_START) {
       setIsCountDownModalOn(false);
 
-      history.push(`/multiplay/${id}`);
+      history.push(`/game/${id}`);
     }
   }, [progress]);
 

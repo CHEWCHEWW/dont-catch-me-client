@@ -13,7 +13,7 @@ const StartPage = () => {
   const history = useHistory();
 
   const handleSinglePlayButton = () => {
-    history.push("/game");
+    history.push("/game/single");
   };
 
   const handleMatchingPageButton = () => {
@@ -23,7 +23,7 @@ const StartPage = () => {
   const handleRecordsButton = () => {
     history.push("/records");
   };
-  console.log(walkingRabbit);
+  
   return (
     <PageWrapper>
       <PageCard width={850} height={650}>
@@ -100,8 +100,12 @@ const SpriteRabbit = styled.div`
   animation: play 0.4s steps(3) infinite;
 
   @keyframes play {
-    from { background-position: 0px; }
-    to { background-position: -1536px; }
+    from { 
+      background-position: 0px; 
+    }
+    to { 
+      background-position: -1536px; 
+    }
   }
 `;
 
@@ -115,8 +119,12 @@ const SpriteCarrot = styled.div`
   animation: play 0.7s steps(6) infinite;
 
   @keyframes play {
-    from { background-position: 0px; }
-    to { background-position: -768px; }
+    from { 
+      background-position: 0px; 
+    }
+    to { 
+      background-position: -768px; 
+    }
   }
 `;
 

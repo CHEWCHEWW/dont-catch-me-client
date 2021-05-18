@@ -5,6 +5,8 @@ import createEnemyAnimations from "../../animations/Enemy";
 
 export default class Preloader extends Phaser.Scene {
   preload() {
+    this.load.setBaseURL(process.env.PORT);
+
     this.setLoading();
 
     this.loadBackgroundResource();
@@ -49,6 +51,24 @@ export default class Preloader extends Phaser.Scene {
   completeLoading() {
     this.scene.start("stage1");
   }
+  
+  loadBackgroundResource() {
+    this.load.image("cloud", "clouds.png");
+    
+    this.load.image("tiles", "iso-12-tileset.png");
+    this.load.image("coin", "coin.png");
+    this.load.image("add-coin", "add-coin.png");
+
+    this.load.image("start", "start.png");
+    this.load.image("win", "win.png");
+    this.load.image("lose", "lose.png");
+
+    this.load.bitmapFont("font", "font.png", "font.fnt");
+    
+    this.load.tilemapTiledJSON("level1-map", "iso-level1.json");
+    this.load.tilemapTiledJSON("level2-map", "iso-level2.json");
+    this.load.tilemapTiledJSON("level3-map", "iso-level3.json");
+  }
 
   loadHeroResource() {
     this.load.image("hero", "hero.png");
@@ -81,23 +101,5 @@ export default class Preloader extends Phaser.Scene {
     this.load.atlas("enemy-running-right", "enemy-running-right.png", "enemy-running-right.json");
     this.load.atlas("enemy-running-back-left", "enemy-running-back-left.png", "enemy-running-back-left.json");
     this.load.atlas("enemy-running-back-right", "enemy-running-back-right.png", "enemy-running-back-right.json");
-  }
-
-  loadBackgroundResource() {
-    this.load.image("cloud", "clouds.png");
-
-    this.load.image("tiles", "iso-12-tileset.png");
-    this.load.image("coin", "coin.png");
-    this.load.image("add-coin", "add-coin.png");
-
-    this.load.image("start", "start.png");
-    this.load.image("win", "win.png");
-    this.load.image("lose", "lose.png");
-
-    this.load.bitmapFont("font", "font.png", "font.fnt");
-    
-    this.load.tilemapTiledJSON("level1-map", "iso-level1.json");
-    this.load.tilemapTiledJSON("level2-map", "iso-level2.json");
-    this.load.tilemapTiledJSON("level3-map", "iso-level3.json");
   }
 }
