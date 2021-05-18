@@ -11,16 +11,16 @@ export const getOrderedDirections = (filter) => {
   return directions.filter(filter);
 };
 
-export const getOppositeDirection = (direction) => {
-switch (direction) {
-  case Direction.Left:
-    return Direction.Right;
-  case Direction.Right:
-    return Direction.Left;
-  case Direction.Up:
-    return Direction.Down;
-  case Direction.Down:
-    return Direction.Up;
+export const getSideDirection = (direction) => {
+  switch (direction) {
+    case Direction.Left:
+      return Direction.Up;
+    case Direction.Right:
+      return Direction.Down;
+    case Direction.Up:
+      return Direction.Lsft;
+    case Direction.Down:
+      return Direction.Right;
   }
 };
 
