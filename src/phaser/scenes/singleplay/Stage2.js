@@ -1,4 +1,4 @@
-import Stage from "./parent";
+import Stage from "../parent/stage";
 import { Level2 } from "../../../constants/enemyList";
 
 export default class Stage2 extends Stage {

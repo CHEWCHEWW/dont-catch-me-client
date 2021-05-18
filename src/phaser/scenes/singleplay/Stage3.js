@@ -1,4 +1,4 @@
-import Stage from "./parent";
+import Stage from "../parent/stage";
 
 import store from "../../../store";
 import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";

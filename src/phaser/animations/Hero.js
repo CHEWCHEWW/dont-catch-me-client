@@ -1,4 +1,4 @@
-const createHeroAnimations = (animations) => {
+const createHeroAnimations = (animations, isSingle) => {
   animations.create({
     key: "hero-running-right",
     frameRate: 300,
@@ -46,58 +46,6 @@ const createHeroAnimations = (animations) => {
       start: 1,
       end: 6,
       prefix: "hero-running-back-right",
-      zeroPad: 2,
-      suffix: ".png",
-    }),
-  });
-
-  animations.create({
-    key: "hero-die-right",
-    frameRate: 300,
-    repeat: -1,
-    frames: animations.generateFrameNames("hero-die-right", {
-      start: 1,
-      end: 6,
-      prefix: "hero-die-right",
-      zeroPad: 2,
-      suffix: ".png",
-    }),
-  });
-
-  animations.create({
-    key: "hero-die-left",
-    frameRate: 300,
-    repeat: -1,
-    frames: animations.generateFrameNames("hero-die-left", {
-      start: 1,
-      end: 6,
-      prefix: "hero-die-left",
-      zeroPad: 2,
-      suffix: ".png",
-    }),
-  });
-
-  animations.create({
-    key: "hero-die-back-right",
-    frameRate: 300,
-    repeat: -1,
-    frames: animations.generateFrameNames("hero-die-back-right", {
-      start: 1,
-      end: 6,
-      prefix: "hero-die-back-right",
-      zeroPad: 2,
-      suffix: ".png",
-    }),
-  });
-
-  animations.create({
-    key: "hero-die-back-left",
-    frameRate: 300,
-    repeat: -1,
-    frames: animations.generateFrameNames("hero-die-back-left", {
-      start: 1,
-      end: 6,
-      prefix: "hero-die-back-left",
       zeroPad: 2,
       suffix: ".png",
     }),
@@ -154,6 +102,60 @@ const createHeroAnimations = (animations) => {
       suffix: ".png",
     }),
   });
+
+  if (isSingle) {
+    animations.create({
+      key: "hero-die-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: animations.generateFrameNames("hero-die-right", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    animations.create({
+      key: "hero-die-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: animations.generateFrameNames("hero-die-left", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    animations.create({
+      key: "hero-die-back-right",
+      frameRate: 300,
+      repeat: -1,
+      frames: animations.generateFrameNames("hero-die-back-right", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-back-right",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+
+    animations.create({
+      key: "hero-die-back-left",
+      frameRate: 300,
+      repeat: -1,
+      frames: animations.generateFrameNames("hero-die-back-left", {
+        start: 1,
+        end: 6,
+        prefix: "hero-die-back-left",
+        zeroPad: 2,
+        suffix: ".png",
+      }),
+    });
+  }
 };
 
 export default createHeroAnimations;
