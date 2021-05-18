@@ -72,12 +72,12 @@ export default class MultiStage extends Phaser.Scene {
       return;
     }
 
-    this.score.x = this.player.body.position.x + 350;
+    this.score.x = this.player.body.position.x + 230;
     this.score.y = this.player.body.position.y - 300;
 
-    this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} CARROT: ${this.registry.values.score.carrot}`);
+    this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} vs CARROT: ${this.registry.values.score.carrot}`);
 
-    this.countDown.x = this.player.body.position.x + 180;
+    this.countDown.x = this.player.body.position.x + 50;
     this.countDown.y = this.player.body.position.y - 300;
 
     const currentTime = this.timer.getProgress().toString().substr(0, 4);

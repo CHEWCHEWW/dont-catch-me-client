@@ -55,8 +55,9 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     this.keysDown = this.getKeysDownState(cursors);
     
     const speed = 200;
-    this.targetIndicator.setPosition(this.x + 12, this.y + 60);
 
+    this.targetIndicator.setPosition(this.x + 12, this.y + 60);
+    
     if (this.keysDown.left) {
       if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 - TileSize.y)) {
         this.play("hero-idle-back-left", true);
