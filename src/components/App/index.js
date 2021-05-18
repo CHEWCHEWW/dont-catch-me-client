@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import { theme } from "../../theme/theme";
@@ -17,7 +17,10 @@ const App = () => {
         <Route path="/" exact>
           <StartPage />
         </Route>
-        <Route path="/game">
+        <Route path="/game/single">
+          <GamePage />
+        </Route>
+        <Route path="/game" exact>
           <GamePage />
         </Route>
         <Route path="/join">
@@ -26,12 +29,13 @@ const App = () => {
         <Route path="/waiting/:id">
           <WaitingPage />
         </Route>
-        <Route path="/multiplay/:id">
+        <Route path="/game/:id">
           <MultiPlayPage />
         </Route>
         <Route path="/records">
           <RecordPage />
         </Route>
+        <Redirect to="/" />
       </Switch>
     </ThemeProvider>
   );

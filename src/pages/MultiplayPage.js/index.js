@@ -7,16 +7,29 @@ import Modal from "../../components/Modal";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import GameClearModalView from "../../components/Modal/GameClearModalView";
 import { gameProgress } from "../../constants/gameState";
-import { updateGameProgress, gameProgressSelector } from "../../redux/slices/singlePlaySlice";
+import { updateGameProgress, gameProgressSelector } from "../../redux/slices/multiplaySlice";
 
 const MultiplayPage = () => {
-  const { progress } = useSelector(gameProgressSelector);
+  const progress  = useSelector(gameProgressSelector);
+  const isWin = useSelector(({ multiple: { user } }) => user.isWin);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     const game = new Phaser.Game(config);
   }, []);
+
+  // useEffect(() => {
+  //   if (progress === gameProgress.GAME_OVER) {
+  //     if (isWin) {
+
+  //       return;
+  //     }
+
+
+  //   }
+  // }, [progress]);
 
   const handleGameOverModalClick = () => {
     history.push("/");
@@ -34,7 +47,7 @@ const MultiplayPage = () => {
     <>
       {progress === gameProgress.GAME_OVER && (
         <Modal>
-          <GameOverModalView onClick={handleGameOverModalClick} />
+          <GameOverModalView onClick={handleGameOverModalClick} message={isWin && "WIN"} />
         </Modal>
       )}
       {progress === gameProgress.GAME_CLEAR && (

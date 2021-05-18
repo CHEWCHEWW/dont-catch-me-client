@@ -15,6 +15,7 @@ const initialState = {
     userId: "",
     isReady: false,
     role: "rabbit",
+    isWin: false,
   },
 };
 
@@ -50,6 +51,9 @@ const multiSlice = createSlice({
     isAllUsersReady({ room }) {
       room.isAllUsersReady = true;
     },
+    updateGameResult({ user }, { payload }) {
+      user.isWin = payload;
+    }
   },
 });
 
@@ -61,10 +65,13 @@ export const {
   updateGameProgress,
   isAllUsersReady,
   addUsername,
+  updateGameResult,
 } = multiSlice.actions;
 
 export const makeNewRoom = createAction("multiple/makeNewRoom");
 export const enterRoom = createAction("multiple/enterRoom");
 export const changeReadyState = createAction("multiple/changeReadyState");
+
+export const gameProgressSelector = ({ multiple }) => multiple.room.progress;
 
 export default multiSlice.reducer;

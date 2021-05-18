@@ -18,6 +18,8 @@ export default class Stage1 extends Phaser.Scene {
 
     this.registry.values.score = 0; // 변수
     this.registry.values.time = 0; // 변수
+
+    this.isStopped = false;
   }
 
   create() {
@@ -56,8 +58,10 @@ export default class Stage1 extends Phaser.Scene {
       this.coinLayer
     );
 
-    if (this.coinCount === 0) {
+    if (this.coinCount === 0 && !this.isStopped) {
       this.moveNextStage();
+
+      this.isStopped = true;
     }
   }
 
@@ -83,6 +87,7 @@ export default class Stage1 extends Phaser.Scene {
 
     this.coins.forEach((coin) => {
       this.physics.add.existing(coin);
+
       const body = coin.body;
 
       body.setCircle(38, 26, -6);
@@ -117,8 +122,7 @@ export default class Stage1 extends Phaser.Scene {
     this.createEnemies(enemyList);
     
     this.physics.add.collider(this.hero, this.enemies, () => {
-      this.moveNextStage();
-      // this.stopStage();
+      this.stopStage();
     });
   }
 

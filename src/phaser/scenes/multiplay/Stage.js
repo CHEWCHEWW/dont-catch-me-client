@@ -1,7 +1,10 @@
 import Hero from "../../gameObjects/Hero";
 
 import { socket } from "../../../utils/socket";
-
+import store from "../../../store";
+import { updateGameProgress } from "../../../redux/slices/multiplaySlice";
+import { gameProgress } from "../../../constants/gameState";
+ 
 export default class MultiStage extends Phaser.Scene {
   constructor() {
     super("multi");
@@ -65,6 +68,39 @@ export default class MultiStage extends Phaser.Scene {
     this.setCoinToMap();
 
     this.setStatusBar();
+
+    socket.on("somePlayerMove", ({ x, y, id, anims }) => {
+      const [targetPlayer] = this.otherPlayers.filter(
+        (player) => player.id === id
+      );
+
+      targetPlayer.x = x;
+      targetPlayer.y = y;
+
+      targetPlayer.play(anims, true);
+    });
+
+    socket.on("updateCount", ({ score, id }) => {
+      const [targetPlayer] = this.otherPlayers.filter(
+        (player) => player.id === id
+      );
+
+      targetPlayer.getCoin();
+      
+      this.registry.values.score = { ...score };
+    });
+
+    socket.on("getGameResult", ({ isWin }) => {
+      this.scene.pause();
+
+      if (isWin) {
+        this.player.setWin();
+      } else {
+        this.player.setLose();
+      }
+
+      store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+    });
   }
 
   update(time, delta) {
@@ -100,27 +136,6 @@ export default class MultiStage extends Phaser.Scene {
     if (this.coinCount === 0) {
       this.stopGame();
     }
-    
-    socket.on("somePlayerMove", ({ x, y, id, anims }) => {
-      const [targetPlayer] = this.otherPlayers.filter(
-        (player) => player.id === id
-      );
-
-      targetPlayer.x = x;
-      targetPlayer.y = y;
-
-      targetPlayer.play(anims, true);
-    });
-
-    socket.on("updateCount", ({ score }) => {
-      this.registry.values.score = { ...score };
-      console.log(this.registry.values);
-    });
-
-    socket.on("getGameResult", ({ result }) => {
-      console.log(result);
-      this.scene.pause();
-    });
   }
 
   setBackground() {
@@ -198,6 +213,8 @@ export default class MultiStage extends Phaser.Scene {
     coin.destroy(true);
     
     this.coinCount--;
+
+    player.getCoin();
 
     if (player.id === this.player.id) {
       socket.emit("userGetCoin", { role: player.role, point: 10 });
