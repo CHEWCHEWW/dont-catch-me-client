@@ -11,6 +11,8 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     this.speed = 150;
 
+    this.play("hero-idle-left");
+
     // this.targetIndicator = scene.add
     //   .text(0, 0, "x")
     //   .setOrigin(2)
@@ -39,7 +41,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     if (!cursors) {
       return;
     }
-
+    
     const body = this.body;
 
     body.setVelocity(0, 0);

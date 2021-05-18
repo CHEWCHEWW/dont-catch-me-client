@@ -14,11 +14,11 @@ export const getOrderedDirections = (filter) => {
 export const getSideDirection = (direction) => {
   switch (direction) {
     case Direction.Left:
-      return Direction.Up;
-    case Direction.Right:
       return Direction.Down;
+    case Direction.Right:
+      return Direction.Up;
     case Direction.Up:
-      return Direction.Lsft;
+      return Direction.Right;
     case Direction.Down:
       return Direction.Right;
   }
