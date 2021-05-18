@@ -15,6 +15,8 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       .setDepth(1000);
 
     this.enableTargetMarker(true);
+
+    this.play("enemy-idle-right");
   }
 
   setTargetIndicatorColor(color) {

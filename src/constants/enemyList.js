@@ -1,5 +1,5 @@
 export const Level1 = [
-  { x: 200, y: 200, indicatorColor: "#FCB4E3", ai: "chase" },
+  { x: -100, y: 200, indicatorColor: "#FCB4E3", ai: "chase" },
   { x: 600, y: 500, indicatorColor: "#221A4D", ai: "chase" },
 ];
 
