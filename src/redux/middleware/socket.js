@@ -3,7 +3,7 @@ import {
   updateGameProgress, 
   createRoomSuccess, 
   joinUserSuccess, 
-  changeSomeuser, 
+  changeSomeUserState, 
   changeMyState,
 } from "../slices/multiplaySlice";
 import { socket } from "../../utils/socket";
@@ -18,8 +18,8 @@ const socketMiddleware = () => {
       store.dispatch(joinUserSuccess({ creatorId, members, userId, roomId, username }));
     });
 
-    socket.on("changeSomeuser", ({ players }) => {
-      store.dispatch(changeSomeuser({ players }));
+    socket.on("changeSomeUserState", ({ players }) => {
+      store.dispatch(changeSomeUserState({ players }));
     });
 
     socket.on("changeMyState", ({ username, role, isReady }) => {

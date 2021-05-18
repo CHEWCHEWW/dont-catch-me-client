@@ -26,7 +26,7 @@ const JoinPage = () => {
   }, []);
 
   const handleInvitationButtonClick = () => {
-    handleMessageSend(`lobby/${invitationCode}`);
+    handleMessageSend(`${invitationCode}`);
   };
 
   const handleEnterButtonClick = () => {

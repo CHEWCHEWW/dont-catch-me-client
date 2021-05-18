@@ -1,39 +1,34 @@
-import Hero from "../gameObjects/Hero";
-import Enemy from "../gameObjects/Enemy";
-import ChaseHeroAI from "../ai/ChaseHeroAI";
+import Hero from "../../gameObjects/Hero";
+import Enemy from "../../gameObjects/Enemy";
+import ChaseHeroAI from "../../ai/ChaseHeroAI";
 
-import store from "../../store";
-import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
-import { gameProgress } from "../../constants/gameState";
-import { Level1 } from "../../constants/enemyList";
-import { ThemeProvider } from "styled-components";
+import store from "../../../store";
+import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
+import { gameProgress } from "../../../constants/gameState";
+import { Level2 } from "../../../constants/enemyList";
 
-export default class Stage1 extends Phaser.Scene {
+export default class Stage2 extends Phaser.Scene {
   constructor() {
-    super("stage1");
+    super("stage2");
   }
 
   init() {
     this.cameras.main.fadeIn(500, 0, 0, 0);
-
-    this.registry.values.score = 0; // 변수
-    this.registry.values.time = 0; // 변수
   }
 
   create() {
-    this.game.events.emit("gameStart"); // 변수
-
-    this.setBackground(1);
+    this.setBackground(2);
 
     this.setStatusBar();
 
-    this.setCharacters(Level1);
+    this.setCharacters(Level2);
 
     this.setCoinToMap();
     
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.setCamera();
+    this.cameras.main.startFollow(this.hero, true);
+    this.cameras.main.setZoom(1);
   }
 
   update(time, delta) {
@@ -112,19 +107,51 @@ export default class Stage1 extends Phaser.Scene {
   }
 
   setCharacters(enemyList) {
-    this.createHero();
+    this.hero = new Hero(this, 100, 550, "hero");
+
+    this.add.existing(this.hero).setDepth(5);
+
+    this.physics.world.enable(
+      this.hero,
+      Phaser.Physics.Arcade.DYNAMIC_BODY
+    );
+
+    this.hero.body.setSize(40, 110, true);
     
-    this.createEnemies(enemyList);
+    this.enemies = enemyList.map((enemy) => {
+      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
+
+      newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
+
+      this.add.existing(newEnemy).setDepth(5);
+
+      this.physics.world.enable(
+        newEnemy,
+        Phaser.Physics.Arcade.DYNAMIC_BODY
+      );
+      
+      newEnemy.body.setSize(40, 110, true);
+
+      const ai = enemy.ai;
+      
+      switch (ai) {
+        case "chase": {
+          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
+          break;
+        }
+        default:
+          break;
+      }
+
+      return newEnemy;
+    });
+
+    this.physics.add.collider(this.enemies);
     
     this.physics.add.collider(this.hero, this.enemies, () => {
       this.moveNextStage();
       // this.stopStage();
     });
-  }
-
-  setCamera() {
-    this.cameras.main.startFollow(this.hero, true);
-    this.cameras.main.setZoom(1);
   }
 
   stopStage() {
@@ -156,7 +183,7 @@ export default class Stage1 extends Phaser.Scene {
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
           () => {
-            this.scene.start("stage2");
+            this.scene.start("stage3");
           }
         );
       },
@@ -185,50 +212,5 @@ export default class Stage1 extends Phaser.Scene {
     this.enemies.forEach((enemy) => {
       enemy.unSubscribeAI();
     });
-  }
-
-  createHero() {
-    this.hero = new Hero(this, 100, 550, "hero");
-
-    this.add.existing(this.hero).setDepth(5);
-
-    this.physics.world.enable(
-      this.hero,
-      Phaser.Physics.Arcade.DYNAMIC_BODY
-    );
-
-    this.hero.body.setSize(40, 110, true);
-  }
-
-  createEnemies(enemyList) {
-    this.enemies = enemyList.map((enemy) => {
-      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
-
-      newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
-
-      this.add.existing(newEnemy).setDepth(5);
-
-      this.physics.world.enable(
-        newEnemy,
-        Phaser.Physics.Arcade.DYNAMIC_BODY
-      );
-      
-      newEnemy.body.setSize(40, 110, true);
-
-      const ai = enemy.ai;
-      
-      switch (ai) {
-        case "chase": {
-          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
-          break;
-        }
-        default:
-          break;
-      }
-
-      return newEnemy;
-    });
-
-    this.physics.add.collider(this.enemies);
   }
 }

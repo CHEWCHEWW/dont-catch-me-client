@@ -1,15 +1,15 @@
-import Hero from "../gameObjects/Hero";
-import Enemy from "../gameObjects/Enemy";
-import ChaseHeroAI from "../ai/ChaseHeroAI";
+import Hero from "../../gameObjects/Hero";
+import Enemy from "../../gameObjects/Enemy";
+import ChaseHeroAI from "../../ai/ChaseHeroAI";
 
-import store from "../../store";
-import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
-import { gameProgress } from "../../constants/gameState";
-import { Level2 } from "../../constants/enemyList";
+import store from "../../../store";
+import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
+import { gameProgress } from "../../../constants/gameState";
+import { Level3 } from "../../../constants/enemyList";
 
-export default class Stage2 extends Phaser.Scene {
+export default class Stage3 extends Phaser.Scene {
   constructor() {
-    super("stage2");
+    super("stage3");
   }
 
   init() {
@@ -17,11 +17,11 @@ export default class Stage2 extends Phaser.Scene {
   }
 
   create() {
-    this.setBackground(2);
+    this.setBackground(3);
 
     this.setStatusBar();
 
-    this.setCharacters(Level2);
+    this.setCharacters(Level3);
 
     this.setCoinToMap();
     
@@ -183,7 +183,7 @@ export default class Stage2 extends Phaser.Scene {
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
           () => {
-            this.scene.start("stage3");
+            store.dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
           }
         );
       },
