@@ -16,7 +16,7 @@ const useKakao = () => {
         title: "runrun",
         description: "너는?",
         link: {
-          webUrl: `http://localhost:3000/waiting/${invitationCode}`,
+          webUrl: `${process.env.PORT}/waiting/${invitationCode}`,
         },
         imageUrl: "",
       },
@@ -24,7 +24,7 @@ const useKakao = () => {
         {
           title: "게임 참여하기",
           link: {
-            webUrl: `http://localhost:3000/waiting/${invitationCode}`,
+            webUrl: `${process.env.PORT}/waiting/${invitationCode}`,
           }
         }
       ]
