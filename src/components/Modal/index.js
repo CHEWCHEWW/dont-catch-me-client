@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const Modal = ({ children, onBackgroundClick }) => {
+const Modal = ({ children, onBackgroundClick, backgroundColor }) => {
   useEffect(() => {
     document.body.classList.add("hidden");
 
@@ -12,10 +12,13 @@ const Modal = ({ children, onBackgroundClick }) => {
 
   return (
     <>
-      <ModalBackground onClick={onBackgroundClick} />
-      <ModalContent>
+      <ModalBackground 
+        onClick={onBackgroundClick} 
+        color={backgroundColor} 
+      />
+      <ModalChildrenField>
         {children}
-      </ModalContent>
+      </ModalChildrenField>
     </>
   );
 };
@@ -27,12 +30,12 @@ const ModalBackground = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: ${({ theme }) => theme.ModalBackground};
+  background: ${({ color }) => color};
   z-index: 1;
   overflow: hidden;
 `;
 
-const ModalContent = styled.div`
+const ModalChildrenField = styled.div`
   display: block;
   position: fixed;
   overflow-x: hidden;

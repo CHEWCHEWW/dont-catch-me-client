@@ -11,6 +11,7 @@ import UsernameForm from "../../components/UsernameForm";
 import { gameProgress } from "../../constants/gameState";
 import PageCard from "../../components/shared/PageCard";
 import Modal from "../../components/Modal";
+import LoadingText from "../../components/LoadingText";
 import CountDownModalView from "../../components/Modal/CountDownModalView";
 import { changeReadyState, updateGameProgress } from "../../redux/slices/multiplaySlice";
 
@@ -71,6 +72,10 @@ const WaitingPage = () => {
   const handleUsernameFormSubmit = (ev) => {
     ev.preventDefault();
 
+    if (!playerInfo.username.length) {
+      return;
+    }
+
     dispatch(enterRoom({ username: playerInfo.username, roomId: id }));
   };
 
@@ -92,7 +97,7 @@ const WaitingPage = () => {
       <PageCard width={800} height={500} isColumn={true}>
         {!username ? (
           <>
-            <h1>Before Waiting...</h1>
+            <LoadingText text="Before Waiting" />
             <UsernameForm 
               onChange={handleFormChange}
               onSubmit={handleUsernameFormSubmit}
@@ -119,9 +124,6 @@ const WaitingPage = () => {
                   onClick={handleButtonClick}
                   onSubmit={handleUserInfoFormSubmit}
                 />
-                <StartButton disabled={!isAllUsersReady}>
-                  Start
-                </StartButton>
               </UserField>
             </Content>
           </> 
@@ -149,15 +151,6 @@ const UserField = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const StartButton = styled.button`
-  width: 100%;
-  height: 18%;
-  margin-top: 8%;
-  border: 0;
-  font-size: 20px;
-  background: pink;
 `;
 
 export default WaitingPage;
