@@ -61,7 +61,7 @@ export const determineRotationDirection = ({
     currentX,
     currentY,
   );
-    console.log(currentDirectionDistnace);
+  
   if (board.getTileAtWorldXY(directionX + 12, directionY + 60) && currentDirectionDistnace < 350) {
     return lastDirection;
   }

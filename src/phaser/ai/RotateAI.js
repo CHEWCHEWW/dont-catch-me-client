@@ -1,19 +1,19 @@
 import Phaser from "phaser";
 
 import { Direction } from "../../constants/direction";
+import { TileSize } from "../../constants/tile";
 import { 
   determineDirectionByTarget,
-  determineRotationDirection,
-  getSideDirection,
 } from "../../utils/directions";
 
 export default class RotateAI {
-  constructor(target, enemy, board, center) {
+  constructor(target, enemy, board) {
     this.target = target;
     this.enemy = enemy;
     this.board = board;
     this.speed = 80;
     this.lastDirection = Direction.None;
+    this.lastDistance = -1;
   }
 
   get targetPosition() {
@@ -23,8 +23,17 @@ export default class RotateAI {
     };
   }
 
+  getLastDistance() {
+    return Phaser.Math.Distance.Between(
+      this.target.x, 
+      this.target.y, 
+      this.enemy.x, 
+      this.enemy.y,
+    );
+  }
+
   pickDirection() {
-    const { x: targetX, y: targetY } = this.hero;
+    const { x: targetX, y: targetY } = this.target;
     const { x: currentX, y: currentY } = this.enemy;
 
     const directions = [Direction.Up, Direction.Left, Direction.Down, Direction.Right];

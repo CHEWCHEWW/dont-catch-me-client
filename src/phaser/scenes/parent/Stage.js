@@ -1,6 +1,8 @@
 import Hero from "../../gameObjects/Hero";
 import Enemy from "../../gameObjects/Enemy";
 import ChaseHeroAI from "../../ai/ChaseHeroAI";
+import RotateAI from "../../ai/RotateAI";
+import ConditionalChaseAI from "../../ai/ConditionalChaseAI";
 
 import store from "../../../store";
 import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
@@ -139,7 +141,16 @@ export default class Stage extends Phaser.Scene {
       
       switch (ai) {
         case "chase": {
-          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
+          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer,));
+          break;
+        }
+        case "conditionalChase": {
+          newEnemy.setAI(new ConditionalChaseAI(
+            this.hero, 
+            newEnemy, 
+            this.boardLayer,
+            new RotateAI({ x: enemy.centerX, y: enemy.centerY }, newEnemy, this.boardLayer), 
+          ));
           break;
         }
         default:
