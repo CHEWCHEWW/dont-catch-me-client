@@ -1,8 +1,6 @@
 import Phaser from "phaser";
 
 import { Direction } from "../../constants/direction";
-import { TileSize } from "../../constants/tile";
-import { determineDirectionByTarget } from "../../utils/directions";
 
 export default class ConditionalChaseAI {
   constructor(hero, enemy, board, normalAI, poweredAI) {
