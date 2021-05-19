@@ -11,7 +11,7 @@ import { gameProgress } from "../../../constants/gameState";
 export default class Stage extends Phaser.Scene {
   init() {
     this.cameras.main.fadeIn(500, 0, 0, 0);
-    
+
     this.isCleared = false;
   }
 
@@ -20,6 +20,10 @@ export default class Stage extends Phaser.Scene {
 
     this.setCoinToMap();
     
+    this.successEffect = this.sound.add("success", { loop: false });
+    this.coinEffect = this.sound.add("coin", { loop: false });
+    this.failEffect = this.sound.add("fail", { loop: false });
+
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.setCamera();
@@ -174,6 +178,8 @@ export default class Stage extends Phaser.Scene {
     this.handleEnemyUnSubscribeAI();
     this.hero.setLose();
 
+    this.failEffect.play();
+
     this.time.addEvent({
       callback: () => {
         store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
@@ -191,6 +197,7 @@ export default class Stage extends Phaser.Scene {
 
     this.time.addEvent({
       callback: () => {
+        this.successEffect.play();
         this.cameras.main.fadeOut(3000, 50, 50, 50);
 
         this.cameras.main.once(
@@ -206,7 +213,8 @@ export default class Stage extends Phaser.Scene {
     coin.destroy(true);
 
     hero.getCoin();
-
+    
+    this.coinEffect.play();
     this.coinCount--;
 
     this.registry.values.score += 10;
