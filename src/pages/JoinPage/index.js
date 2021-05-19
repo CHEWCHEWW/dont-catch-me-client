@@ -49,8 +49,12 @@ const JoinPage = () => {
           <Input type="text" value={invitationUrl} onClick={handleInputClick} readOnly/>
           <ButtonField>
             <SmallButtonField>
-              <Button onClick={handleInvitationButtonClick}>Share</Button>
-              <Button onClick={handleEnterButtonClick}>Enter</Button>
+              <Button onClick={handleInvitationButtonClick}>
+                <span>Share</span>
+              </Button>
+              <Button onClick={handleEnterButtonClick}>
+                <span>Share</span>
+              </Button>
             </SmallButtonField>
             <BackButton onClick={handleBackButtonClick}>
               Back
@@ -94,16 +98,42 @@ const Button = styled.div`
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  background: pink;
+  background: #e55643;
+  color: white;
+  box-shadow: 0 6px 0 #AB3C2D, 0 5px 10px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
+
+  :hover {
+    background-color: #F16A58;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+  }
+
+  :active, 
+  :focus {
+    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const BackButton = styled.button`
   width: 83%;
   height: 35%;
-  background: gray;
+  background: #2b9f5e;
   margin-top: 10px;
   border-radius: 5px;
   border: 0px;
+  color: white;
+  box-shadow: 0 6px 0 #21844D, 0 5px 10px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
+
+  :hover {
+    background-color: #37BB71;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+  }
+
+  :active, 
+  :focus {
+    box-shadow: 0 8px 0 #21844D, 0 12px 10px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const Content = styled.div`
