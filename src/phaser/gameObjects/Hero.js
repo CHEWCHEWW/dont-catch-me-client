@@ -22,6 +22,10 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     // this.targetIndicator.setVisible(true);
   }
 
+  preUpdate(time, delta) {
+    super.preUpdate(time, delta);
+  }
+
   getCoin() {
     this.coinMessage = this.scene.add.image(this.x, this.y - 50, "add-coin").setDepth(7);
 
