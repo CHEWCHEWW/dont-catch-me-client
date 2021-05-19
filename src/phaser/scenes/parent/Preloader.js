@@ -12,6 +12,11 @@ export default class Preloader extends Phaser.Scene {
     this.loadHeroResource();
     this.loadEnemyResource();
 
+    this.load.audio("main", "bgm/main.mp3");
+    this.load.audio("success", "bgm/success.mp3");
+    this.load.audio("fail", "bgm/fail.mp3");
+    this.load.audio("coin", "bgm/coin.mp3");
+
     this.load.on("progress", this.updateLoading, { newGraphics: this.newGraphics, loadingText: this.loadingText });
     this.load.on("complete", this.completeLoading, { scene: this.scene });
   }
