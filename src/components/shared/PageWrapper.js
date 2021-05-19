@@ -7,6 +7,8 @@ const PageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background: ${({ color }) => color};
+  background-image: ${({ src }) => `url(${src})`};
+  background-repeat: repeat-x; 
 `;
 
 export default PageWrapper;

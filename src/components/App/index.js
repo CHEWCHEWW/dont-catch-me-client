@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../../theme/theme";
 import StartPage from "../../pages/StartPage";
 import GamePage from "../../pages/GamePage";
-import MultiPlayPage from "../../pages/MultiplayPage.js";
+import MultiGamePage from "../../pages/MultiGamePage";
 import JoinPage from "../../pages/JoinPage";
 import WaitingPage from "../../pages/WaitingPage";
 import RecordPage from "../../pages/RecordPage";
@@ -30,7 +30,7 @@ const App = () => {
           <WaitingPage />
         </Route>
         <Route path="/game/:id">
-          <MultiPlayPage />
+          <MultiGamePage />
         </Route>
         <Route path="/records">
           <RecordPage />

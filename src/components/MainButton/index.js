@@ -29,7 +29,7 @@ const ButtonContent = styled.span`
   display: inline-block;
   width: 85%;
   padding: 7px 20px;
-  background-color: #e55643;
+  background: #e55643;
   border-radius: 8px;
   box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.15);
   text-shadow: 0 -3px 3px rgba(175, 49, 95, 0.7);

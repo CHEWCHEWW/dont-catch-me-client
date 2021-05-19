@@ -7,7 +7,7 @@ import ContentLayout from "../shared/ContentLayout";
 const GameStartModalView = ({ onClick }) => {
   return (
     <ModalView padding={20} width={1024} height={768} color="rgba(242, 241, 241, 0.55)">
-      <ContentLayout color="rgba(242, 241, 241, 0.55)">
+      <ContentLayout>
         <TextBoard>
           <div>Rabbit!! Rabbit!!</div>
         </TextBoard>
@@ -20,7 +20,6 @@ const GameStartModalView = ({ onClick }) => {
 const TextBoard = styled.div`
   width: 80%;
   height: 40%;
-  /* background: rgba(242, 241, 241, 0.55); */
   text-align: center;
 `;
 

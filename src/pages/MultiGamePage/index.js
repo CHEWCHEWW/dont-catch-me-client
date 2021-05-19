@@ -10,7 +10,7 @@ import { updateGameProgress, gameProgressSelector } from "../../redux/slices/mul
 import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
 
-const MultiplayPage = () => {
+const MultiGamePage = () => {
   const progress  = useSelector(gameProgressSelector);
   const isWin = useSelector(({ multiple: { user } }) => user.isWin);
 
@@ -28,17 +28,21 @@ const MultiplayPage = () => {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper color="#B9F8FF" src={clouds}>
       <PageCard>
         {progress === gameProgress.GAME_OVER && (
           <Modal>
             <GameOverModalView onClick={handleGameOverModalClick} message={isWin && "WIN"} />
           </Modal>
         )}
-        <div id="game-container" />
+        <GameContainer id="game-container" />
       </PageCard>
     </PageWrapper>
   );
 };
 
-export default MultiplayPage;
+const GameContainer = styled.div`
+  border-radius: 10px;
+`;
+
+export default MultiGamePage;
