@@ -109,7 +109,7 @@ export default class Stage extends Phaser.Scene {
     this.createEnemies(enemyList);
     
     this.physics.add.collider(this.hero, this.enemies, () => {
-      this.stopStage();
+      // this.stopStage();
     });
   }
 
@@ -145,15 +145,26 @@ export default class Stage extends Phaser.Scene {
       
       switch (ai) {
         case "chase": {
-          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer,));
+          newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
           break;
         }
         case "conditionalChase": {
+          newEnemy.setTint(0xfffc3b);
           newEnemy.setAI(new ConditionalChaseAI(
             this.hero, 
             newEnemy, 
             this.boardLayer,
-            new RotateAI({ x: enemy.centerX, y: enemy.centerY }, newEnemy, this.boardLayer), 
+            new RotateAI({ x: enemy.x, y: enemy.y }, newEnemy, this.boardLayer, this.hero), 
+            new ChaseHeroAI(this.hero, newEnemy, this.boardLayer),
+          ));
+          break;
+        }
+        case "rotate": {
+          newEnemy.setTint(0x000000);
+          newEnemy.setAI(new RotateAI(
+            { x: 300, y: 900 },
+            newEnemy, 
+            this.boardLayer,
           ));
           break;
         }

@@ -11,7 +11,7 @@ export default class ChaseHeroAI {
     this.hero = hero;
     this.enemy = enemy;
     this.board = board;
-    this.speed = 100;
+    this.speed = 110;
   }
 
   get targetPosition() {
