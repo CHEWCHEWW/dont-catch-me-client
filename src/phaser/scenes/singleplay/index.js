@@ -12,7 +12,7 @@ const config = {
     parent: "game-container",
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  backgroundColor: "#B9F8FF",
+  backgroundColor: "#60E7F7",
   physics: {
     default: "arcade",
     arcade: {

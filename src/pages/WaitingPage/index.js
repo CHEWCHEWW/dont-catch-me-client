@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
+import MainPageLayout from "../../components/MainPageLayout";
 import { enterRoom } from "../../redux/slices/multiplaySlice";
 import PlayerList from "../../components/PlayerList";
 import UserInfoForm from "../../components/UserInfoForm";
 import UsernameForm from "../../components/UsernameForm";
 import { gameProgress } from "../../constants/gameState";
-import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
 import Modal from "../../components/Modal";
 import CountDownModalView from "../../components/Modal/CountDownModalView";
@@ -88,7 +88,7 @@ const WaitingPage = () => {
   };
 
   return (
-    <PageWrapper>
+    <MainPageLayout>
       <PageCard width={800} height={500} isColumn={true}>
         {!username ? (
           <>
@@ -127,7 +127,7 @@ const WaitingPage = () => {
           </> 
         )}
       </PageCard>
-    </PageWrapper>
+    </MainPageLayout>
   );
 };
 
