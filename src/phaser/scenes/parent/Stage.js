@@ -213,8 +213,9 @@ export default class Stage extends Phaser.Scene {
     coin.destroy(true);
 
     hero.getCoin();
-    
+
     this.coinEffect.play();
+
     this.coinCount--;
 
     this.registry.values.score += 10;
