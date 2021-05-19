@@ -53,9 +53,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
 
     this.targetIndicator.setPosition(targetPosition.x, targetPosition.y);
 
-    const direction = this.ai.pickDirection();
+    this.direction = this.ai.pickDirection();
     
-    switch (direction) {
+    switch (this.direction) {
       case Direction.Left: {
         this.play("enemy-running-back-left", true);
         body.setVelocity(-speed, -speed * 0.5);
@@ -87,6 +87,33 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
   
   setAI(ai) {
     this.ai = ai;
+  }
+
+  setIdle() {
+    switch (this.direction) {
+      case Direction.Left: {
+        this.play("enemy-idle-back-left", true);
+        break;
+      }
+      case Direction.Right: {
+        this.play("enemy-idle-right", true);
+        break;
+      }
+      case Direction.Up: {
+        this.play("enemy-idle-back-right", true);
+        break;
+      }
+      case Direction.Down: {
+        this.play("enemy-idle-left", true);
+        break;
+      }
+      case Direction.None: {
+        body.setVelocity(0, 0);
+      }
+      default: {
+        break;
+      }
+    }
   }
 
   unSubscribeAI() {

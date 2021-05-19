@@ -24,14 +24,20 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
+
+    // this.coinMessageCount--;
+
+    // if (this.coinMessageCount === 0) {
+    //   this.coinMessage.setVisible(false);
+    // }
   }
 
   getCoin() {
-    this.coinMessage = this.scene.add.image(this.x, this.y - 50, "add-coin").setDepth(7);
+    const coinMessage = this.scene.add.image(this.x, this.y - 50, "add-coin").setDepth(7);
 
     this.scene.time.addEvent({
       callback: () => {
-        this.coinMessage.setVisible(false);
+        coinMessage.setVisible(false);
       },
       delay: 200,
     });

@@ -119,7 +119,7 @@ export default class Stage extends Phaser.Scene {
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
 
-    this.hero.body.setSize(40, 110, true);
+    this.hero.body.setSize(40, 70, true);
   }
 
   createEnemies(enemyList) {
@@ -135,7 +135,7 @@ export default class Stage extends Phaser.Scene {
         Phaser.Physics.Arcade.DYNAMIC_BODY
       );
       
-      newEnemy.body.setSize(40, 110, true);
+      newEnemy.body.setSize(30, 80, true);
 
       const ai = enemy.ai;
       
@@ -223,6 +223,7 @@ export default class Stage extends Phaser.Scene {
   handleEnemyUnSubscribeAI() {
     this.enemies.forEach((enemy) => {
       enemy.unSubscribeAI();
+      enemy.setIdle();
     });
   }
 }
