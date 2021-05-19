@@ -6,8 +6,8 @@ import styled from "styled-components";
 import { makeNewRoom } from "../../redux/slices/multiplaySlice";
 import useKakao from "../../hooks/useKakao";
 import { generateRandomCode } from "../../utils/random";
-import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
+import MainPageLayout from "../../components/MainPageLayout";
 
 const JoinPage = () => {
   const [invitationCode, setInvitationCode] = useState("");
@@ -42,7 +42,7 @@ const JoinPage = () => {
   };
 
   return (
-    <PageWrapper>
+    <MainPageLayout>
       <PageCard width={500} height={400}>
         <Content>
           <Title>Make Room</Title>
@@ -58,7 +58,7 @@ const JoinPage = () => {
           </ButtonField>
         </Content>
       </PageCard>
-    </PageWrapper>
+    </MainPageLayout>
   );
 };
 

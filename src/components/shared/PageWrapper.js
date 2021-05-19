@@ -6,7 +6,7 @@ const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #EEC2BC;
+  background: ${({ color }) => color};
 `;
 
 export default PageWrapper;

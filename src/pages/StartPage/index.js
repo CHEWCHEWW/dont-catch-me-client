@@ -4,12 +4,10 @@ import styled from "styled-components";
 
 import walkingRabbit from "../../../public/main-running-rabbit.png";
 import deadCarrot from "../../../public/hero-die-left.png";
-import trees from "../../../public/trees.png";
 
+import MainPageLayout from "../../components/MainPageLayout";
 import MainButton from "../../components/MainButton";
-// import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
-import clouds from "../../../public/clouds.png"
 
 const StartPage = () => {
   const history = useHistory();
@@ -27,8 +25,7 @@ const StartPage = () => {
   };
   
   return (
-    <PageWrapper>
-      {/* <TopTrees /> */}
+    <MainPageLayout>
       <PageCard width={850} height={650}>
         <TitleBox>
           <Title>
@@ -49,22 +46,9 @@ const StartPage = () => {
           <MainButton name="Record" onClick={handleRecordsButton} />
         </ButtonField>
       </PageCard>
-      <BottomTrees />
-    </PageWrapper>
+    </MainPageLayout>
   );
 };
-
-const PageWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #F0E7DC;
-  flex-direction: column;
-  /* background-image: url(${clouds});
-  background-repeat: repeat-x;  */
-`;
 
 const TitleBox = styled.div`
   display: flex;
@@ -143,22 +127,6 @@ const SpriteCarrot = styled.div`
       background-position: -768px; 
     }
   }
-`;
-
-const TopTrees = styled.div`
-  position: fixed;
-  top: 0;
-  width: 1900px;
-  height: 128px;
-  background: url(${trees}) 0px 0px;
-`;
-
-const BottomTrees = styled.div`
-  position: fixed;
-  bottom: 0;
-  width: 1900px;
-  height: 128px;
-  background: url(${trees}) 0px 0px;
 `;
 
 const ButtonField = styled.div`
