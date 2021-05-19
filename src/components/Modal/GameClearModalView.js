@@ -5,7 +5,7 @@ import ModalView from "../shared/ModalView";
 import UserNameForm from "../UserNameForm";
 import { saveGameClearUserRecord } from "../../api";
 import { uuidv4 } from "../../utils/uuid";
-import ModalContent from "../shared/ModalContent";
+import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
 
 const GameClearModalView = ({ onClick }) => {
@@ -32,7 +32,7 @@ const GameClearModalView = ({ onClick }) => {
 
   return (
     <ModalView padding={20} width={700} height={400}>
-      <ModalContent>
+      <ContentLayout>
         <GameMessage>CLEAR</GameMessage>
         <UserNameForm 
           onSubmit={handleSubmit} 
@@ -40,7 +40,7 @@ const GameClearModalView = ({ onClick }) => {
           onChange={handleInputChange} 
           name="username" 
         />
-      </ModalContent>
+      </ContentLayout>
     </ModalView>
   );
 };

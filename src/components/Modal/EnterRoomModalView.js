@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { enterRoom } from "../../redux/slices/multiplaySlice";
 import ModalView from "../shared/ModalView";
-import ModalContent from "../shared/ModalContent";
+import ContentLayout from "../shared/ContentLayout";
 
 const EnterRoomModalView = () => {
   const dispatch = useDispatch();
@@ -31,13 +31,13 @@ const EnterRoomModalView = () => {
 
   return (
     <ModalView padding={20} width={400} height={300}>
-      <ModalContent>
+      <ContentLayout>
         <ModalForm onSubmit={handleInvitationCodeSubmit}>
           <input type="text" name="username" value={enterInfo.invitationCode} onChange={handleInputChange} />
           <input type="text" name="invitiaionCode" value={enterInfo.invitationCode} onChange={handleInputChange} />
           <input type="submit" value="Join" />
         </ModalForm>
-      </ModalContent>
+      </ContentLayout>
     </ModalView>
   );
 };

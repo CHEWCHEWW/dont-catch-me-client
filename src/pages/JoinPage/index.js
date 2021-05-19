@@ -11,7 +11,6 @@ import MainPageLayout from "../../components/MainPageLayout";
 
 const JoinPage = () => {
   const [invitationCode, setInvitationCode] = useState("");
-  const [invitationUrl, setInvitationUrl] = useState("");
   const history = useHistory();
   const { handleMessageSend } = useKakao();
   const dispatch = useDispatch();
@@ -21,7 +20,6 @@ const JoinPage = () => {
     
     dispatch(makeNewRoom(randomCode));
 
-    setInvitationUrl(`http://localhost:3000/waiting/${randomCode}`);
     setInvitationCode(randomCode);
   }, []);
 
@@ -38,7 +36,7 @@ const JoinPage = () => {
   };
 
   const handleInputClick = () => { // copy 되었다고 알림 띄우기
-    window.navigator.clipboard.writeText(invitationUrl);
+    window.navigator.clipboard.writeText(`${process.env.PORT}/waiting/${invitationCode}`);
   };
 
   return (
@@ -46,14 +44,19 @@ const JoinPage = () => {
       <PageCard width={500} height={400}>
         <Content>
           <Title>Make Room</Title>
-          <Input type="text" value={invitationUrl} onClick={handleInputClick} readOnly/>
+          <Input 
+            type="text" 
+            value={`${process.env.PORT}/waiting/${invitationCode}`} 
+            onClick={handleInputClick} 
+            readOnly
+          />
           <ButtonField>
             <SmallButtonField>
               <Button onClick={handleInvitationButtonClick}>
-                <span>Share</span>
+                Share
               </Button>
               <Button onClick={handleEnterButtonClick}>
-                <span>Share</span>
+                Enter
               </Button>
             </SmallButtonField>
             <BackButton onClick={handleBackButtonClick}>
@@ -102,6 +105,7 @@ const Button = styled.div`
   color: white;
   box-shadow: 0 6px 0 #AB3C2D, 0 5px 10px rgba(0, 0, 0, 0.35);
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
+  cursor: pointer;
 
   :hover {
     background-color: #F16A58;
@@ -117,13 +121,14 @@ const Button = styled.div`
 const BackButton = styled.button`
   width: 83%;
   height: 35%;
-  background: #2b9f5e;
   margin-top: 10px;
   border-radius: 5px;
   border: 0px;
   color: white;
+  background: #2b9f5e;
   box-shadow: 0 6px 0 #21844D, 0 5px 10px rgba(0, 0, 0, 0.35);
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
+  cursor: pointer;
 
   :hover {
     background-color: #37BB71;

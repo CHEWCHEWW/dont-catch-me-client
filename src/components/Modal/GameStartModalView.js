@@ -2,17 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 import ModalView from "../shared/ModalView";
-import ModalContent from "../shared/ModalContent";
+import ContentLayout from "../shared/ContentLayout";
 
 const GameStartModalView = ({ onClick }) => {
   return (
     <ModalView padding={20} width={1024} height={768} color="rgba(242, 241, 241, 0.55)">
-      <ModalContent color="rgba(242, 241, 241, 0.55)">
+      <ContentLayout color="rgba(242, 241, 241, 0.55)">
         <TextBoard>
           <div>Rabbit!! Rabbit!!</div>
         </TextBoard>
         <button onClick={onClick}>Start</button>
-      </ModalContent>
+      </ContentLayout>
     </ModalView>
   );
 };
