@@ -8,6 +8,8 @@ import { gameProgress } from "../../../constants/gameState";
 export default class MultiStage extends Phaser.Scene {
   constructor() {
     super("multi");
+
+    this.isCoinMessageExist = false;
   }
 
   init() {
@@ -84,8 +86,10 @@ export default class MultiStage extends Phaser.Scene {
       const [targetPlayer] = this.otherPlayers.filter(
         (player) => player.id === id
       );
-
-      targetPlayer.getCoin();
+      
+      if (targetPlayer) {
+        targetPlayer.getCoin();
+      }
       
       this.registry.values.score = { ...score };
     });
@@ -167,7 +171,7 @@ export default class MultiStage extends Phaser.Scene {
       .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
       .setDepth(7);
 
-    this.timer = this.time.delayedCall(90000, this.gameOver, [], this);
+    this.timer = this.time.delayedCall(90000, this.stopGame, [], this);
   }
 
   setCoinToMap() {
@@ -207,6 +211,7 @@ export default class MultiStage extends Phaser.Scene {
           role: this.player.role,
         });
       },
+      callbackScope: this,
       delay: 1000,
     });    
   }

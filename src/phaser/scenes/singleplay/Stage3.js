@@ -23,7 +23,7 @@ export default class Stage3 extends Stage {
 
     const callback = () => store.dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
 
-    if (this.coinCount === 0 && !this.isCleared) {
+    if (this.coinCount && !this.isCleared) {
       this.moveNextStage(callback);
 
       this.isCleared = true;

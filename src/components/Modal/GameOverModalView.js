@@ -19,13 +19,26 @@ const GameOverModalView = ({ onClick, message = "LOSE" }) => {
 };
 
 const Button = styled.button`
-  width: 20px;
-  height: 10px;
+  width: 80px;
+  height: 40px;
   font-size: 20px;
+  text-align: center;
   background: #e55643;
   color: white;
-  border-radius: 5px;
+  border-radius: 8px;
+  box-shadow: 0 8px 0 #AB3C2D, 0 15px 20px rgba(0, 0, 0, 0.35);
+  transition: box-shadow .1s ease-in-out;
   border: 0;
+
+  :active, 
+  :focus {
+    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  :hover {
+    background-color: #F16A58;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
+  }
 `;
 
 export default GameOverModalView;

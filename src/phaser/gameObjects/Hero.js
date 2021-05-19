@@ -11,19 +11,9 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     this.speed = 150;
 
-    this.play("hero-idle-left");
-  }
-
-  get vector() {
-		const vector = new Phaser.Math.Vector2();
-
-		vector.setToPolar(this.rotation);
-
-		return vector;
-	}
-
-  preUpdate(time, delta) {
-    super.preUpdate(time, delta);
+    this.textureName = texture;
+    
+    this.play(`${this.textureName}-idle-left`);
   }
 
   getCoin() {
@@ -52,28 +42,28 @@ export default class Hero extends Phaser.GameObjects.Sprite {
         
     if (this.keysDown.left) {
       if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 - TileSize.y)) {
-        this.play("hero-running-back-left", true);
+        this.play(`${this.textureName}-running-back-left`, true);
         body.setVelocity(-this.speed, -this.speed * 0.5);
 
         this.lastDirection = Direction.Left;
       }
     } else if (this.keysDown.right) {
       if (boardLayer.getTileAtWorldXY(this.x + 12 + TileSize.x, this.y + 60 + TileSize.y)) {
-        this.play("hero-running-right", true);
+        this.play(`${this.textureName}-running-right`, true);
         body.setVelocity(this.speed, this.speed * 0.5);
 
         this.lastDirection = Direction.Right;
       }
     } else if (this.keysDown.up) {
       if (boardLayer.getTileAtWorldXY(this.x + 12 + TileSize.x, this.y + 60 - TileSize.y)) {
-        this.play("hero-running-back-right", true);
+        this.play(`${this.textureName}-running-back-right`, true);
         body.setVelocity(this.speed, -this.speed * 0.5);
 
         this.lastDirection = Direction.Up;
       }
     } else if (this.keysDown.down) {
       if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 + TileSize.y)) {
-        this.play("hero-running-left", true);
+        this.play(`${this.textureName}-running-left`, true);
         body.setVelocity(-this.speed, this.speed * 0.5);
 
         this.lastDirection = Direction.Down;
@@ -93,10 +83,16 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   setWin() {
     this.body.setVelocity(0, 0);
 
-    this.resultMessasge = this.scene.add.image(this.x, this.y - 100, "win").setDepth(7);
+    this.resultMessasge = this.scene.add.image(this.x - 7, this.y - 50, "win").setDepth(7);
   }
 
   setLose() {
+    this.body.setVelocity(0, 0);
+
+    this.resultMessasge = this.scene.add.image(this.x - 7, this.y - 50, "lose").setDepth(7);
+  }
+
+  setDie() {
     this.body.setVelocity(0, 0);
 
     // this.resultMessasge = this.scene.add.image(this.x, this.y - 100, "lose").setDepth(7);
@@ -108,7 +104,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     //   delay: 200,
     // });
 
-    this.play("hero-die-right", true);
+    this.play(`${this.textureName}-die-right`, true);
   }
 
   canGetCoin(coin) {
@@ -125,19 +121,19 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   setIdlePlay() {
     switch (this.lastDirection) {
       case Direction.Left: {
-        this.play("hero-running-back-left");
+        this.play(`${this.textureName}-idle-back-left`);
         break;
       }
       case Direction.Right: {
-        this.play("hero-running-right");
+        this.play(`${this.textureName}-idle-right`);
         break;
       }
       case Direction.Up: {
-        this.play("hero-running-back-right");
+        this.play(`${this.textureName}-idle-back-right`);
         break;
       }
       case Direction.Down: {
-        this.play("hero-running-left");
+        this.play(`${this.textureName}-idle-left`);
         break;
       }
       default:

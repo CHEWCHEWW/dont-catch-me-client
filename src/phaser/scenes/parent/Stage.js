@@ -110,8 +110,8 @@ export default class Stage extends Phaser.Scene {
     this.createEnemies(enemyList);
     
     this.physics.add.collider(this.hero, this.enemies, () => {
-      this.stopStage();
-      // this.moveNextState();
+      // this.stopStage();
+      // this.moveNextStage();
     });
   }
 
@@ -189,14 +189,20 @@ export default class Stage extends Phaser.Scene {
     this.cursors = null;
 
     this.handleEnemyUnSubscribeAI();
-    this.hero.setLose();
+    this.hero.setDie();
 
     this.failEffect.play();
 
     this.time.addEvent({
       callback: () => {
         store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+
+        this.hero.destroy();
+        this.enemies.forEach((enemy) => {
+          enemy.destroy();
+        });
       },
+      callbackScope: this,
       delay: 2000,
     });
   }
@@ -208,9 +214,10 @@ export default class Stage extends Phaser.Scene {
 
     this.hero.setWin();
 
+    this.successEffect.play();
+
     this.time.addEvent({
       callback: () => {
-        this.successEffect.play();
         this.cameras.main.fadeOut(3000, 50, 50, 50);
 
         this.cameras.main.once(
@@ -218,6 +225,7 @@ export default class Stage extends Phaser.Scene {
          callback
         );
       },
+      callbackScope: this,
       delay: 2000,
     });
   }
