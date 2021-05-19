@@ -10,8 +10,8 @@ import GameOverModalView from "../../components/Modal/GameOverModalView";
 import GameClearModalView from "../../components/Modal/GameClearModalView";
 import { gameProgress } from "../../constants/gameState";
 import { updateGameProgress, gameProgressSelector } from "../../redux/slices/singlePlaySlice";
-// import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
+import PageWrapper from "../../components/shared/PageWrapper";
 
 const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
@@ -39,7 +39,7 @@ const GamePage = () => {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper color="#B9F8FF" src={clouds}>
         {progress === gameProgress.GAME_OVER && (
           <Modal>
             <GameOverModalView onClick={handleGameOverModalClick} />
@@ -59,17 +59,6 @@ const GamePage = () => {
 
 const GameContainer = styled.div`
   border-radius: 10px;
-`;
-
-const PageWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #B9F8FF;
-  background-image: url(${clouds});
-  background-repeat: repeat-x; 
 `;
 
 export default GamePage;

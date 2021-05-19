@@ -7,13 +7,25 @@ import GameMessage from "../shared/GameMessage";
 
 const GameOverModalView = ({ onClick, message = "LOSE" }) => {
   return (
-    <ModalView padding={20} width={500} height={400}>
+    <ModalView width={1024} height={768} color="rgba(0, 0, 0, 0.3)">
       <ContentLayout>
-        <GameMessage>{message}</GameMessage>
-        <button onClick={onClick}>HOME</button>
+        <GameMessage>
+          {message}
+        </GameMessage>
+        <Button onClick={onClick}>HOME</Button>
       </ContentLayout>
     </ModalView>
   );
 };
+
+const Button = styled.button`
+  width: 20px;
+  height: 10px;
+  font-size: 20px;
+  background: #e55643;
+  color: white;
+  border-radius: 5px;
+  border: 0;
+`;
 
 export default GameOverModalView;

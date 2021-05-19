@@ -16,6 +16,7 @@ export default class Stage extends Phaser.Scene {
   }
 
   create() {
+    console.log(this.scene);
     this.setStatusBar();
 
     this.setCoinToMap();
@@ -109,7 +110,8 @@ export default class Stage extends Phaser.Scene {
     this.createEnemies(enemyList);
     
     this.physics.add.collider(this.hero, this.enemies, () => {
-      // this.stopStage();
+      this.stopStage();
+      // this.moveNextState();
     });
   }
 
