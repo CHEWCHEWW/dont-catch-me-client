@@ -12,14 +12,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     this.speed = 150;
 
     this.play("hero-idle-left");
-
-    // this.targetIndicator = scene.add
-    //   .text(0, 0, "x")
-    //   .setOrigin(2)
-    //   .setDepth(1000);
-
-    // this.targetIndicator.setColor('#FF0400');
-    // this.targetIndicator.setVisible(true);
   }
 
   get vector() {
@@ -32,12 +24,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
-
-    // this.coinMessageCount--;
-
-    // if (this.coinMessageCount === 0) {
-    //   this.coinMessage.setVisible(false);
-    // }
   }
 
   getCoin() {
@@ -63,9 +49,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     // this.setIdlePlay();
 
     this.keysDown = this.getKeysDownState(cursors);
-    
-    // this.targetIndicator.setPosition(this.x + 12, this.y + 60);
-    
+        
     if (this.keysDown.left) {
       if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 - TileSize.y)) {
         this.play("hero-running-back-left", true);

@@ -51,7 +51,7 @@ export default class Preloader extends Phaser.Scene {
   }
 
   completeLoading() {
-    this.scene.start("stage1");
+    this.scene.start("stage3");
   }
   
   loadBackgroundResource() {

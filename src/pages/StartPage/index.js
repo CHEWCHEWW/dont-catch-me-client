@@ -2,12 +2,14 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import walkingRabbit from "../../../public/rabbit.png";
+import walkingRabbit from "../../../public/main-running-rabbit.png";
 import deadCarrot from "../../../public/hero-die-left.png";
+import trees from "../../../public/trees.png";
 
 import MainButton from "../../components/MainButton";
-import PageWrapper from "../../components/shared/PageWrapper";
+// import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
+import clouds from "../../../public/clouds.png"
 
 const StartPage = () => {
   const history = useHistory();
@@ -26,6 +28,7 @@ const StartPage = () => {
   
   return (
     <PageWrapper>
+      {/* <TopTrees /> */}
       <PageCard width={850} height={650}>
         <TitleBox>
           <Title>
@@ -46,9 +49,22 @@ const StartPage = () => {
           <MainButton name="Record" onClick={handleRecordsButton} />
         </ButtonField>
       </PageCard>
+      <BottomTrees />
     </PageWrapper>
   );
 };
+
+const PageWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F0E7DC;
+  flex-direction: column;
+  /* background-image: url(${clouds});
+  background-repeat: repeat-x;  */
+`;
 
 const TitleBox = styled.div`
   display: flex;
@@ -93,11 +109,12 @@ const Sprites = styled.div`
 `;
 
 const SpriteRabbit = styled.div`
-  width: 211px;
+  width: 200px;
   height: 256px;
   margin-top: 10px;
   background: url(${walkingRabbit}) 0px 0px;
   animation: play 0.4s steps(3) infinite;
+  color: black;
 
   @keyframes play {
     from { 
@@ -128,10 +145,28 @@ const SpriteCarrot = styled.div`
   }
 `;
 
+const TopTrees = styled.div`
+  position: fixed;
+  top: 0;
+  width: 1900px;
+  height: 128px;
+  background: url(${trees}) 0px 0px;
+`;
+
+const BottomTrees = styled.div`
+  position: fixed;
+  bottom: 0;
+  width: 1900px;
+  height: 128px;
+  background: url(${trees}) 0px 0px;
+`;
+
 const ButtonField = styled.div`
-  width: 500px;
   display: flex;
-  margin-top: 320px;
+  text-align: center;
+  margin-top: 280px;
+  margin-left: 60px;
+  margin-right: 110px;
   flex-direction: column;
   justify-content: center;
 `;
