@@ -26,6 +26,21 @@ export const getSideDirection = (direction) => {
   }
 };
 
+export const getOppositeDirection = (direction) => {
+  switch (direction) {
+    case Direction.Left:
+      return Direction.Right;
+    case Direction.Right:
+      return Direction.Left;
+    case Direction.Up:
+      return Direction.Down;
+    case Direction.Down:
+      return Direction.Up;
+    default:
+      break;
+  }
+};
+
 export const getPositionByDirection = (x, y, direction) => {
   switch (direction) {
     case Direction.Up: {
@@ -44,6 +59,41 @@ export const getPositionByDirection = (x, y, direction) => {
       break;
     }
   }
+};
+
+export const determineDirectionByTarget = ({
+  targetX, 
+  targetY, 
+  currentX, 
+  currentY, 
+  directions, 
+  board, 
+  oppositeDirection,
+}) => {
+  let lastClosedDirection = Direction.None;
+  let lastClosedDistance = -1;
+  
+  for (const direction of directions) {
+    const { x: positionX, y: positionY } = getPositionByDirection(currentX, currentY, direction);
+    
+    if (!board.getTileAtWorldXY(positionX + 12, positionY + 60)) {
+      continue;
+    }
+
+    const distance = Phaser.Math.Distance.Between(
+      positionX,
+      positionY,
+      targetX,
+      targetY
+    );
+    
+    if (lastClosedDirection === Direction.None || distance < lastClosedDistance) {
+      lastClosedDirection = direction;
+      lastClosedDistance = distance;
+    }
+  }
+
+  return lastClosedDirection !== Direction.None ? lastClosedDirection : oppositeDirection;
 };
 
 export const determineRotationDirection = ({ 
@@ -86,42 +136,4 @@ export const determineRotationDirection = ({
   }
 
   return false;
-};
-
-export const determineDirectionByTarget = ({
-  targetX, 
-  targetY, 
-  currentX, 
-  currentY, 
-  directions, 
-  board, 
-  oppositeDirection,
-}) => {
-  let lastClosedDirection = Direction.None;
-  let lastClosedDistance = -1;
-  
-  for (const direction of directions) {
-    const { x: positionX, y: positionY } = getPositionByDirection(currentX, currentY, direction);
-    
-    if (!board.getTileAtWorldXY(positionX + 12, positionY + 60)) {
-      continue;
-    }
-
-    const distance = Phaser.Math.Distance.Between(
-      positionX,
-      positionY,
-      targetX,
-      targetY
-    );
-    
-    if (
-      lastClosedDirection === Direction.None ||
-      distance < lastClosedDistance
-    ) {
-      lastClosedDirection = direction;
-      lastClosedDistance = distance;
-    }
-  }
-
-  return lastClosedDirection !== Direction.None ? lastClosedDirection : oppositeDirection;
 };
