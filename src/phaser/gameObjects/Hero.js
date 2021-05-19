@@ -106,15 +106,15 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   }
 
   canGetCoin(coin) {
-		const heroPosition = this.body.position
+    const heroPosition = this.body.position
 
-		const coinPosition = coin.body.position.clone();
+    const coinPosition = coin.body.position.clone();
 
-		coinPosition.x -= coin.body.offset.x
-		coinPosition.y -= coin.body.offset.y
+    coinPosition.x -= coin.body.offset.x
+    coinPosition.y -= coin.body.offset.y
 
     return Phaser.Math.Distance.BetweenPointsSquared(heroPosition, coinPosition) <= 7000;
-	}
+  }
 
   setIdlePlay() {
     switch (this.lastDirection) {
