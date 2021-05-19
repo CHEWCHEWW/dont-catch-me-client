@@ -22,6 +22,14 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     // this.targetIndicator.setVisible(true);
   }
 
+  get vector() {
+		const vector = new Phaser.Math.Vector2();
+
+		vector.setToPolar(this.rotation);
+
+		return vector;
+	}
+
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
 

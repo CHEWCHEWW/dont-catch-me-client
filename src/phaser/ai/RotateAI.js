@@ -1,9 +1,9 @@
 import Phaser from "phaser";
 
 import { Direction } from "../../constants/direction";
-import { TileSize } from "../../constants/tile";
 import { 
   determineDirectionByTarget,
+  getOppositeDirection,
 } from "../../utils/directions";
 
 export default class RotateAI {
@@ -37,6 +37,17 @@ export default class RotateAI {
     const { x: currentX, y: currentY } = this.enemy;
 
     const directions = [Direction.Up, Direction.Left, Direction.Down, Direction.Right];
+
+    const distance = Phaser.Math.Distance.Between(
+      targetX,
+      targetY,
+      currentX,
+      currentY,
+    );
+
+    if (distance < 200) {
+      return getOppositeDirection(this.lastDirection);
+    }
 
     return determineDirectionByTarget({
       targetX,

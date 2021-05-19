@@ -17,6 +17,8 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.enableTargetMarker(true);
 
     this.play("enemy-idle-right");
+
+    this.movementCount = 0;
   }
 
   setTargetIndicatorColor(color) {
@@ -33,7 +35,13 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     if (!this.ai) {
       return;
     }
+
+    this.movementCount--;
     
+    if (this.movementCount > 0) {
+      return;
+    }
+
     const body = this.body;
 
     const x = body.position.x;
@@ -59,21 +67,25 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       case Direction.Left: {
         this.play("enemy-running-back-left", true);
         body.setVelocity(-speed, -speed * 0.5);
+        this.movementCount = 3;
         break;
       }
       case Direction.Right: {
         this.play("enemy-running-right", true);
         body.setVelocity(speed, speed * 0.5);
+        this.movementCount = 3;
         break;
       }
       case Direction.Up: {
         this.play("enemy-running-back-right", true);
         body.setVelocity(speed, -speed * 0.5);
+        this.movementCount = 3;
         break;
       }
       case Direction.Down: {
         this.play("enemy-running-left", true);
         body.setVelocity(-speed, speed * 0.5);
+        this.movementCount = 3;
         break;
       }
       case Direction.None: {
