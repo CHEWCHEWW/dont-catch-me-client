@@ -8,7 +8,7 @@ import { uuidv4 } from "../../utils/uuid";
 import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
 
-const GameClearModalView = ({ onClick }) => {
+const GameClearModalView = () => {
   const [formData, setFormData] = useState({ username: "" });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -31,7 +31,7 @@ const GameClearModalView = ({ onClick }) => {
   };
 
   return (
-    <ModalView padding={20} width={700} height={400}>
+    <ModalView width={1024} height={768} color="rgba(0, 0, 0, 0.3)">
       <ContentLayout>
         <GameMessage>CLEAR</GameMessage>
         <UserNameForm 

@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 
 import ModalView from "../shared/ModalView";
 import ContentLayout from "../shared/ContentLayout";
