@@ -124,9 +124,11 @@ export default class MultiStage extends Phaser.Scene {
     this.countDown.x = this.player.body.position.x - 450;
     this.countDown.y = this.player.body.position.y - 310;
 
-    const currentTime = this.timer.getProgress().toString().substr(0, 4);
+    const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
+    const currentMin = Math.floor(currentTime / 60);
+    const currentSecond = currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
 
-    this.countDown.setText(`TIME: ${currentTime}`);
+    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`);
 
     this.player.handleMovement(this.cursors, this.boardLayer);
 
@@ -174,6 +176,7 @@ export default class MultiStage extends Phaser.Scene {
         fontFamily: "MainFont" 
       })
       .setDepth(7);
+
     this.countDown = this.add
       .text(0, 0, `TIME:  ${this.registry.values.time}`, {
         fontSize: "35px",
