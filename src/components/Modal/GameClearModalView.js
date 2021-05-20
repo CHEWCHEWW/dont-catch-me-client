@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import ModalView from "../shared/ModalView";
 import UserNameForm from "../UserNameForm";
-import { saveGameClearUserRecord } from "../../api";
 import { uuidv4 } from "../../utils/uuid";
 import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { useToasts } from "react-toast-notifications";
 
 import clouds from "../../../public/clouds.png"
 import config from "../../phaser/scenes/singleplay";
@@ -19,6 +20,7 @@ const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
   const dispatch = useDispatch();
   const history = useHistory();
+  const { addToast } = useToasts();
   const [gameResult, setGameResult] = useState({
     score: "",
     time: "",
@@ -26,6 +28,13 @@ const GamePage = () => {
 
   useEffect(() => {
     const game = new Phaser.Game(config);
+
+    const guideMessage = "Use the rudder key to move";
+
+    addToast(guideMessage, {
+      appearance: "info",
+      autoDismiss: false,
+    });
 
     game.events.on("gameClear", ({ score, time }) => {
       console.log(score, time);
@@ -53,20 +62,20 @@ const GamePage = () => {
 
   return (
     <PageWrapper color="#B9F8FF" src={clouds}>
-        {progress === gameProgress.GAME_OVER && (
-          <Modal>
-            <GameOverModalView onClick={handleGameOverModalClick} />
-          </Modal>
-        )}
-        {progress === gameProgress.GAME_CLEAR && (
-          <Modal>
-            <GameClearModalView 
-              onClick={handleGameClearModalClick} 
-              score={gameResult.score} 
-              time={gameResult.time} 
-            />
-          </Modal>
-        )}
+      {progress === gameProgress.GAME_OVER && (
+        <Modal>
+          <GameOverModalView onClick={handleGameOverModalClick} />
+        </Modal>
+      )}
+      {progress === gameProgress.GAME_CLEAR && (
+        <Modal>
+          <GameClearModalView 
+            onClick={handleGameClearModalClick} 
+            score={gameResult.score} 
+            time={gameResult.time} 
+          />
+        </Modal>
+      )}
       <PageCard width={1024} height={768}>
         <GameContainer id="game-container" />
       </PageCard>
