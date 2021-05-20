@@ -3,6 +3,7 @@ import Enemy from "../../gameObjects/Enemy";
 import ChaseHeroAI from "../../ai/ChaseHeroAI";
 import RotateAI from "../../ai/RotateAI";
 import ConditionalChaseAI from "../../ai/ConditionalChaseAI";
+import CountDownScene from "../singleplay/CountDownScene";
 
 import store from "../../../store";
 import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
@@ -10,13 +11,12 @@ import { gameProgress } from "../../../constants/gameState";
 
 export default class Stage extends Phaser.Scene {
   init() {
-    this.cameras.main.fadeIn(500, 0, 0, 0);
+    // this.cameras.main.fadeIn(500, 0, 0, 0);
 
     this.isCleared = false;
   }
 
   create() {
-    console.log(this.scene);
     this.setStatusBar();
 
     this.setCoinToMap();

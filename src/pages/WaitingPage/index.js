@@ -13,7 +13,7 @@ import PageCard from "../../components/shared/PageCard";
 import Modal from "../../components/Modal";
 import LoadingText from "../../components/LoadingText";
 import CountDownModalView from "../../components/Modal/CountDownModalView";
-import { changeReadyState, updateGameProgress, startGame } from "../../redux/slices/multiplaySlice";
+import { changeReadyState, startGame } from "../../redux/slices/multiplaySlice";
 
 const WaitingPage = () => {
   const dispatch = useDispatch();

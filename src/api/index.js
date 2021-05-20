@@ -1,4 +1,4 @@
-export const saveGameClearUserRecord = async ({ id, record }) => {
+export const createGameClearUserRecord = async ({ id, username, score }) => {
   const response = await fetch(
     `${process.env.SERVER_PORT}/api/result/${id}`, {
       method: "POST",
@@ -6,11 +6,23 @@ export const saveGameClearUserRecord = async ({ id, record }) => {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...record }),
+      body: JSON.stringify({ username, score }),
     }
   );
 
-  const { result } = await response.json();
+  return await response.json(); 
+};
 
-  return result;
+export const readGameRecords = async () => {
+  const response = await fetch(
+    `${process.env.SERVER_PORT}/api/result`, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return await response.json(); 
 };

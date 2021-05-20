@@ -21,7 +21,7 @@ export default class Stage3 extends Stage {
   update(time, delta) {
     super.update();
 
-    const callback = () => store.dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
+    const callback = () => this.game.events.emit("gameClear", { score: this.registry.values.score, time: this.registry.values.time });
 
     if (this.coinCount && !this.isCleared) {
       this.moveNextStage(callback);

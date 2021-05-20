@@ -15,14 +15,17 @@ export default class Stage1 extends Stage {
   }
 
   create() {
-    const countDownScene = new CountDownScene(this.scene);
-    this.scene.add("CountDownScene", countDownScene, true);
-    
     this.game.events.emit("gameStart");
     
     this.setBackground(1);
 
+    
+    const countDownScene = new CountDownScene(this.scene);
+
+    this.scene.add("CountDownScene", countDownScene, true);
+    
     this.setCharacters(Level1);
+    
 
     super.create();
   }
