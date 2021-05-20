@@ -21,7 +21,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     this.scene.time.addEvent({
       callback: () => {
-        coinMessage.setVisible(false);
+        coinMessage.destroy();
       },
       delay: 200,
     });
@@ -94,15 +94,6 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
   setDie() {
     this.body.setVelocity(0, 0);
-
-    // this.resultMessasge = this.scene.add.image(this.x, this.y - 100, "lose").setDepth(7);
-
-    // this.scene.time.addEvent({
-    //   callback: () => {
-    //     this.resultMessasge.setVisible(false);
-    //   },
-    //   delay: 200,
-    // });
 
     this.play(`${this.textureName}-die-right`, true);
   }

@@ -2,7 +2,7 @@ import Hero from "../../gameObjects/Hero";
 
 import { socket } from "../../../utils/socket";
 import store from "../../../store";
-import { updateGameProgress, updateGameResult } from "../../../redux/slices/multiplaySlice";
+import { updateGameResult } from "../../../redux/slices/multiplaySlice";
 import { gameProgress } from "../../../constants/gameState";
  
 export default class MultiStage extends Phaser.Scene {

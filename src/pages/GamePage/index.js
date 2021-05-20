@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -17,12 +17,23 @@ const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [gameResult, setGameResult] = useState({
+    score: "",
+    time: "",
+  });
 
   useEffect(() => {
     const game = new Phaser.Game(config);
 
-    game.events.on("gameStart", () => {
-      dispatch(updateGameProgress(gameProgress.GAME_START));
+    game.events.on("gameClear", ({ score, time }) => {
+      console.log(score, time);
+      setGameResult((prev) => ({
+        ...prev,
+        score,
+        time,
+      }));
+
+      dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
     });
   }, []);
 
@@ -47,7 +58,11 @@ const GamePage = () => {
         )}
         {progress === gameProgress.GAME_CLEAR && (
           <Modal>
-            <GameClearModalView onClick={handleGameClearModalClick} />
+            <GameClearModalView 
+              onClick={handleGameClearModalClick} 
+              score={gameResult.score} 
+              time={gameResult.time} 
+            />
           </Modal>
         )}
       <PageCard width={1024} height={768}>
