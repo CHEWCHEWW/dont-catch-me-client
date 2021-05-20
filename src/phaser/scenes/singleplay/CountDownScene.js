@@ -8,18 +8,30 @@ export default class CountDownScene extends Phaser.Scene {
   }
 
   create() {
+    this.cameras.main.fadeIn(500, 0, 0, 0);
+
     this.mainScene.pause();
 
     this.cameras.main.setBackgroundColor("rgba(0, 0, 0, 0.5)");
 
-    this.timer = this.add.text(200, 200, "count", { fontSize: "32px", fill: "#FFFFFF" });
+    this.countDownCount = 4;
 
-    this.countDownCount = 3;
+    this.text = this.add.text(300, 300, "", {
+      fontSize: "100px", 
+      fill: "#FFFFFF", 
+      fontFamily: "MainFont" 
+    });
 
     this.interval = window.setInterval(() => {
-      this.timer.setText(this.countDownCount).setDepth(10);
-
       this.countDownCount--;
+
+      this.text.destroy();
+
+      this.text = this.add.text(480, 330, this.countDownCount, {
+        fontSize: "100px", 
+        fill: "#FFFFFF", 
+        fontFamily: "MainFont" 
+      });
     }, 1000);
   }
 
@@ -27,7 +39,7 @@ export default class CountDownScene extends Phaser.Scene {
     if (this.countDownCount === 0) {
       window.clearInterval(this.interval);
       
-      this.timer.destroy();
+      this.text.destroy();
       this.scene.remove();
 
       this.mainScene.resume();

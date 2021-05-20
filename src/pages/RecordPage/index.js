@@ -63,7 +63,8 @@ const Card = styled.div`
   background: #F3ECE4;
   font-size: 25px;
   box-shadow: 0 1.5px 1.5px rgba(0, 0, 0, 0.2);
-
+  cursor: pointer;
+  
   :hover {
     background: #F9F1EA;
   }

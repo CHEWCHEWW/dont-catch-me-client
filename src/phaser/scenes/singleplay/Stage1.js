@@ -1,5 +1,4 @@
 import Stage from "../parent/Stage";
-import CountDownScene from "./CountDownScene"
 import { Level1 } from "../../../constants/enemyList";
 
 export default class Stage1 extends Stage {
@@ -19,13 +18,7 @@ export default class Stage1 extends Stage {
     
     this.setBackground(1);
 
-    
-    const countDownScene = new CountDownScene(this.scene);
-
-    this.scene.add("CountDownScene", countDownScene, true);
-    
     this.setCharacters(Level1);
-    
 
     super.create();
   }
@@ -35,7 +28,7 @@ export default class Stage1 extends Stage {
 
     const callback = () => this.scene.start("stage2");
 
-    if (this.coinCount === 42 && !this.isCleared) {
+    if (this.coinCount && !this.isCleared) {
       this.moveNextStage(callback);
 
       this.isCleared = true;

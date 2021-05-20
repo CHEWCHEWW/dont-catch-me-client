@@ -15,7 +15,7 @@ const Button = styled.div`
   border-radius: 8px;
   box-shadow: 0 8px 0 #AB3C2D, 0 15px 20px rgba(0, 0, 0, 0.35);
   transition: box-shadow .1s ease-in-out;
-  font-size: 40px;
+  font-size: 38px;
   color: #fff;
   cursor: pointer;
 
