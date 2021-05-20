@@ -13,7 +13,7 @@ import { updateGameProgress, gameProgressSelector } from "../../redux/slices/sin
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
 
-import font from "../.././../public/font/AlfaSlabOne-Regular.ttf"
+import mainFont from "../.././../public/font/ConcertOne-Regular.ttf"
 
 const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
@@ -79,7 +79,7 @@ const GameContainer = styled.div`
 
   @font-face {
     font-family: MainFont;
-    src: url(${font});
+    src: url(${mainFont});
   }
 `;
 

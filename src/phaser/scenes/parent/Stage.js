@@ -37,13 +37,13 @@ export default class Stage extends Phaser.Scene {
       return;
     }
 
-    this.score.x = this.hero.body.position.x + 350;
-    this.score.y = this.hero.body.position.y - 300;
+    this.score.x = this.hero.body.position.x + 340;
+    this.score.y = this.hero.body.position.y - 320;
 
     this.score.setText(`SCORE: ${this.registry.values.score}`);
 
-    this.countDown.x = this.hero.body.position.x + 180;
-    this.countDown.y = this.hero.body.position.y - 300;
+    this.countDown.x = this.hero.body.position.x + 115;
+    this.countDown.y = this.hero.body.position.y - 320;
 
     const currentTime = this.timer.getProgress().toString().substr(0, 4);
 
@@ -97,10 +97,18 @@ export default class Stage extends Phaser.Scene {
 
   setStatusBar() {
     this.score = this.add
-      .bitmapText(0, 0, "font", `SCORE: ${this.registry.values.score}`)
+      .text(0, 0, `SCORE: ${this.registry.values.score}`, {
+        fontSize: "35px", 
+        fill: "#FFFFFF", 
+        fontFamily: "MainFont" 
+      })
       .setDepth(7);
     this.countDown = this.add
-      .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
+      .text(0, 0, `TIME:  ${this.registry.values.time}`, {
+        fontSize: "35px",
+        fill: "#FFFFFF", 
+        fontFamily: "MainFont" 
+      })
       .setDepth(7);
 
     this.timer = this.time.delayedCall(90000, this.stopStage, [], this);

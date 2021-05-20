@@ -26,6 +26,12 @@ export default class MultiStage extends Phaser.Scene {
   create() {
     this.setBackground();
 
+    this.setStatusBar();
+
+    this.successEffect = this.sound.add("success", { loop: false });
+    this.coinEffect = this.sound.add("coin", { loop: false });
+    this.failEffect = this.sound.add("fail", { loop: false });
+
     socket.on("loadPlayers", ({ player, otherPlayers }) => {
       this.player = new Hero(this, player.x, player.y, player.role === "rabbit" ? "enemy" : "hero");
 
@@ -69,8 +75,6 @@ export default class MultiStage extends Phaser.Scene {
 
     this.setCoinToMap();
 
-    this.setStatusBar();
-
     socket.on("somePlayerMove", ({ x, y, id, anims }) => {
       const [targetPlayer] = this.otherPlayers.filter(
         (player) => player.id === id
@@ -112,13 +116,13 @@ export default class MultiStage extends Phaser.Scene {
       return;
     }
 
-    this.score.x = this.player.body.position.x + 230;
-    this.score.y = this.player.body.position.y - 300;
+    this.score.x = this.player.body.position.x + 170;
+    this.score.y = this.player.body.position.y - 310;
 
-    this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} vs CARROT: ${this.registry.values.score.carrot}`);
+    this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} CARROT: ${this.registry.values.score.carrot}`);
 
-    this.countDown.x = this.player.body.position.x + 50;
-    this.countDown.y = this.player.body.position.y - 300;
+    this.countDown.x = this.player.body.position.x - 450;
+    this.countDown.y = this.player.body.position.y - 310;
 
     const currentTime = this.timer.getProgress().toString().substr(0, 4);
 
@@ -164,13 +168,20 @@ export default class MultiStage extends Phaser.Scene {
 
   setStatusBar() {
     this.score = this.add
-      .bitmapText(0, 0, "font", `Rabbit: ${this.registry.values.score.rabbit} Carrot: ${this.registry.values.score.carrot}`)
+      .text(0, 0, `Rabbit: ${this.registry.values.score.rabbit} Carrot: ${this.registry.values.score.carrot}`, {
+        fontSize: "35px", 
+        fill: "#FFFFFF", 
+        fontFamily: "MainFont" 
+      })
       .setDepth(7);
-
     this.countDown = this.add
-      .bitmapText(0, 0, "font", `TIME:  ${this.registry.values.time}`)
+      .text(0, 0, `TIME:  ${this.registry.values.time}`, {
+        fontSize: "35px",
+        fill: "#FFFFFF", 
+        fontFamily: "MainFont" 
+      })
       .setDepth(7);
-
+    
     this.timer = this.time.delayedCall(90000, this.stopGame, [], this);
   }
 
@@ -210,6 +221,8 @@ export default class MultiStage extends Phaser.Scene {
           score: this.registry.values.score,
           role: this.player.role,
         });
+
+        this.successEffect.play();
       },
       callbackScope: this,
       delay: 1000,
@@ -222,6 +235,8 @@ export default class MultiStage extends Phaser.Scene {
     this.coinCount--;
 
     player.getCoin();
+
+    this.coinEffect.play();
 
     if (player.id === this.player.id) {
       socket.emit("userGetCoin", { role: player.role, point: 10 });
