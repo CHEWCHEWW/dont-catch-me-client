@@ -11,12 +11,14 @@ import { gameProgress } from "../../../constants/gameState";
 
 export default class Stage extends Phaser.Scene {
   init() {
-    // this.cameras.main.fadeIn(500, 0, 0, 0);
-
     this.isCleared = false;
   }
 
   create() {
+    const countDownScene = new CountDownScene(this.scene);
+
+    this.scene.add("CountDownScene", countDownScene, true);
+
     this.setStatusBar();
 
     this.setCoinToMap();
@@ -151,7 +153,7 @@ export default class Stage extends Phaser.Scene {
           break;
         }
         case "conditionalChase": {
-          newEnemy.setTint(0xfffc3b);
+          newEnemy.setTint(0xFFD3DD);
           newEnemy.setAI(new ConditionalChaseAI(
             this.hero, 
             newEnemy, 

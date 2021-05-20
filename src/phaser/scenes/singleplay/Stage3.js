@@ -23,7 +23,7 @@ export default class Stage3 extends Stage {
 
     const callback = () => this.game.events.emit("gameClear", { score: this.registry.values.score, time: this.registry.values.time });
 
-    if (this.coinCount && !this.isCleared) {
+    if (this.coinCount === 0 && !this.isCleared) {
       this.moveNextStage(callback);
 
       this.isCleared = true;
