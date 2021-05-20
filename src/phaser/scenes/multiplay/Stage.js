@@ -2,7 +2,7 @@ import Hero from "../../gameObjects/Hero";
 
 import { socket } from "../../../utils/socket";
 import store from "../../../store";
-import { updateGameProgress } from "../../../redux/slices/multiplaySlice";
+import { updateGameProgress, updateGameResult } from "../../../redux/slices/multiplaySlice";
 import { gameProgress } from "../../../constants/gameState";
  
 export default class MultiStage extends Phaser.Scene {
@@ -103,7 +103,7 @@ export default class MultiStage extends Phaser.Scene {
         this.player.setLose();
       }
 
-      store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+      store.dispatch(updateGameResult({ isWin }));    
     });
   }
 

@@ -17,7 +17,7 @@ import { changeReadyState, updateGameProgress } from "../../redux/slices/multipl
 
 const WaitingPage = () => {
   const dispatch = useDispatch();
-  const { players, progress, isAllUsersReady } = useSelector(({ multiple }) => multiple.room);
+  const { players, progress } = useSelector(({ multiple }) => multiple.room);
   const { isReady, username, role } = useSelector(({ multiple }) => multiple.user);
   
   const history = useHistory();

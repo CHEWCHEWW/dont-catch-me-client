@@ -8,7 +8,7 @@ import config from "../../phaser/scenes/multiplay";
 import Modal from "../../components/Modal";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import { gameProgress } from "../../constants/gameState";
-import { updateGameProgress, gameProgressSelector } from "../../redux/slices/multiplaySlice";
+import { resetGame, gameProgressSelector } from "../../redux/slices/multiplaySlice";
 import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
 
@@ -23,18 +23,20 @@ const MultiGamePage = () => {
     const game = new Phaser.Game(config);
   }, []);
 
-  const handleGameOverModalClick = () => {
+  const handleHomeButtonClick = () => {
     history.push("/");
 
-    dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
+    dispatch(resetGame());
   };
+
+  const handleGameRestartButtonClick = () => {};
 
   return (
     <PageWrapper color="#B9F8FF" src={clouds}>
       <PageCard>
         {progress === gameProgress.GAME_OVER && (
           <Modal>
-            <GameOverModalView onClick={handleGameOverModalClick} message={isWin && "WIN"} />
+            <GameOverModalView onClick={handleHomeButtonClick} message={isWin && "WIN"} />
           </Modal>
         )}
         <GameContainer id="game-container" />
