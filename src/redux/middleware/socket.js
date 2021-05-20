@@ -5,6 +5,7 @@ import {
   joinUserSuccess, 
   changeSomeUserState, 
   changeMyState,
+  leaveSomeUser,
 } from "../slices/multiplaySlice";
 import { socket } from "../../utils/socket";
 
@@ -26,8 +27,12 @@ const socketMiddleware = () => {
       store.dispatch(changeMyState({ username, role, isReady }));
     });
 
-    socket.on("startGame", () => {
+    socket.on("allUsersReady", () => {
       store.dispatch(updateGameProgress(gameProgress.GAME_ALL_PLAYER_READY));
+    });
+
+    socket.on("leaveSomeUser", ({ id }) => {
+      store.dispatch(leaveSomeUser({ id }));
     });
 
     socket.on("error", ({ message }) => {
@@ -37,7 +42,7 @@ const socketMiddleware = () => {
     return (next) => (action) => {
       const [type, actionName] = action.type.split("/");
 
-      if (type !== "single") {
+      if (type === "multiple") {
         socket.emit(actionName, action.payload);
       }
 

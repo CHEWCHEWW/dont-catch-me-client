@@ -13,7 +13,7 @@ export default class MultiStage extends Phaser.Scene {
   }
 
   init() {
-    socket.emit("gameInit");
+    socket.emit("initGame");
 
     this.cameras.main.fadeIn(500, 0, 0, 0);
 

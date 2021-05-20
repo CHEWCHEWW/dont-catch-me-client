@@ -8,8 +8,9 @@ export default class CountDownScene extends Phaser.Scene {
   }
 
   create() {
-    console.log(30);
-    this.timer = this.mainScene.add.text(200, 200, "count", { fontSize: "32px", fill: "#000000" });
+    this.mainScene.pause();
+
+    this.timer = this.add.text(200, 200, "count", { fontSize: "32px", fill: "#FFFFFF" });
 
     this.countDownCount = 3;
 
@@ -21,11 +22,13 @@ export default class CountDownScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.countDownCount <= 0) {
+    if (this.countDownCount < 0) {
       window.clearInterval(this.interval);
       
       this.timer.destroy();
       this.scene.remove();
+
+      this.mainScene.resume();
     }
   }
 }

@@ -5,14 +5,20 @@ import ModalView from "../shared/ModalView";
 import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
 
-const GameOverModalView = ({ onClick, message = "LOSE" }) => {
+const GameOverModalView = ({ 
+  onHomeClick, 
+  message = "LOSE", 
+  onRestartClick, 
+  isMultiplay 
+}) => {
   return (
     <ModalView width={1024} height={768} color="rgba(0, 0, 0, 0.3)">
       <ContentLayout>
         <GameMessage>
           {message}
         </GameMessage>
-        <Button onClick={onClick}>HOME</Button>
+        <Button onClick={onHomeClick}>HOME</Button>
+        {isMultiplay && <Button onClick={onRestartClick}>REPLAY</Button>}
       </ContentLayout>
     </ModalView>
   );
