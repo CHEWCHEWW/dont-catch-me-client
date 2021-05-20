@@ -36,7 +36,7 @@ export default class CountDownScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.countDownCount === 0) {
+    if (this.countDownCount <= 0) {
       window.clearInterval(this.interval);
       
       this.text.destroy();

@@ -28,7 +28,7 @@ export default class Stage1 extends Stage {
 
     const callback = () => this.scene.start("stage2");
 
-    if (this.coinCount && !this.isCleared) {
+    if (this.coinCount === 0 && !this.isCleared) {
       this.moveNextStage(callback);
 
       this.isCleared = true;

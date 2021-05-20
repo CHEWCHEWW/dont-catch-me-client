@@ -13,6 +13,8 @@ import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
 import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
 
+import mainFont from "../.././../public/font/ConcertOne-Regular.ttf"
+
 const MultiGamePage = () => {
   const progress  = useSelector(gameProgressSelector);
   const isWin = useSelector(({ multiple: { user } }) => user.isWin);
@@ -33,7 +35,7 @@ const MultiGamePage = () => {
 
   const handleGameRestartButtonClick = () => {
     dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
-    
+
     history.push(`/waiting/${id}`);
   };
 
@@ -58,6 +60,11 @@ const MultiGamePage = () => {
 
 const GameContainer = styled.div`
   border-radius: 10px;
+
+  @font-face {
+    font-family: MainFont;
+    src: url(${mainFont});
+  }
 `;
 
 export default MultiGamePage;
