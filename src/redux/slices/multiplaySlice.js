@@ -23,9 +23,8 @@ const multiSlice = createSlice({
   name: "multiple",
   initialState,
   reducers: {
-    resetGame(state) {
-      console.log(state);
-      state = initialState;
+    leaveSomeUser({ room }, { payload: { id } }) {
+      delete room.players[id];
     },
     joinUserSuccess(
       { user, room },
@@ -55,18 +54,26 @@ const multiSlice = createSlice({
     updateGameResult({ room, user }, { payload: { isWin } }) {
       room.progress = gameProgress.GAME_OVER;
       user.isWin = isWin;
+    },
+    startGame({ room }) {
+      room.progress = gameProgress.GAME_START;
+    },
+    leaveRoom() {
+      return initialState;
     }
   },
 });
 
 export const {
-  resetGame,
+  leaveRoom,
   joinUserSuccess,
   createRoomSuccess,
   changeSomeUserState,
   changeMyState,
+  leaveSomeUser,
   updateGameProgress,
   updateGameResult,
+  startGame,
 } = multiSlice.actions;
 
 export const makeNewRoom = createAction("multiple/makeNewRoom");
