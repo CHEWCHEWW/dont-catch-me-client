@@ -33,7 +33,7 @@ export default class Stage extends Phaser.Scene {
   }
 
   update(time, delta) {
-    if (!this.hero) {
+    if (!this.hero || !this.countDown || !this.score || !this.hero.body) {
       return;
     }
 
@@ -45,9 +45,11 @@ export default class Stage extends Phaser.Scene {
     this.countDown.x = this.hero.body.position.x + 115;
     this.countDown.y = this.hero.body.position.y - 320;
 
-    const currentTime = this.timer.getProgress().toString().substr(0, 4);
+    const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
+    const currentMin = Math.floor(currentTime / 60);
+    const currentSecond = currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
 
-    this.countDown.setText(`TIME: ${currentTime}`);
+    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`);
 
     this.hero.handleMovement(
       this.cursors,
