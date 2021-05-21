@@ -1,7 +1,7 @@
 export const Level1 = [
-  { x: -100, y: 200, indicatorColor: "#FCB4E3", ai: "chase" },
-  { x: 600, y: 500, indicatorColor: "#221A4D", ai: "chase" },
-  { x: -200, y: 800, indicatorColor: "#E73A2E", ai: "conditionalChase" },
+  { x: -700, y: 600, indicatorColor: "#FCB4E3", ai: "chase" },
+  { x: 600, y: 700, indicatorColor: "#221A4D", ai: "chase" },
+  { x: -300, y: 900, indicatorColor: "#E73A2E", ai: "conditionalChase" },
 ];
 
 export const Level2 = [

@@ -1,4 +1,5 @@
 import Hero from "../../gameObjects/Hero";
+import CountDownScene from "../common/CountDownScene";
 
 import { socket } from "../../../utils/socket";
 import store from "../../../store";
@@ -15,8 +16,6 @@ export default class MultiStage extends Phaser.Scene {
   init() {
     socket.emit("initGame");
 
-    this.cameras.main.fadeIn(500, 0, 0, 0);
-
     this.registry.values.score = {
       rabbit: 0,
       carrot: 0,
@@ -31,6 +30,11 @@ export default class MultiStage extends Phaser.Scene {
     this.successEffect = this.sound.add("success", { loop: false });
     this.coinEffect = this.sound.add("coin", { loop: false });
     this.failEffect = this.sound.add("fail", { loop: false });
+    this.mainMusic = this.sound.add("main", { loop: true });
+    
+    const countDownScene = new CountDownScene(this.scene, this.mainMusic);
+
+    this.scene.add("CountDownScene", countDownScene, true);
 
     socket.on("loadPlayers", ({ player, otherPlayers }) => {
       this.player = new Hero(this, player.x, player.y, player.role === "rabbit" ? "enemy" : "hero");
@@ -111,24 +115,24 @@ export default class MultiStage extends Phaser.Scene {
     });
   }
 
-  update(time, delta) {
+  update() {
     if (!this.player) {
       return;
     }
-
-    this.score.x = this.player.body.position.x + 170;
-    this.score.y = this.player.body.position.y - 310;
-
-    this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} CARROT: ${this.registry.values.score.carrot}`);
-
-    this.countDown.x = this.player.body.position.x - 450;
-    this.countDown.y = this.player.body.position.y - 310;
-
+    
     const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
     const currentMin = Math.floor(currentTime / 60);
     const currentSecond = currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
 
-    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`);
+    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`).setDepth(7);
+
+    this.countDown.x = this.player.body.position.x - 450;
+    this.countDown.y = this.player.body.position.y - 310;
+
+    this.score.setText(`RABBIT: ${this.registry.values.score.rabbit} CARROT: ${this.registry.values.score.carrot}`).setDepth(7);
+
+    this.score.x = this.player.body.position.x + 170;
+    this.score.y = this.player.body.position.y - 310;
 
     this.player.handleMovement(this.cursors, this.boardLayer);
 
@@ -168,20 +172,18 @@ export default class MultiStage extends Phaser.Scene {
 
   setStatusBar() {
     this.score = this.add
-      .text(0, 0, `Rabbit: ${this.registry.values.score.rabbit} Carrot: ${this.registry.values.score.carrot}`, {
+      .text(0, 500, `Rabbit: Carrot: `, {
         fontSize: "35px", 
         fill: "#FFFFFF", 
         fontFamily: "MainFont" 
-      })
-      .setDepth(7);
+      });
 
     this.countDown = this.add
-      .text(0, 0, `TIME:  ${this.registry.values.time}`, {
+      .text(0, 500, `TIME: `, {
         fontSize: "35px",
         fill: "#FFFFFF", 
         fontFamily: "MainFont" 
-      })
-      .setDepth(7);
+      });
     
     this.timer = this.time.delayedCall(90000, this.stopGame, [], this);
   }
@@ -197,6 +199,7 @@ export default class MultiStage extends Phaser.Scene {
       const body = coin.body;
 
       body.setCircle(38, 26, -6);
+      
       coin.setDepth(4);
     });
   }
@@ -223,6 +226,7 @@ export default class MultiStage extends Phaser.Scene {
           role: this.player.role,
         });
 
+        this.mainMusic.stop();
         this.successEffect.play();
       },
       callbackScope: this,

@@ -85,11 +85,6 @@ const GamePage = () => {
 
 const GameContainer = styled.div`
   border-radius: 10px;
-
-  @font-face {
-    font-family: MainFont;
-    src: url(${mainFont});
-  }
 `;
 
 export default GamePage;

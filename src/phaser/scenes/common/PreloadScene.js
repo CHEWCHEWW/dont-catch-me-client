@@ -26,18 +26,18 @@ export default class Preloader extends Phaser.Scene {
 
   setLoading() {
     this.graphics = this.add.graphics();
-		this.newGraphics = this.add.graphics();
+    this.newGraphics = this.add.graphics();
 
-		const loadingBar = new Phaser.Geom.Rectangle(320, 370, 400, 50);
-		const loadingBarContent = new Phaser.Geom.Rectangle(325, 375, 290, 40);
+    const loadingBar = new Phaser.Geom.Rectangle(320, 370, 400, 50);
+    const loadingBarContent = new Phaser.Geom.Rectangle(325, 375, 290, 40);
 
-		this.graphics.fillStyle(0xffffff, 1);
-		this.graphics.fillRectShape(loadingBar);
+    this.graphics.fillStyle(0xffffff, 1);
+    this.graphics.fillRectShape(loadingBar);
 
-		this.newGraphics.fillStyle(0x3587e2, 1);
-		this.newGraphics.fillRectShape(loadingBarContent);
+    this.newGraphics.fillStyle(0x3587e2, 1);
+    this.newGraphics.fillRectShape(loadingBarContent);
 
-		this.loadingText = this.add.text(400, 320, "", { fontSize: "35px", fill: "#FFFFFF" });
+    this.loadingText = this.add.text(400, 320, "", { fontSize: "35px", fill: "#FFFFFF" });
   }
 
   updateLoading(percentage) {
@@ -64,9 +64,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.image("start", "start.png");
     this.load.image("win", "win.png");
     this.load.image("lose", "lose.png");
-
-    this.load.bitmapFont("font", "font.png", "font.fnt");
-    
+        
     this.load.tilemapTiledJSON("level1-map", "iso-level1.json");
   }
 

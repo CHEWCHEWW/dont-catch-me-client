@@ -1,8 +1,8 @@
-import Preloader from "../parent/Preloader";
+import PreloadScene from "../common/PreloadScene";
 
 import createHeroAnimations from "../../animations/Hero";
 
-export default class MultiPreloader extends Preloader {
+export default class MultiPreloadScene extends PreloadScene {
   create() {
     super.create();
 
