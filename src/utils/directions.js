@@ -95,3 +95,7 @@ export const determineDirectionByTarget = ({
 
   return lastClosedDirection !== Direction.None ? lastClosedDirection : oppositeDirection;
 };
+
+export const isEnableDirection = (board, x, y) => {
+  return board.getTileAtWorldXY(x + 12, y + 60);
+};

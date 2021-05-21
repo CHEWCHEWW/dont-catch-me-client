@@ -2,6 +2,7 @@ import Phaser from "phaser";
 
 import { Direction } from "../../constants/direction";
 import { TileSize } from "../../constants/tile";
+import { isEnableDirection } from "../../utils/directions";
 
 export default class Hero extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, texture) {
@@ -13,18 +14,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     this.textureName = texture;
     
-    this.play(`${this.textureName}-idle-left`);
-  }
-
-  getCoin() {
-    const coinMessage = this.scene.add.image(this.x, this.y - 50, "add-coin").setDepth(7);
-
-    this.scene.time.addEvent({
-      callback: () => {
-        coinMessage.destroy();
-      },
-      delay: 200,
-    });
+    this.play(`${this.textureName}-idle-right`);
   }
 
   handleMovement(cursors, boardLayer) {
@@ -36,33 +26,31 @@ export default class Hero extends Phaser.GameObjects.Sprite {
 
     body.setVelocity(0, 0);
     
-    // this.setIdlePlay();
-
     this.keysDown = this.getKeysDownState(cursors);
         
     if (this.keysDown.left) {
-      if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 - TileSize.y)) {
+      if (isEnableDirection(boardLayer, this.x - TileSize.x, this.y - TileSize.y)) {
         this.play(`${this.textureName}-running-back-left`, true);
         body.setVelocity(-this.speed, -this.speed * 0.5);
 
         this.lastDirection = Direction.Left;
       }
     } else if (this.keysDown.right) {
-      if (boardLayer.getTileAtWorldXY(this.x + 12 + TileSize.x, this.y + 60 + TileSize.y)) {
+      if (isEnableDirection(boardLayer, this.x + TileSize.x, this.y + TileSize.y)) {
         this.play(`${this.textureName}-running-right`, true);
         body.setVelocity(this.speed, this.speed * 0.5);
 
         this.lastDirection = Direction.Right;
       }
     } else if (this.keysDown.up) {
-      if (boardLayer.getTileAtWorldXY(this.x + 12 + TileSize.x, this.y + 60 - TileSize.y)) {
+      if (isEnableDirection(boardLayer, this.x + TileSize.x, this.y - TileSize.y)) {
         this.play(`${this.textureName}-running-back-right`, true);
         body.setVelocity(this.speed, -this.speed * 0.5);
 
         this.lastDirection = Direction.Up;
       }
     } else if (this.keysDown.down) {
-      if (boardLayer.getTileAtWorldXY(this.x + 12 - TileSize.x, this.y + 60 + TileSize.y)) {
+      if (isEnableDirection(boardLayer, this.x - TileSize.x, this.y + TileSize.y)) {
         this.play(`${this.textureName}-running-left`, true);
         body.setVelocity(-this.speed, this.speed * 0.5);
 
@@ -83,6 +71,8 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   setWin() {
     this.body.setVelocity(0, 0);
 
+    this.setIdle();
+
     this.resultMessasge = this.scene.add.image(this.x - 7, this.y - 50, "win").setDepth(7);
   }
 
@@ -93,23 +83,18 @@ export default class Hero extends Phaser.GameObjects.Sprite {
   }
 
   setDie() {
-    this.body.setVelocity(0, 0);
+    this.body.setVelocity(0, 0)
 
-    this.play(`${this.textureName}-die-right`, true);
+    if (this.lastDirection === Direction.Up || this.lastDirection === Direction.Right) {
+      this.play(`${this.textureName}-die-right`, true);
+
+      return;
+    }
+    
+    this.play(`${this.textureName}-die-left`, true);
   }
 
-  canGetCoin(coin) {
-    const heroPosition = this.body.position
-
-    const coinPosition = coin.body.position.clone();
-
-    coinPosition.x -= coin.body.offset.x
-    coinPosition.y -= coin.body.offset.y
-
-    return Phaser.Math.Distance.BetweenPointsSquared(heroPosition, coinPosition) <= 7000;
-  }
-
-  setIdlePlay() {
+  setIdle() {
     switch (this.lastDirection) {
       case Direction.Left: {
         this.play(`${this.textureName}-idle-back-left`);
@@ -130,5 +115,27 @@ export default class Hero extends Phaser.GameObjects.Sprite {
       default:
         break;
     }
+  }
+
+  canGetCoin(coin) {
+    const heroPosition = this.body.position
+
+    const coinPosition = coin.body.position.clone();
+
+    coinPosition.x -= coin.body.offset.x
+    coinPosition.y -= coin.body.offset.y
+
+    return Phaser.Math.Distance.BetweenPointsSquared(heroPosition, coinPosition) <= 7000;
+  }
+  
+  getCoin() {
+    const coinMessage = this.scene.add.image(this.x, this.y - 50, "add-coin").setDepth(7);
+
+    this.scene.time.addEvent({
+      callback: () => {
+        coinMessage.destroy();
+      },
+      delay: 200,
+    });
   }
 }

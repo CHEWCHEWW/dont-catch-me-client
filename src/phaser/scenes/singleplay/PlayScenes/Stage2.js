@@ -1,5 +1,5 @@
-import Stage from "../parent/Stage";
-import { Level2 } from "../../../constants/coordinates";
+import Stage from "./Stage";
+import { Level2 } from "../../../../constants/coordinates";
 
 export default class Stage2 extends Stage {
   constructor() {

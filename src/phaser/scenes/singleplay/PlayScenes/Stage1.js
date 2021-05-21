@@ -1,5 +1,5 @@
-import Stage from "../parent/Stage";
-import { Level1 } from "../../../constants/coordinates";
+import Stage from "./Stage";
+import { Level1 } from "../../../../constants/coordinates";
 
 export default class Stage1 extends Stage {
   constructor() {
@@ -8,7 +8,7 @@ export default class Stage1 extends Stage {
 
   init() {
     super.init();
-
+    
     this.registry.values.score = 0;
     this.registry.values.time = 0;
   }

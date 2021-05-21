@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-import Preloader from "./Preloader";
+import Preloader from "./PreloadScene";
 import Stage from "./Stage";
 
 const config = {

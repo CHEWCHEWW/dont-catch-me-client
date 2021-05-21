@@ -1,8 +1,8 @@
-import Preloader from "../parent/Preloader";
+import PreloadScene from "../common/PreloadScene";
 
 import createHeroAnimations from "../../animations/Hero";
 
-export default class SinglePreloader extends Preloader {
+export default class SinglePreloadScene extends PreloadScene {
   create() {
     super.create();
 
@@ -21,7 +21,5 @@ export default class SinglePreloader extends Preloader {
 
     this.load.atlas("hero-die-left", "hero-die-left.png", "hero-die-left.json");
     this.load.atlas("hero-die-right", "hero-die-right.png", "hero-die-right.json");
-    this.load.atlas("hero-die-back-left", "hero-die-back-left.png", "hero-die-back-left.json");
-    this.load.atlas("hero-die-back-right", "hero-die-back-right.png", "hero-die-back-right.json");
   }
 }

@@ -41,7 +41,7 @@ const MultiGamePage = () => {
 
   return (
     <PageWrapper color="#B9F8FF" src={clouds}>
-      <PageCard>
+      <PageCard width={1024} height={768}>
         {progress === gameProgress.GAME_OVER && (
           <Modal>
             <GameOverModalView 
@@ -60,11 +60,6 @@ const MultiGamePage = () => {
 
 const GameContainer = styled.div`
   border-radius: 10px;
-
-  @font-face {
-    font-family: MainFont;
-    src: url(${mainFont});
-  }
 `;
 
 export default MultiGamePage;

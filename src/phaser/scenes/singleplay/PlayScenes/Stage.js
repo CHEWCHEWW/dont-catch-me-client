@@ -1,14 +1,14 @@
-import Hero from "../../gameObjects/Hero";
-import Enemy from "../../gameObjects/Enemy";
-import ChaseHeroAI from "../../ai/ChaseHeroAI";
-import RotateAI from "../../ai/RotateAI";
-import ConditionalChaseAI from "../../ai/ConditionalChaseAI";
-import CountDownScene from "../singleplay/CountDownScene";
+import Hero from "../../../gameObjects/Hero";
+import Enemy from "../../../gameObjects/Enemy";
+import ChaseHeroAI from "../../../ai/ChaseHeroAI";
+import RotateAI from "../../../ai/RotateAI";
+import ConditionalChaseAI from "../../../ai/ConditionalChaseAI";
+import CountDownScene from "../../common/CountDownScene";
 
-import store from "../../../store";
-import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
-import { gameProgress } from "../../../constants/gameState";
-import { Clouds } from "../../../constants/coordinates";
+import store from "../../../../store";
+import { updateGameProgress } from "../../../../redux/slices/singlePlaySlice";
+import { gameProgress } from "../../../../constants/gameState";
+import { Clouds } from "../../../../constants/coordinates";
 
 export default class Stage extends Phaser.Scene {
   init() {
@@ -36,24 +36,24 @@ export default class Stage extends Phaser.Scene {
   }
 
   update() {
-    if (!this.hero || !this.countDown || !this.score || !this.hero.body) {
+    if (!this.hero || !this.hero.body) {
       return;
     }
-
-    this.score.x = this.hero.body.position.x + 340;
-    this.score.y = this.hero.body.position.y - 320;
     
-    this.score.setText(`SCORE: ${this.registry.values.score}`);
-
-    this.countDown.x = this.hero.body.position.x + 160;
-    this.countDown.y = this.hero.body.position.y - 320;
-
     const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
     const currentMin = Math.floor(currentTime / 60);
     const currentSecond = currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
 
-    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`);
+    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`).setDepth(7);
 
+    this.countDown.x = this.hero.body.position.x + 160;
+    this.countDown.y = this.hero.body.position.y - 320;
+
+    this.score.setText(`SCORE: ${this.registry.values.score}`).setDepth(7);
+
+    this.score.x = this.hero.body.position.x + 340;
+    this.score.y = this.hero.body.position.y - 320;
+    
     this.hero.handleMovement(
       this.cursors,
       this.boardLayer,
@@ -100,20 +100,20 @@ export default class Stage extends Phaser.Scene {
 
   setStatusBar() {
     this.score = this.add
-      .text(0, 0, `SCORE: ${this.registry.values.score}`, {
+      .text(0, 500, `SCORE: `, {
         fontSize: "35px", 
         fill: "#FFFFFF", 
         fontFamily: "MainFont" 
       })
-      .setDepth(7);
+      .setDepth(0);
 
     this.countDown = this.add
-      .text(0, 0, `TIME:  ${this.registry.values.time}`, {
+      .text(0, 500, `TIME: `, {
         fontSize: "35px",
         fill: "#FFFFFF", 
         fontFamily: "MainFont" 
       })
-      .setDepth(7);
+      .setDepth(0);
 
     this.timer = this.time.delayedCall(90000, this.stopStage, [], this);
   }
@@ -124,13 +124,12 @@ export default class Stage extends Phaser.Scene {
     this.createEnemies(enemyList);
     
     this.physics.add.collider(this.hero, this.enemies, () => {
-      // this.stopStage();
-      // this.moveNextStage();
+      this.stopStage();
     });
   }
 
   createHero() {
-    this.hero = new Hero(this, 100, 550, "hero");
+    this.hero = new Hero(this, 90, 300, "hero");
 
     this.add.existing(this.hero).setDepth(5);
 
@@ -194,10 +193,11 @@ export default class Stage extends Phaser.Scene {
     this.cursors = null;
 
     this.handleEnemyUnSubscribeAI();
-    this.hero.setDie();
 
-    this.mainMusic.pause();
     this.failEffect.play();
+    this.mainMusic.pause();
+
+    this.hero.setDie();
 
     this.time.addEvent({
       callback: () => {
