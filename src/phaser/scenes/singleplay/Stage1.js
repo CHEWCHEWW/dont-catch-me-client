@@ -1,5 +1,5 @@
 import Stage from "../parent/Stage";
-import { Level1 } from "../../../constants/enemyList";
+import { Level1 } from "../../../constants/coordinates";
 
 export default class Stage1 extends Stage {
   constructor() {

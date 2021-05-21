@@ -9,12 +9,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.lastDirection = Direction.None;
     this.lastTilePosition = { x: 0, y: 0 };
 
-    this.targetIndicator = scene.add
-      .text(0, 0, "x")
-      .setOrigin(0.5)
-      .setDepth(1000);
+    // this.targetIndicator = scene.add
+    //   .text(0, 0, "x")
+    //   .setOrigin(0.5)
+    //   .setDepth(1000);
 
-    this.enableTargetMarker(true);
+    // this.enableTargetMarker(true);
 
     this.play("enemy-idle-right");
 
@@ -57,9 +57,9 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.lastTilePosition.y = gy;
 
     const speed = this.ai.speed;
-    const targetPosition = this.ai.targetPosition;
+    // const targetPosition = this.ai.targetPosition;
 
-    this.targetIndicator.setPosition(targetPosition.x, targetPosition.y);
+    // this.targetIndicator.setPosition(targetPosition.x, targetPosition.y);
 
     this.direction = this.ai.pickDirection();
     
@@ -133,7 +133,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.body.setVelocity(0, 0);
   }
 
-  enableTargetMarker(isEnable) {
-    this.targetIndicator.setVisible(isEnable);
-  }
+  // enableTargetMarker(isEnable) {
+  //   this.targetIndicator.setVisible(isEnable);
+  // }
 }
