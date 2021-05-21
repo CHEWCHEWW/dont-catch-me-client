@@ -3,8 +3,8 @@ import Phaser from "phaser";
 import { Direction } from "../../constants/direction";
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, texture, accumulatedSpeed) {
-    super(scene, x, y, texture, accumulatedSpeed);
+  constructor(scene, x, y, texture) {
+    super(scene, x, y, texture);
 
     this.lastDirection = Direction.None;
     this.lastTilePosition = { x: 0, y: 0 };
@@ -56,11 +56,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.lastTilePosition.x = gx;
     this.lastTilePosition.y = gy;
 
-    const speed = this.ai.speed + this.accumulatedSpeed;
+    const speed = this.ai.speed;
+
+    // const speed = this.ai.speed;
     // const targetPosition = this.ai.targetPosition;
 
     // this.targetIndicator.setPosition(targetPosition.x, targetPosition.y);
-
     this.direction = this.ai.pickDirection();
     
     switch (this.direction) {
