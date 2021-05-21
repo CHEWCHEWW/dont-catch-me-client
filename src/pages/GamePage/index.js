@@ -14,8 +14,6 @@ import { updateGameProgress, gameProgressSelector } from "../../redux/slices/sin
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
 
-import mainFont from "../.././../public/font/ConcertOne-Regular.ttf"
-
 const GamePage = () => {
   const { progress } = useSelector(gameProgressSelector);
   const dispatch = useDispatch();
@@ -46,6 +44,10 @@ const GamePage = () => {
 
       dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
     });
+
+    return () => {
+      game.destroy();
+    };
   }, []);
 
   const handleGameOverModalClick = () => {

@@ -25,6 +25,10 @@ const MultiGamePage = () => {
 
   useEffect(() => {
     const game = new Phaser.Game(config);
+
+    return () => {
+      game.destroy();
+    };
   }, []);
 
   const handleHomeButtonClick = () => {

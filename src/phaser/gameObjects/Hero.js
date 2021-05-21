@@ -10,7 +10,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     
     this.lastDirection = Direction.None;
 
-    this.speed = 150;
+    this.speed = 165;
 
     this.textureName = texture;
     
@@ -125,7 +125,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     coinPosition.x -= coin.body.offset.x
     coinPosition.y -= coin.body.offset.y
 
-    return Phaser.Math.Distance.BetweenPointsSquared(heroPosition, coinPosition) <= 7000;
+    return Phaser.Math.Distance.BetweenPointsSquared(heroPosition, coinPosition) <= 5000;
   }
   
   getCoin() {
