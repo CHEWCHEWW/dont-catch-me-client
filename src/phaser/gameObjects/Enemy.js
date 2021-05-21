@@ -3,8 +3,8 @@ import Phaser from "phaser";
 import { Direction } from "../../constants/direction";
 
 export default class Enemy extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, texture) {
-    super(scene, x, y, texture);
+  constructor(scene, x, y, texture, accumulatedSpeed) {
+    super(scene, x, y, texture, accumulatedSpeed);
 
     this.lastDirection = Direction.None;
     this.lastTilePosition = { x: 0, y: 0 };
@@ -56,7 +56,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
     this.lastTilePosition.x = gx;
     this.lastTilePosition.y = gy;
 
-    const speed = this.ai.speed;
+    const speed = this.ai.speed + this.accumulatedSpeed;
     // const targetPosition = this.ai.targetPosition;
 
     // this.targetIndicator.setPosition(targetPosition.x, targetPosition.y);
@@ -67,25 +67,21 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
       case Direction.Left: {
         this.play("enemy-running-back-left", true);
         body.setVelocity(-speed, -speed * 0.5);
-        this.movementCount = 3;
         break;
       }
       case Direction.Right: {
         this.play("enemy-running-right", true);
         body.setVelocity(speed, speed * 0.5);
-        this.movementCount = 3;
         break;
       }
       case Direction.Up: {
         this.play("enemy-running-back-right", true);
         body.setVelocity(speed, -speed * 0.5);
-        this.movementCount = 3;
         break;
       }
       case Direction.Down: {
         this.play("enemy-running-left", true);
         body.setVelocity(-speed, speed * 0.5);
-        this.movementCount = 3;
         break;
       }
       case Direction.None: {
@@ -95,6 +91,12 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
         break;
       }
     }
+
+    if (this.direction !== Direction.None) {
+      this.movementCount = 5;
+    }
+
+    this.lastDirection = this.direction;
   }
   
   setAI(ai) {
@@ -120,7 +122,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
         break;
       }
       case Direction.None: {
-        body.setVelocity(0, 0);
+        this.body.setVelocity(0, 0);
       }
       default: {
         break;

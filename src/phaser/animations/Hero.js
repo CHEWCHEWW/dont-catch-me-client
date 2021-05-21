@@ -1,7 +1,7 @@
 const createHeroAnimations = (animations, isSingle) => {
   animations.create({
     key: "hero-running-right",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-running-right", {
       start: 1,
@@ -14,7 +14,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
   animations.create({
     key: "hero-running-left",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-running-left", {
       start: 1,
@@ -27,7 +27,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
   animations.create({
     key: "hero-running-back-left",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-running-back-left", {
       start: 1,
@@ -40,7 +40,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
   animations.create({
     key: "hero-running-back-right",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-running-back-right", {
       start: 1,
@@ -53,7 +53,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
   animations.create({
     key: "hero-idle-right",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-idle-right", {
       start: 1,
@@ -66,7 +66,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
   animations.create({
     key: "hero-idle-left",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-idle-left", {
       start: 1,
@@ -79,7 +79,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
   animations.create({
     key: "hero-idle-back-left",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-idle-back-left", {
       start: 1,
@@ -92,7 +92,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
   animations.create({
     key: "hero-idle-back-right",
-    frameRate: 300,
+    frameRate: 10,
     repeat: -1,
     frames: animations.generateFrameNames("hero-idle-back-right", {
       start: 1,
@@ -106,7 +106,7 @@ const createHeroAnimations = (animations, isSingle) => {
   if (isSingle) {
     animations.create({
       key: "hero-die-right",
-      frameRate: 300,
+      frameRate: 10,
       repeat: -1,
       frames: animations.generateFrameNames("hero-die-right", {
         start: 1,
@@ -119,7 +119,7 @@ const createHeroAnimations = (animations, isSingle) => {
 
     animations.create({
       key: "hero-die-left",
-      frameRate: 300,
+      frameRate: 10,
       repeat: -1,
       frames: animations.generateFrameNames("hero-die-left", {
         start: 1,

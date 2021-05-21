@@ -16,13 +16,6 @@ export default class RotateAI {
     this.lastDistance = -1;
   }
 
-  get targetPosition() {
-    return {
-      x: this.target.x,
-      y: this.target.y,
-    };
-  }
-
   getLastDistance() {
     return Phaser.Math.Distance.Between(
       this.target.x, 
@@ -45,8 +38,8 @@ export default class RotateAI {
       currentY,
     );
 
-    if (distance < 200) {
-      return getOppositeDirection(this.lastDirection);
+    if (distance < 30) {
+      return Direction.None;
     }
 
     return determineDirectionByTarget({

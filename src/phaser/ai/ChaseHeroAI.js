@@ -1,5 +1,6 @@
 import {
   getOrderedDirections,
+  getOppositeDirection,
   getSideDirection,
   determineDirectionByTarget,
 } from "../../utils/directions";
@@ -25,7 +26,7 @@ export default class ChaseHeroAI {
     const { x: targetX, y: targetY } = this.hero;
     const { x: currentX, y: currentY } = this.enemy;
     
-    const sideDirection = getSideDirection(this.enemy.currentDirection);
+    const sideDirection = getOppositeDirection(this.enemy.currentDirection);
     const directions = getOrderedDirections((direction) => direction !== sideDirection);
     const shuffledDirections = shuffleOrder(directions);
 
