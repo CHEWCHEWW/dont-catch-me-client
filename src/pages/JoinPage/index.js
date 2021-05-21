@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { useToasts } from "react-toast-notifications";
 
 import { makeNewRoom } from "../../redux/slices/multiplaySlice";
 import useKakao from "../../hooks/useKakao";
@@ -14,6 +15,7 @@ const JoinPage = () => {
   const history = useHistory();
   const { handleMessageSend } = useKakao();
   const dispatch = useDispatch();
+  const { addToast } = useToasts();
 
   useEffect(() => {
     const randomCode = generateRandomCode();
@@ -37,6 +39,13 @@ const JoinPage = () => {
 
   const handleInputClick = () => { // copy 되었다고 알림 띄우기
     window.navigator.clipboard.writeText(`${process.env.PORT}/waiting/${invitationCode}`);
+    
+    const alarmMessage = "Copied!";
+    
+    addToast(alarmMessage, {
+      appearance: "info",
+      autoDismiss: true,
+    });
   };
 
   return (

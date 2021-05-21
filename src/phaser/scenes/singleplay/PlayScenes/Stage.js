@@ -47,12 +47,12 @@ export default class Stage extends Phaser.Scene {
     this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`).setDepth(7);
 
     this.countDown.x = this.hero.body.position.x + 160;
-    this.countDown.y = this.hero.body.position.y - 320;
+    this.countDown.y = this.hero.body.position.y - 340;
 
     this.score.setText(`SCORE: ${this.registry.values.score}`).setDepth(7);
 
     this.score.x = this.hero.body.position.x + 340;
-    this.score.y = this.hero.body.position.y - 320;
+    this.score.y = this.hero.body.position.y - 340;
     
     this.hero.handleMovement(
       this.cursors,
@@ -83,7 +83,7 @@ export default class Stage extends Phaser.Scene {
 
       const body = coin.body;
 
-      body.setCircle(38, 26, -6);
+      body.setCircle(36, 26, -6);
       coin.setDepth(4);
     });
     
@@ -129,7 +129,7 @@ export default class Stage extends Phaser.Scene {
   }
 
   createHero() {
-    this.hero = new Hero(this, 90, 300, "hero");
+    this.hero = new Hero(this, 90, 400, "hero");
 
     this.add.existing(this.hero).setDepth(5);
 
@@ -138,12 +138,13 @@ export default class Stage extends Phaser.Scene {
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
 
-    this.hero.body.setSize(40, 70, true);
+    this.hero.body.setSize(35, 50, true);
+    this.hero.body.setOffset(45, 50);
   }
 
   createEnemies(enemyList) {
     this.enemies = enemyList.map((enemy) => {
-      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
+      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy", enemy.accumulatedSpeed);
 
       // newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
 
@@ -154,7 +155,8 @@ export default class Stage extends Phaser.Scene {
         Phaser.Physics.Arcade.DYNAMIC_BODY
       );
       
-      newEnemy.body.setSize(30, 80, true);
+      newEnemy.body.setSize(40, 70, true);
+      newEnemy.body.setOffset(45, 50);
 
       const ai = enemy.ai;
       

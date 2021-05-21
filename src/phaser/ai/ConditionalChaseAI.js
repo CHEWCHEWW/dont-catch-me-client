@@ -33,7 +33,11 @@ export default class ConditionalChaseAI {
     );
 
     if (targetDistance < 300) {
-      this.speed = 140;
+      this.speed = 125;
+
+      if (targetDistance < 100) {
+        this.speed = 150;
+      }
 
       return this.poweredAI.pickDirection();
     }
