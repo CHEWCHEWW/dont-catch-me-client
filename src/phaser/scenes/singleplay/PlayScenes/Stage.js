@@ -14,6 +14,8 @@ export default class Stage extends Phaser.Scene {
   init() {
     this.isCleared = false;
     this.isStarted = false;
+
+    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   create() {
@@ -29,14 +31,12 @@ export default class Stage extends Phaser.Scene {
     this.setStatusBar();
 
     this.setCoinToMap();
-
-    this.cursors = this.input.keyboard.createCursorKeys();
-    
+        
     this.setCamera();
   }
 
   update() {
-    if (!this.hero || !this.hero.body) {
+    if (!this.hero || !this.hero.body || !this.cursors) {
       return;
     }
     
@@ -47,13 +47,13 @@ export default class Stage extends Phaser.Scene {
     this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`).setDepth(7);
 
     this.countDown.x = this.hero.body.position.x + 160;
-    this.countDown.y = this.hero.body.position.y - 320;
+    this.countDown.y = this.hero.body.position.y - 340;
 
     this.score.setText(`SCORE: ${this.registry.values.score}`).setDepth(7);
 
     this.score.x = this.hero.body.position.x + 340;
-    this.score.y = this.hero.body.position.y - 320;
-    
+    this.score.y = this.hero.body.position.y - 340;
+
     this.hero.handleMovement(
       this.cursors,
       this.boardLayer,
@@ -129,7 +129,7 @@ export default class Stage extends Phaser.Scene {
   }
 
   createHero() {
-    this.hero = new Hero(this, 90, 300, "hero");
+    this.hero = new Hero(this, 90, 400, "hero");
 
     this.add.existing(this.hero).setDepth(5);
 
@@ -138,7 +138,8 @@ export default class Stage extends Phaser.Scene {
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
 
-    this.hero.body.setSize(40, 70, true);
+    this.hero.body.setSize(35, 50, true);
+    this.hero.body.setOffset(45, 50);
   }
 
   createEnemies(enemyList) {
@@ -154,7 +155,8 @@ export default class Stage extends Phaser.Scene {
         Phaser.Physics.Arcade.DYNAMIC_BODY
       );
       
-      newEnemy.body.setSize(30, 80, true);
+      newEnemy.body.setSize(40, 70, true);
+      newEnemy.body.setOffset(45, 50);
 
       const ai = enemy.ai;
       
@@ -196,19 +198,18 @@ export default class Stage extends Phaser.Scene {
 
     this.failEffect.play();
     this.mainMusic.pause();
-
+    
     this.hero.setDie();
 
     this.time.addEvent({
       callback: () => {
         store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
-
+        
         this.hero.destroy();
         this.enemies.forEach((enemy) => {
           enemy.destroy();
         });
       },
-      callbackScope: this,
       delay: 2000,
     });
   }

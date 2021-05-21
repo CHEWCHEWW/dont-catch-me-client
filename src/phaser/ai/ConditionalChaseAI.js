@@ -10,7 +10,7 @@ export default class ConditionalChaseAI {
     this.normalAI = normalAI;
     this.poweredAI = poweredAI;
 
-    this.speed = 60;
+    this.speed = 140;
     this.lastDirection = Direction.None;
   }
 
@@ -32,13 +32,13 @@ export default class ConditionalChaseAI {
       currentY,
     );
 
-    if (targetDistance < 300) {
+    if (targetDistance < 280) {
       this.speed = 140;
 
       return this.poweredAI.pickDirection();
     }
 
-    this.speed = 80;
+    this.speed = this.normalAI.speed;
 
     return this.normalAI.pickDirection();
   }

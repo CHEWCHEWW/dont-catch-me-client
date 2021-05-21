@@ -1,7 +1,7 @@
 const createEnemyAnimations = (animations) => {
   animations.create({
     key: "enemy-running-right",
-    frameRate: -5,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-running-right", {
       start: 1,
@@ -14,7 +14,7 @@ const createEnemyAnimations = (animations) => {
 
   animations.create({
     key: "enemy-running-left",
-    frameRate: 15,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-running-left", {
       start: 1,
@@ -27,7 +27,7 @@ const createEnemyAnimations = (animations) => {
 
   animations.create({
     key: "enemy-running-back-left",
-    frameRate: 10,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-running-back-left", {
       start: 1,
@@ -40,7 +40,7 @@ const createEnemyAnimations = (animations) => {
 
   animations.create({
     key: "enemy-running-back-right",
-    frameRate: 50,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-running-back-right", {
       start: 1,
@@ -53,7 +53,7 @@ const createEnemyAnimations = (animations) => {
 
   animations.create({
     key: "enemy-idle-right",
-    frameRate: 300,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-idle-right", {
       start: 1,
@@ -66,7 +66,7 @@ const createEnemyAnimations = (animations) => {
 
   animations.create({
     key: "enemy-idle-left",
-    frameRate: 300,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-idle-left", {
       start: 1,
@@ -79,7 +79,7 @@ const createEnemyAnimations = (animations) => {
 
   animations.create({
     key: "enemy-idle-back-left",
-    frameRate: 300,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-idle-back-left", {
       start: 1,
@@ -92,7 +92,7 @@ const createEnemyAnimations = (animations) => {
 
   animations.create({
     key: "enemy-idle-back-right",
-    frameRate: 300,
+    frameRate: 5,
     repeat: -1,
     frames: animations.generateFrameNames("enemy-idle-back-right", {
       start: 1,

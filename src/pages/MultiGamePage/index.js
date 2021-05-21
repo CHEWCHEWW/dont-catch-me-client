@@ -13,8 +13,6 @@ import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
 import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
 
-import mainFont from "../.././../public/font/ConcertOne-Regular.ttf"
-
 const MultiGamePage = () => {
   const progress  = useSelector(gameProgressSelector);
   const isWin = useSelector(({ multiple: { user } }) => user.isWin);
@@ -25,6 +23,10 @@ const MultiGamePage = () => {
 
   useEffect(() => {
     const game = new Phaser.Game(config);
+
+    return () => {
+      game.destroy();
+    };
   }, []);
 
   const handleHomeButtonClick = () => {

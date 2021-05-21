@@ -207,8 +207,7 @@ export default class MultiStage extends Phaser.Scene {
   createPlayer(player) {
     this.add.existing(player).setDepth(4);
 
-    player.body.setSize(64, 120, true);
-
+    // player.body.setSize(64, 120, true);
     this.physics.add.overlap(
       player,
       this.coins,

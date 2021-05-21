@@ -10,7 +10,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     
     this.lastDirection = Direction.None;
 
-    this.speed = 150;
+    this.speed = 170;
 
     this.textureName = texture;
     
@@ -21,16 +21,17 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     if (!cursors) {
       return;
     }
-    
+
     const body = this.body;
 
     body.setVelocity(0, 0);
     
     this.keysDown = this.getKeysDownState(cursors);
-        
+    
     if (this.keysDown.left) {
       if (isEnableDirection(boardLayer, this.x - TileSize.x, this.y - TileSize.y)) {
         this.play(`${this.textureName}-running-back-left`, true);
+        
         body.setVelocity(-this.speed, -this.speed * 0.5);
 
         this.lastDirection = Direction.Left;
@@ -38,6 +39,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     } else if (this.keysDown.right) {
       if (isEnableDirection(boardLayer, this.x + TileSize.x, this.y + TileSize.y)) {
         this.play(`${this.textureName}-running-right`, true);
+        
         body.setVelocity(this.speed, this.speed * 0.5);
 
         this.lastDirection = Direction.Right;
@@ -45,6 +47,7 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     } else if (this.keysDown.up) {
       if (isEnableDirection(boardLayer, this.x + TileSize.x, this.y - TileSize.y)) {
         this.play(`${this.textureName}-running-back-right`, true);
+        
         body.setVelocity(this.speed, -this.speed * 0.5);
 
         this.lastDirection = Direction.Up;
@@ -52,11 +55,12 @@ export default class Hero extends Phaser.GameObjects.Sprite {
     } else if (this.keysDown.down) {
       if (isEnableDirection(boardLayer, this.x - TileSize.x, this.y + TileSize.y)) {
         this.play(`${this.textureName}-running-left`, true);
+        
         body.setVelocity(-this.speed, this.speed * 0.5);
 
         this.lastDirection = Direction.Down;
       }
-    } 
+    }
   }
 
   getKeysDownState(cursors) {

@@ -4,6 +4,7 @@ import { Direction } from "../../constants/direction";
 import { 
   determineDirectionByTarget,
   getOppositeDirection,
+  getOrderedDirections,
 } from "../../utils/directions";
 
 export default class RotateAI {
@@ -12,8 +13,8 @@ export default class RotateAI {
     this.enemy = enemy;
     this.board = board;
     this.speed = 80;
-    this.lastDirection = Direction.None;
     this.lastDistance = -1;
+    this.lastDirection = enemy.currentDirection;
   }
 
   get targetPosition() {
@@ -23,20 +24,12 @@ export default class RotateAI {
     };
   }
 
-  getLastDistance() {
-    return Phaser.Math.Distance.Between(
-      this.target.x, 
-      this.target.y, 
-      this.enemy.x, 
-      this.enemy.y,
-    );
-  }
-
   pickDirection() {
     const { x: targetX, y: targetY } = this.target;
     const { x: currentX, y: currentY } = this.enemy;
 
-    const directions = [Direction.Up, Direction.Left, Direction.Down, Direction.Right];
+    const oppositeDirection = getOppositeDirection(this.enemy.currentDirection);
+    const directions = getOrderedDirections((direction) => direction !== oppositeDirection);
 
     const distance = Phaser.Math.Distance.Between(
       targetX,
@@ -45,17 +38,19 @@ export default class RotateAI {
       currentY,
     );
 
-    if (distance < 200) {
-      return getOppositeDirection(this.lastDirection);
+    if (distance > 300) {
+      this.lastDirection = determineDirectionByTarget({
+        targetX,
+        targetY,
+        currentX,
+        currentY,
+        directions,
+        board: this.board,
+      });
+
+      return this.lastDirection;
     }
 
-    return determineDirectionByTarget({
-      targetX,
-      targetY,
-      currentX,
-      currentY,
-      directions,
-      board: this.board,
-    });
+    return this.lastDirection;
   }
 }

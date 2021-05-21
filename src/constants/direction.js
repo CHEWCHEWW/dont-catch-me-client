@@ -5,3 +5,5 @@ export const Direction = {
   Down: "Down",
   None: "None"
 };
+
+export const Directions = [Direction.Up, Direction.Left, Direction.Down, Direction.Right];
