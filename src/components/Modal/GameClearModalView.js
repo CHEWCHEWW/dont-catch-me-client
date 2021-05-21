@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import ModalView from "../shared/ModalView";
-import UserNameForm from "../UserNameForm";
+import UsernameForm from "../UsernameForm";
 import { uuidv4 } from "../../utils/uuid";
 import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
@@ -28,7 +28,7 @@ const GameClearModalView = ({ onClick, score }) => {
     <ModalView width={1024} height={768} color="rgba(0, 0, 0, 0.3)">
       <ContentLayout>
         <GameMessage>CLEAR</GameMessage>
-        <UserNameForm 
+        <UsernameForm 
           onSubmit={handleSubmit} 
           value={username} 
           onChange={handleInputChange} 
