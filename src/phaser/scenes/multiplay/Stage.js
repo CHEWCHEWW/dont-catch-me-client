@@ -3,7 +3,7 @@ import Hero from "../../gameObjects/Hero";
 import { socket } from "../../../utils/socket";
 import store from "../../../store";
 import { updateGameResult } from "../../../redux/slices/multiplaySlice";
-import { gameProgress } from "../../../constants/gameState";
+import { Clouds } from "../../../constants/coordinates";
  
 export default class MultiStage extends Phaser.Scene {
   constructor() {
@@ -153,14 +153,12 @@ export default class MultiStage extends Phaser.Scene {
 
     const tileset = this.map.addTilesetImage("iso-level1", "tiles");
 
-    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]);
+    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]).setDepth(2);
     this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
 
-    this.add.image(1300, 400, "cloud").setDepth(1);
-    this.add.image(0, 0, "cloud").setDepth(1);
-    this.add.image(-800, 200, "cloud").setDepth(1);
-    this.add.image(600, 150, "cloud").setDepth(1);
-    this.add.image(-1300, 600, "cloud").setDepth(1);
+    Clouds.forEach((cloud) => {
+      this.add.image(cloud.x, cloud.y, "cloud").setDepth(1);
+    });
   }
 
   setCamera() {
@@ -204,7 +202,7 @@ export default class MultiStage extends Phaser.Scene {
   }
 
   createPlayer(player) {
-    this.add.existing(player);
+    this.add.existing(player).setDepth(4);
 
     player.body.setSize(64, 120, true);
 

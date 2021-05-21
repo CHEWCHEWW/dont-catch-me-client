@@ -64,7 +64,7 @@ const GamePage = () => {
     <PageWrapper color="#B9F8FF" src={clouds}>
       {progress === gameProgress.GAME_OVER && (
         <Modal>
-          <GameOverModalView onClick={handleGameOverModalClick} />
+          <GameOverModalView onHomeClick={handleGameOverModalClick} />
         </Modal>
       )}
       {progress === gameProgress.GAME_CLEAR && (

@@ -8,41 +8,44 @@ import CountDownScene from "../singleplay/CountDownScene";
 import store from "../../../store";
 import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
 import { gameProgress } from "../../../constants/gameState";
+import { Clouds } from "../../../constants/coordinates";
 
 export default class Stage extends Phaser.Scene {
   init() {
     this.isCleared = false;
+    this.isStarted = false;
   }
 
   create() {
-    const countDownScene = new CountDownScene(this.scene);
+    this.successEffect = this.sound.add("success", { loop: false });
+    this.coinEffect = this.sound.add("coin", { loop: false });
+    this.failEffect = this.sound.add("fail", { loop: false });
+    this.mainMusic = this.sound.add("main", { loop: true });
+
+    const countDownScene = new CountDownScene(this.scene, this.mainMusic);
 
     this.scene.add("CountDownScene", countDownScene, true);
 
     this.setStatusBar();
 
     this.setCoinToMap();
-    
-    this.successEffect = this.sound.add("success", { loop: false });
-    this.coinEffect = this.sound.add("coin", { loop: false });
-    this.failEffect = this.sound.add("fail", { loop: false });
 
     this.cursors = this.input.keyboard.createCursorKeys();
-
+    
     this.setCamera();
   }
 
-  update(time, delta) {
+  update() {
     if (!this.hero || !this.countDown || !this.score || !this.hero.body) {
       return;
     }
 
     this.score.x = this.hero.body.position.x + 340;
     this.score.y = this.hero.body.position.y - 320;
-
+    
     this.score.setText(`SCORE: ${this.registry.values.score}`);
 
-    this.countDown.x = this.hero.body.position.x + 115;
+    this.countDown.x = this.hero.body.position.x + 160;
     this.countDown.y = this.hero.body.position.y - 320;
 
     const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
@@ -65,11 +68,9 @@ export default class Stage extends Phaser.Scene {
     this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
     this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
 
-    this.add.image(1300, 400, "cloud").setDepth(1);
-    this.add.image(0, 0, "cloud").setDepth(1);
-    this.add.image(-800, 200, "cloud").setDepth(1);
-    this.add.image(600, 150, "cloud").setDepth(1);
-    this.add.image(-1300, 600, "cloud").setDepth(1);
+    Clouds.forEach((cloud) => {
+      this.add.image(cloud.x, cloud.y, "cloud").setDepth(1);
+    });
   }
 
   setCoinToMap() {
@@ -105,6 +106,7 @@ export default class Stage extends Phaser.Scene {
         fontFamily: "MainFont" 
       })
       .setDepth(7);
+
     this.countDown = this.add
       .text(0, 0, `TIME:  ${this.registry.values.time}`, {
         fontSize: "35px",
@@ -144,7 +146,7 @@ export default class Stage extends Phaser.Scene {
     this.enemies = enemyList.map((enemy) => {
       const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
 
-      newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
+      // newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
 
       this.add.existing(newEnemy).setDepth(5);
 
@@ -173,15 +175,6 @@ export default class Stage extends Phaser.Scene {
           ));
           break;
         }
-        case "rotate": {
-          newEnemy.setTint(0x000000);
-          newEnemy.setAI(new RotateAI(
-            { x: 300, y: 900 },
-            newEnemy, 
-            this.boardLayer,
-          ));
-          break;
-        }
         default:
           break;
       }
@@ -203,6 +196,7 @@ export default class Stage extends Phaser.Scene {
     this.handleEnemyUnSubscribeAI();
     this.hero.setDie();
 
+    this.mainMusic.pause();
     this.failEffect.play();
 
     this.time.addEvent({
@@ -226,6 +220,7 @@ export default class Stage extends Phaser.Scene {
 
     this.hero.setWin();
 
+    this.mainMusic.pause();
     this.successEffect.play();
 
     this.time.addEvent({

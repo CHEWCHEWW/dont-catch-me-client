@@ -1,10 +1,11 @@
 import Phaser from "phaser";
 
 export default class CountDownScene extends Phaser.Scene {
-  constructor(mainScene) {
+  constructor(mainScene, mainMusic) {
     super("CountDownScene");
 
     this.mainScene = mainScene;
+    this.mainMusic = mainMusic;
   }
 
   create() {
@@ -16,19 +17,15 @@ export default class CountDownScene extends Phaser.Scene {
 
     this.countDownCount = 4;
 
-    this.text = this.add.text(300, 300, "", {
-      fontSize: "100px", 
-      fill: "#FFFFFF", 
-      fontFamily: "MainFont" 
-    });
-
     this.interval = window.setInterval(() => {
       this.countDownCount--;
 
-      this.text.destroy();
+      if (this.text) {
+        this.text.destroy();
+      }
 
-      this.text = this.add.text(480, 330, this.countDownCount, {
-        fontSize: "100px", 
+      this.text = this.add.text(480, 310, this.countDownCount, {
+        fontSize: "150px", 
         fill: "#FFFFFF", 
         fontFamily: "MainFont" 
       });
@@ -43,6 +40,7 @@ export default class CountDownScene extends Phaser.Scene {
       this.scene.remove();
 
       this.mainScene.resume();
+      this.mainMusic.play();
     }
   }
 }

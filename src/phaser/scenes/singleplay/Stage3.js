@@ -1,9 +1,6 @@
 import Stage from "../parent/Stage";
 
-import store from "../../../store";
-import { updateGameProgress } from "../../../redux/slices/singlePlaySlice";
-import { gameProgress } from "../../../constants/gameState";
-import { Level3 } from "../../../constants/enemyList";
+import { Level3 } from "../../../constants/coordinates";
 
 export default class Stage3 extends Stage {
   constructor() {
@@ -18,7 +15,7 @@ export default class Stage3 extends Stage {
     super.create();
   }
 
-  update(time, delta) {
+  update() {
     super.update();
 
     const callback = () => this.game.events.emit("gameClear", { score: this.registry.values.score, time: this.registry.values.time });
