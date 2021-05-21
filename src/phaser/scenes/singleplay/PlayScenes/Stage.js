@@ -144,8 +144,8 @@ export default class Stage extends Phaser.Scene {
 
   createEnemies(enemyList) {
     this.enemies = enemyList.map((enemy) => {
-      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy", enemy.accumulatedSpeed);
-
+      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
+      
       // newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
 
       this.add.existing(newEnemy).setDepth(5);
