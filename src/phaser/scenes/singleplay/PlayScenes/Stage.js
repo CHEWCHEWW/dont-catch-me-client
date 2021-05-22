@@ -83,8 +83,8 @@ export default class Stage extends Phaser.Scene {
 
       const body = coin.body;
 
-      body.setCircle(36, 26, -6);
-      coin.setDepth(4);
+      body.setCircle(32, 31, -1);
+      coin.setDepth(5);
     });
     
     if (this.hero) {
@@ -139,7 +139,7 @@ export default class Stage extends Phaser.Scene {
     );
 
     this.hero.body.setSize(35, 50, true);
-    this.hero.body.setOffset(45, 50);
+    this.hero.body.setOffset(45, 40);
   }
 
   createEnemies(enemyList) {
@@ -148,15 +148,15 @@ export default class Stage extends Phaser.Scene {
       
       // newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
 
-      this.add.existing(newEnemy).setDepth(5);
+      this.add.existing(newEnemy).setDepth(6);
 
       this.physics.world.enable(
         newEnemy,
         Phaser.Physics.Arcade.DYNAMIC_BODY
       );
       
-      newEnemy.body.setSize(40, 70, true);
-      newEnemy.body.setOffset(45, 50);
+      newEnemy.body.setSize(40, 75, true);
+      newEnemy.body.setOffset(45, 40);
 
       const ai = enemy.ai;
       

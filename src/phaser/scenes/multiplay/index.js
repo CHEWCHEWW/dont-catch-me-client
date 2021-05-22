@@ -10,12 +10,12 @@ const config = {
     parent: "game-container",
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  backgroundColor: "#60E7F7",
+  backgroundColor: "#C2F6FF",
   physics: {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: true,
+      debug: false,
     },
   },
   scene: [Preloader, Stage],
