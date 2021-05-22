@@ -5,7 +5,7 @@ import createEnemyAnimations from "../../animations/Enemy";
 export default class Preloader extends Phaser.Scene {
   preload() {
     this.load.setBaseURL(process.env.PORT);
-
+    console.log(process.env.PORT);
     this.loadBackgroundResource();
 
     this.setLoading();
@@ -66,6 +66,8 @@ export default class Preloader extends Phaser.Scene {
     this.load.image("lose", "lose.png");
         
     this.load.tilemapTiledJSON("level1-map", "iso-level1.json");
+    this.load.tilemapTiledJSON("level2-map", "iso-level2.json");
+    this.load.tilemapTiledJSON("level3-map", "iso-level3.json");
   }
 
   loadHeroResource() {

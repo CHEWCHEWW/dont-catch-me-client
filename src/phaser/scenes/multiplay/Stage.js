@@ -153,9 +153,9 @@ export default class MultiStage extends Phaser.Scene {
   }
 
   setBackground() {
-    this.map = this.add.tilemap("level1-map");
+    this.map = this.add.tilemap("level3-map");
 
-    const tileset = this.map.addTilesetImage("iso-level1", "tiles");
+    const tileset = this.map.addTilesetImage("iso-level3", "tiles");
 
     this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]).setDepth(2);
     this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
@@ -174,14 +174,14 @@ export default class MultiStage extends Phaser.Scene {
     this.score = this.add
       .text(0, 500, `Rabbit: Carrot: `, {
         fontSize: "35px", 
-        fill: "#FFFFFF", 
+        fill: "#733F10", 
         fontFamily: "MainFont" 
       });
 
     this.countDown = this.add
       .text(0, 500, `TIME: `, {
         fontSize: "35px",
-        fill: "#FFFFFF", 
+        fill: "#733F10", 
         fontFamily: "MainFont" 
       });
     
@@ -198,16 +198,21 @@ export default class MultiStage extends Phaser.Scene {
 
       const body = coin.body;
 
-      body.setCircle(38, 26, -6);
-      
-      coin.setDepth(4);
+      body.setCircle(32, 31, -1);
+      coin.setDepth(5);
     });
   }
 
   createPlayer(player) {
-    this.add.existing(player).setDepth(4);
+    this.add.existing(player).setDepth(5);
 
-    player.body.setSize(64, 120, true);
+    if (player.role === "rabbit") {
+      player.body.setSize(40, 75, true);
+      player.body.setOffset(45, 40);
+    } else {
+      player.body.setSize(35, 50, true);
+      player.body.setOffset(45, 40);
+    }
 
     this.physics.add.overlap(
       player,
