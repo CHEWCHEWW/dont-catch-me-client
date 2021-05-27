@@ -157,8 +157,8 @@ export default class MultiStage extends Phaser.Scene {
 
     const tileset = this.map.addTilesetImage("iso-level3", "tiles");
 
-    this.boardLayer = this.map.createLayer("Tile Layer 1", [tileset]).setDepth(2);
-    this.coinLayer = this.map.createLayer("Tile Layer 2", [tileset]);
+    this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
+    this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
 
     Clouds.forEach((cloud) => {
       this.add.image(cloud.x, cloud.y, "cloud").setDepth(1);

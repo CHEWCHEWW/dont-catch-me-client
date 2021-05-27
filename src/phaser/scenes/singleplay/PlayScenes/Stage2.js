@@ -14,7 +14,7 @@ export default class Stage2 extends Stage {
     super.create();
   }
 
-  update(time, delta) {
+  update() {
     super.update();
 
     const callback = () => this.scene.start("stage3");
