@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { getGameRecords } from "../../redux/slices/singlePlaySlice";
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
-import { BACK, RESULT_TITLE } from "../../constants/ui";
+import { BACK_BUTTON, RESULT_TITLE } from "../../constants/ui";
 import { theme } from "../../theme/theme";
 
 const RecordPage = () => {
@@ -37,7 +37,7 @@ const RecordPage = () => {
             </NameCard>
           ))}
           <Button onClick={handleBackButtonClick}>
-            {BACK}
+            {BACK_BUTTON}
           </Button>
         </Content>
       </PageCard>

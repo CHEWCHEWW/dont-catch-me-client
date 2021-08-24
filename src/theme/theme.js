@@ -3,7 +3,8 @@ export const theme = {
   ModalBackground: "rgba(0, 0, 0, 0.3)",
   White: "#FFFFFF",
   MainGreen: "#1B8549",
+  DarkGreen: "#136337",
   MainYellow: "#F2D732",
   BackgroundYellow: "#faee9a",
-  BackgroundBeige: "#F0E7DC",
+  BackgroundBeige: "#F9F0E4",
 };

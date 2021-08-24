@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { BoxInnerShadow } from "../../theme/BoxInnerShadow";
 
 const UserNameForm = ({ onSubmit, value, onChange, name = "" }) => {
   return (
     <Form onSubmit={onSubmit}>
-      <TextInput
+      <Input
         type="text"
         placeholder="Please enter your name"
         value={value}
@@ -22,11 +23,12 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const TextInput = styled.input`
+const Input = styled.input`
   height: 30px;
   margin-bottom: 5%;
   text-align: center;
   border: 0;
+  ${BoxInnerShadow};
 `;
 
 const SubmitButton = styled.input`

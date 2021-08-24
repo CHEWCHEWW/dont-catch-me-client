@@ -14,6 +14,7 @@ import Modal from "../../components/Modal";
 import LoadingText from "../../components/LoadingText";
 import CountDownModalView from "../../components/Modal/CountDownModalView";
 import { changeReadyState, startGame } from "../../redux/slices/multiplaySlice";
+import { theme } from "../../theme/theme";
 
 const WaitingPage = () => {
   const dispatch = useDispatch();
@@ -93,7 +94,7 @@ const WaitingPage = () => {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper color={theme.BackgroundBeige}>
       <PageCard width={800} height={500} isColumn={true}>
         {!username ? (
           <>
