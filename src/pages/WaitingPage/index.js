@@ -12,6 +12,7 @@ import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
 import Modal from "../../components/Modal";
 import LoadingText from "../../components/LoadingText";
+import { WAITING_TITLE } from "../../constants/ui";
 import CountDownModalView from "../../components/Modal/CountDownModalView";
 import { changeReadyState, startGame } from "../../redux/slices/multiplaySlice";
 import { theme } from "../../theme/theme";
@@ -110,10 +111,10 @@ const WaitingPage = () => {
           <>
             {isCountDownModalOn && (
               <Modal>
-                <CountDownModalView leftTime={leftTime} />
+                <CountDownModalView leftTime={leftTime} width={800} height={500} />
               </Modal>
             )}
-            <Title>Waiting Room</Title>
+            <Title>{WAITING_TITLE}</Title>
             <Content>
               <PlayerList players={players} />
               <UserField>

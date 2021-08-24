@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { ButtonActiveAndFocus } from "../../theme/ButtonActiveAndFocus";
+import { ButtonHover } from "../../theme/ButtonHover";
+import { ButtonTextShadow } from "../../theme/ButtonTextShadow";
 
 const MainButton = ({ name, onClick }) => {
   return (
@@ -18,11 +21,7 @@ const Button = styled.div`
   font-size: 38px;
   color: #fff;
   cursor: pointer;
-
-  :active,
-  :focus {
-    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
-  }
+  ${ButtonActiveAndFocus};
 `;
 
 const ButtonContent = styled.span`
@@ -32,16 +31,12 @@ const ButtonContent = styled.span`
   background-color: ${({ theme }) => theme.MainRed};;
   border-radius: 8px;
   box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.15);
-  text-shadow: 0 -3px 3px rgba(175, 49, 95, 0.7);
   transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+  ${ButtonTextShadow};
+  ${ButtonHover};
 
   :active {
     transform: translate(0, 4px);
-  }
-
-  :hover {
-    background-color: #F16A58;
-    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
   }
 `;
 
