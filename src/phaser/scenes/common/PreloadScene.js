@@ -5,13 +5,13 @@ import createEnemyAnimations from "../../animations/Enemy";
 export default class Preloader extends Phaser.Scene {
   preload() {
     this.load.setBaseURL(process.env.PORT);
-    console.log(process.env.PORT);
+
     this.loadBackgroundResource();
 
     this.setLoading();
-    
+
     this.loadHeroResource();
-    
+
     this.loadEnemyResource();
 
     this.loadBackgroundMusic();
@@ -44,7 +44,7 @@ export default class Preloader extends Phaser.Scene {
     this.newGraphics.clear();
     this.newGraphics.fillStyle(0xEDF335, 1);
     this.newGraphics.fillRectShape(new Phaser.Geom.Rectangle(325, 375, percentage * 390, 40));
-        
+
     percentage = percentage * 100;
 
     this.loadingText.setText("Loading..." + percentage.toFixed(0) + "%");
@@ -53,10 +53,10 @@ export default class Preloader extends Phaser.Scene {
   completeLoading() {
     this.scene.start("stage1");
   }
-  
+
   loadBackgroundResource() {
     this.load.image("cloud", "clouds.png");
-    
+
     this.load.image("tiles", "iso-12-tileset.png");
     this.load.image("coin", "coin.png");
     this.load.image("add-coin", "add-coin.png");
@@ -64,7 +64,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.image("start", "start.png");
     this.load.image("win", "win.png");
     this.load.image("lose", "lose.png");
-        
+
     this.load.tilemapTiledJSON("level1-map", "iso-level1.json");
     this.load.tilemapTiledJSON("level2-map", "iso-level2.json");
     this.load.tilemapTiledJSON("level3-map", "iso-level3.json");
@@ -86,7 +86,7 @@ export default class Preloader extends Phaser.Scene {
 
   loadEnemyResource() {
     this.load.image("enemy", "enemy.png");
-   
+
     this.load.atlas("enemy-idle-left", "enemy-idle-left.png", "enemy-idle-left.json");
     this.load.atlas("enemy-idle-right", "enemy-idle-right.png", "enemy-idle-right.json");
     this.load.atlas("enemy-idle-back-left", "enemy-idle-back-left.png", "enemy-idle-back-left.json");

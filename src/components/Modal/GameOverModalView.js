@@ -32,7 +32,7 @@ const Button = styled.button`
   height: 40px;
   font-size: 20px;
   text-align: center;
-  background: ${({ theme }) => theme.MainRed};;
+  background: ${({ theme }) => theme.MainRed};
   color: white;
   margin-left: 10px;
   border-radius: 8px;
