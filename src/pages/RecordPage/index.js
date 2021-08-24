@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { getGameRecords } from "../../redux/slices/singlePlaySlice";
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
+import { BACK, RESULT_TITLE } from "../../constants/ui";
+import { theme } from "../../theme/theme";
 
 const RecordPage = () => {
   const dispatch = useDispatch();
@@ -21,21 +23,21 @@ const RecordPage = () => {
   };
 
   return (
-    <PageWrapper>
-      <PageCard width={550} height={630}>
+    <PageWrapper color={theme.BackgroundBeige}>
+      <PageCard width={500} height={500}>
         <Content>
-          <Title>Best Top 7</Title>
+          <Title>{RESULT_TITLE}</Title>
           {records.map((record, index) => (
-            <Card key={index} isTop={index < 3}>
+            <NameCard key={index} isTop={index < 3}>
               <Ranking>
                 {index + 1}
               </Ranking>
               <div>{record.username}</div>
               <div>{record.score}</div>
-            </Card>
+            </NameCard>
           ))}
           <Button onClick={handleBackButtonClick}>
-            BACK
+            {BACK}
           </Button>
         </Content>
       </PageCard>
@@ -50,7 +52,7 @@ const Content = styled.div`
   flex-direction: column;
 `;
 
-const Card = styled.div`
+const NameCard = styled.div`
   display: flex;
   width: 80%;
   height: 2.7rem;
@@ -60,20 +62,20 @@ const Card = styled.div`
   margin: 0.5rem auto;
   border-radius: 5px;
   border: 1px solid #d6cbbf;
-  background: #F3ECE4;
+  background-color: ${({ theme }) => theme.White};
   font-size: 25px;
-  box-shadow: 0 1.5px 1.5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1.5px 1.5px ${({ theme }) => theme.ModalBackground};
   cursor: pointer;
 
   :hover {
-    background: #F9F1EA;
+    background: ${({ theme }) => theme.BackgroundBeige};
   }
 `;
 
 const Button = styled.button`
   width: 100%;
-  height: 6%;
-  border-radius: 0 0 5px 5px;
+  height: 47px;
+  border-radius: 0 0 7px 7px;
   margin-top: 20px;
   background: ${({ theme }) => theme.MainRed};;
   color: white;
