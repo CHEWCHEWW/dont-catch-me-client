@@ -8,6 +8,7 @@ import deadCarrot from "../../../public/hero-die-left.png";
 import MainButton from "../../components/MainButton";
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
+import { theme } from "../../theme/theme";
 
 const StartPage = () => {
   const history = useHistory();
@@ -25,7 +26,7 @@ const StartPage = () => {
   };
 
   return (
-    <PageWrapper color={"#faee9a"}>
+    <PageWrapper color={theme.BackgroundYellow}>
       <PageCard width={800} height={400}>
         <Content>
           <Title>
