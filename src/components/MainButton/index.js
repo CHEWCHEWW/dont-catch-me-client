@@ -28,7 +28,7 @@ const ButtonContent = styled.span`
   display: inline-block;
   width: 85%;
   padding: 7px 20px;
-  background-color: ${({ theme }) => theme.MainRed};;
+  background-color: ${({ theme }) => theme.MainRed};
   border-radius: 8px;
   box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.15);
   transition: background-color .2s ease-in-out, transform .1s ease-in-out;

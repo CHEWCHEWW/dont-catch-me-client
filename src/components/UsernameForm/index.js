@@ -39,7 +39,7 @@ const SubmitButton = styled.input`
   text-align: center;
   border: 0;
   color: white;
-  background: ${({ theme }) => theme.MainRed};;
+  background: ${({ theme }) => theme.MainRed};
   box-shadow: 0 6px 0 #AB3C2D, 0 5px 10px rgba(0, 0, 0, 0.35);
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
   border-radius: 5px;

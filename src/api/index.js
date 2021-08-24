@@ -23,6 +23,6 @@ export const readGameRecords = async () => {
       },
     }
   );
-  console.log(response);
+
   return await response.json();
 };
