@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import MainPageLayout from "../../components/MainPageLayout";
 import { enterRoom } from "../../redux/slices/multiplaySlice";
 import PlayerList from "../../components/PlayerList";
 import UserInfoForm from "../../components/UserInfoForm";
 import UsernameForm from "../../components/UsernameForm";
 import { gameProgress } from "../../constants/gameState";
 import PageCard from "../../components/shared/PageCard";
+import PageWrapper from "../../components/shared/PageWrapper";
 import Modal from "../../components/Modal";
 import LoadingText from "../../components/LoadingText";
 import CountDownModalView from "../../components/Modal/CountDownModalView";
@@ -19,7 +19,7 @@ const WaitingPage = () => {
   const dispatch = useDispatch();
   const { players, progress } = useSelector(({ multiple }) => multiple.room);
   const { isReady, username, role } = useSelector(({ multiple }) => multiple.user);
-  
+
   const history = useHistory();
   const { id } = useParams();
 
@@ -54,14 +54,14 @@ const WaitingPage = () => {
 
       return;
     }
-  
+
     const interval = window.setInterval(() => {
       setLeftTime((prev) => --prev);
     }, 1000);
 
     return () => window.clearInterval(interval);
   }, [leftTime, isCountDownModalOn]);
-  
+
   const handleFormChange = ({ target: { name, value } }) => {
     setPlayerInfo((prev) => ({
       ...prev,
@@ -88,17 +88,17 @@ const WaitingPage = () => {
 
   const handleUserInfoFormSubmit = (ev) => {
     ev.preventDefault();
-    
+
     dispatch(changeReadyState({ ...playerInfo, }));
   };
 
   return (
-    <MainPageLayout>
+    <PageWrapper>
       <PageCard width={800} height={500} isColumn={true}>
         {!username ? (
           <>
             <LoadingText text="Before Waiting" />
-            <UsernameForm 
+            <UsernameForm
               onChange={handleFormChange}
               onSubmit={handleUsernameFormSubmit}
               value={playerInfo.username}
@@ -116,9 +116,9 @@ const WaitingPage = () => {
             <Content>
               <PlayerList players={players} />
               <UserField>
-                <UserInfoForm 
-                  isReady={isReady} 
-                  username={playerInfo.username} 
+                <UserInfoForm
+                  isReady={isReady}
+                  username={playerInfo.username}
                   role={playerInfo.role}
                   onChange={handleFormChange}
                   onClick={handleButtonClick}
@@ -126,10 +126,10 @@ const WaitingPage = () => {
                 />
               </UserField>
             </Content>
-          </> 
+          </>
         )}
       </PageCard>
-    </MainPageLayout>
+    </PageWrapper>
   );
 };
 

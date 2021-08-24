@@ -13,15 +13,15 @@ const Button = styled.div`
   width: 100%;
   margin: 15px;
   border-radius: 8px;
-  box-shadow: 0 8px 0 #AB3C2D, 0 15px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 0 #AB3C2D, 0 15px 20px ${({ theme }) => theme.ModalBackground};
   transition: box-shadow .1s ease-in-out;
   font-size: 38px;
   color: #fff;
   cursor: pointer;
 
-  :active, 
+  :active,
   :focus {
-    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
   }
 `;
 
@@ -29,7 +29,7 @@ const ButtonContent = styled.span`
   display: inline-block;
   width: 85%;
   padding: 7px 20px;
-  background: #e55643;
+  background-color: ${({ theme }) => theme.MainRed};;
   border-radius: 8px;
   box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.15);
   text-shadow: 0 -3px 3px rgba(175, 49, 95, 0.7);

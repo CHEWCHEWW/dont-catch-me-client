@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { getGameRecords } from "../../redux/slices/singlePlaySlice";
 import PageCard from "../../components/shared/PageCard";
-import MainPageLayout from "../../components/MainPageLayout";
+import PageWrapper from "../../components/shared/PageWrapper";
 
 const RecordPage = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const RecordPage = () => {
   };
 
   return (
-    <MainPageLayout>
+    <PageWrapper>
       <PageCard width={550} height={630}>
         <Content>
           <Title>Best Top 7</Title>
@@ -39,7 +39,7 @@ const RecordPage = () => {
           </Button>
         </Content>
       </PageCard>
-    </MainPageLayout>
+    </PageWrapper>
   );
 };
 
@@ -75,7 +75,7 @@ const Button = styled.button`
   height: 6%;
   border-radius: 0 0 5px 5px;
   margin-top: 20px;
-  background: #e55643;
+  background: ${({ theme }) => theme.MainRed};;
   color: white;
   border: 0;
   font-size: 20px;
