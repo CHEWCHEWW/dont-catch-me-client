@@ -35,7 +35,6 @@ const GamePage = () => {
     });
 
     game.events.on("gameClear", ({ score, time }) => {
-      console.log(score, time);
       setGameResult((prev) => ({
         ...prev,
         score,
