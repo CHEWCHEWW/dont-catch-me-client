@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const PageCard = styled.div`
-  width: ${({ width }) => width}rem;
-  height: ${({ height }) => height}rem;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
   display: flex;
   justify-content: center;
   border-radius: 10px;

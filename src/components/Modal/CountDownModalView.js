@@ -6,7 +6,7 @@ import GameMessage from "../shared/GameMessage";
 
 const CountDownModalView = ({ leftTime }) => {
   return (
-    <ModalView width={800} height={500} color="rgba(0, 0, 0, 0.3)">
+    <ModalView width={800} height={600} color="rgba(0, 0, 0, 0.3)">
       <ContentLayout>
         <GameMessage>
           {leftTime}

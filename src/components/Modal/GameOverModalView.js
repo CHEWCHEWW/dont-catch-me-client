@@ -5,14 +5,14 @@ import ModalView from "../shared/ModalView";
 import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
 
-const GameOverModalView = ({ 
-  onHomeClick, 
-  message = "LOSE", 
-  onRestartClick, 
-  isMultiplay 
+const GameOverModalView = ({
+  onHomeClick,
+  message = "LOSE",
+  onRestartClick,
+  isMultiplay
 }) => {
   return (
-    <ModalView width={1024} height={768} color="rgba(0, 0, 0, 0.3)">
+    <ModalView width={800} height={600} color="rgba(0, 0, 0, 0.3)">
       <ContentLayout>
         <GameMessage>
           {message}
@@ -39,7 +39,7 @@ const Button = styled.button`
   transition: box-shadow .1s ease-in-out;
   border: 0;
 
-  :active, 
+  :active,
   :focus {
     box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px rgba(0, 0, 0, 0.3);
   }

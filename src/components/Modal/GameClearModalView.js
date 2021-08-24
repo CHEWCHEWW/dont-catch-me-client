@@ -25,14 +25,14 @@ const GameClearModalView = ({ onClick, score }) => {
   };
 
   return (
-    <ModalView width={1024} height={768} color="rgba(0, 0, 0, 0.3)">
+    <ModalView width={800} height={600} color="rgba(0, 0, 0, 0.3)">
       <ContentLayout>
         <GameMessage>CLEAR</GameMessage>
-        <UsernameForm 
-          onSubmit={handleSubmit} 
-          value={username} 
-          onChange={handleInputChange} 
-          name="username" 
+        <UsernameForm
+          onSubmit={handleSubmit}
+          value={username}
+          onChange={handleInputChange}
+          name="username"
         />
       </ContentLayout>
     </ModalView>
