@@ -5,9 +5,9 @@ import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
 import { theme } from "../../theme/theme";
 
-const CountDownModalView = ({ leftTime }) => {
+const CountDownModalView = ({ leftTime, width, height }) => {
   return (
-    <ModalView width={800} height={600} color={theme.ModalBackground}>
+    <ModalView width={width} height={height} color={theme.ModalBackground}>
       <ContentLayout>
         <GameMessage>
           {leftTime}

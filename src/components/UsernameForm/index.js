@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { BoxInnerShadow } from "../../theme/BoxInnerShadow";
+import { ButtonActiveAndFocus } from "../../theme/ButtonActiveAndFocus";
+import { ButtonHover } from "../../theme/ButtonHover";
 
 const UserNameForm = ({ onSubmit, value, onChange, name = "" }) => {
   return (
@@ -41,16 +43,8 @@ const SubmitButton = styled.input`
   box-shadow: 0 6px 0 #AB3C2D, 0 5px 10px rgba(0, 0, 0, 0.35);
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
   border-radius: 5px;
-
-  :hover {
-    background-color: #F16A58;
-    text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
-  }
-
-  :active,
-  :focus {
-    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
-  }
+  ${ButtonHover};
+  ${ButtonActiveAndFocus};
 `;
 
 export default UserNameForm;

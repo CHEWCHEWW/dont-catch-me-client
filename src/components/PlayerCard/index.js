@@ -17,12 +17,11 @@ const Card = styled.div`
   padding: 10px;
   flex-direction: column;
   background: ${({ isReady, role, theme }) =>
-    isReady ? (role === "rabbit" ? theme.MainRed : theme.MainGreen) : "#F3ECE4"};
+    isReady ? (role === "rabbit" ? theme.MainRed : theme.MainGreen) : theme.White};
   color: ${({ isReady, theme }) => isReady && theme.White};
   margin-bottom: 20px;
   border-radius: 5px;
-  border: 1px solid #d6cbbf;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 3px ${({ theme }) => theme.ModalBackground};
 `;
 
 
