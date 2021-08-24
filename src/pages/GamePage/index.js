@@ -71,14 +71,14 @@ const GamePage = () => {
       )}
       {progress === gameProgress.GAME_CLEAR && (
         <Modal>
-          <GameClearModalView 
-            onClick={handleGameClearModalClick} 
-            score={gameResult.score} 
-            time={gameResult.time} 
+          <GameClearModalView
+            onClick={handleGameClearModalClick}
+            score={gameResult.score}
+            time={gameResult.time}
           />
         </Modal>
       )}
-      <PageCard width={1024} height={768}>
+      <PageCard width={800} height={600}>
         <GameContainer id="game-container" />
       </PageCard>
     </PageWrapper>

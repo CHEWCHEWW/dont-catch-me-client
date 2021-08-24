@@ -26,20 +26,18 @@ const StartPage = () => {
 
   return (
     <MainPageLayout>
-      <PageCard width={50} height={35}>
-        <TitleBox>
+      <PageCard width={800} height={400}>
+        <Content>
           <Title>
-            <TitleText>
-              <span className="title">Don't</span>
-              <span className="title">Catch</span>
-              <span className="title">Me</span>
-            </TitleText>
+            <span>Don't</span>
+            <span>Catch</span>
+            <span>Me</span>
           </Title>
           <Sprites>
             <SpriteCarrot />
             <SpriteRabbit />
           </Sprites>
-        </TitleBox>
+        </Content>
         <ButtonField>
           <MainButton name="Single Play" onClick={handleSinglePlayButton} />
           <MainButton name="Multi Play" onClick={handleMatchingPageButton} />
@@ -50,27 +48,24 @@ const StartPage = () => {
   );
 };
 
-const TitleBox = styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: column;
+  max-height: 500px;
 `;
 
-const Title = styled.div`
-  font: "Fjalla One", sans-serif;
+const Title = styled.h1`
   max-width: 225px;
-  transform: translateX(-50%) rotate(-7.5deg);
-  margin-top: 12%;
-  margin-left: 48%;
-`;
-
-const TitleText = styled.h1`
+  margin: -10px 0 45px 90px;
   color: #fff;
-  font-size: 90px;
-  margin: 0;
+  font-size: 85px;
+  font-family: "Fjalla One", sans-serif;
   line-height: 95%;
   letter-spacing: 5px;
+  transform: translateX(-50%) rotate(-7.5deg);
+  z-index: 1;
 
-  .title {
+  span {
     float: left;
     transform: skew(-7.5deg);
     text-shadow: #533d4a 1px 1px, #533d4a 2px 2px, #533d4a 3px 3px, #533d4a 4px 4px, #533d4a 5px 5px, #533d4a 6px 6px;
@@ -89,13 +84,15 @@ const TitleText = styled.h1`
 
 const Sprites = styled.div`
   display: flex;
-  margin-left: 40px;
+  position: absolute;
+  z-index: 0;
 `;
 
 const SpriteRabbit = styled.div`
   width: 200px;
   height: 256px;
-  margin-top: 10px;
+  margin: 100px 0 0 80px;
+  transform: scale(0.75);
   background: url(${walkingRabbit}) 0px 0px;
   animation: play 0.4s steps(3) infinite;
   color: black;
@@ -113,9 +110,7 @@ const SpriteRabbit = styled.div`
 const SpriteCarrot = styled.div`
   width: 128px;
   height: 128px;
-  margin-top: 165px;
-  margin-left: 35px;
-  transform: scale(1.1);
+  margin: -80px 0 0 -85px;
   background: url(${deadCarrot}) 0px 0px no-repeat;
   animation: play 0.7s steps(6) infinite;
 
@@ -132,9 +127,6 @@ const SpriteCarrot = styled.div`
 const ButtonField = styled.div`
   display: flex;
   text-align: center;
-  margin-top: 280px;
-  margin-left: 60px;
-  margin-right: 110px;
   flex-direction: column;
   justify-content: center;
 `;

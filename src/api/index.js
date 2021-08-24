@@ -10,7 +10,7 @@ export const createGameClearUserRecord = async ({ id, username, score }) => {
     }
   );
 
-  return await response.json(); 
+  return await response.json();
 };
 
 export const readGameRecords = async () => {
@@ -23,6 +23,6 @@ export const readGameRecords = async () => {
       },
     }
   );
-
-  return await response.json(); 
+  console.log(response);
+  return await response.json();
 };
