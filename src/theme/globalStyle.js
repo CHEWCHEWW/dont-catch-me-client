@@ -2,8 +2,6 @@ import { createGlobalStyle } from "styled-components";
 import mainFont from "../../public/font/ConcertOne-Regular.ttf"
 
 const GlobalStyle = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css2?family=Fjalla+One&family=Righteous&display=swap");
-  
   * {
     font-family: "Righteous", "Ubuntu", cursive;
 
