@@ -8,7 +8,7 @@ import { makeNewRoom } from "../../redux/slices/multiplaySlice";
 import useKakao from "../../hooks/useKakao";
 import { generateRandomCode } from "../../utils/random";
 import PageCard from "../../components/shared/PageCard";
-import MainPageLayout from "../../components/MainPageLayout";
+import PageWrapper from "../../components/shared/PageWrapper";
 
 const JoinPage = () => {
   const [invitationCode, setInvitationCode] = useState("");
@@ -19,7 +19,7 @@ const JoinPage = () => {
 
   useEffect(() => {
     const randomCode = generateRandomCode();
-    
+
     dispatch(makeNewRoom(randomCode));
 
     setInvitationCode(randomCode);
@@ -39,9 +39,9 @@ const JoinPage = () => {
 
   const handleInputClick = () => { // copy 되었다고 알림 띄우기
     window.navigator.clipboard.writeText(`${process.env.PORT}/waiting/${invitationCode}`);
-    
+
     const alarmMessage = "Copied!";
-    
+
     addToast(alarmMessage, {
       appearance: "info",
       autoDismiss: true,
@@ -49,14 +49,14 @@ const JoinPage = () => {
   };
 
   return (
-    <MainPageLayout>
+    <PageWrapper>
       <PageCard width={500} height={400}>
         <Content>
           <Title>Make Room</Title>
-          <Input 
-            type="text" 
-            value={`${process.env.PORT}/waiting/${invitationCode}`} 
-            onClick={handleInputClick} 
+          <Input
+            type="text"
+            value={`${process.env.PORT}/waiting/${invitationCode}`}
+            onClick={handleInputClick}
             readOnly
           />
           <ButtonField>
@@ -74,7 +74,7 @@ const JoinPage = () => {
           </ButtonField>
         </Content>
       </PageCard>
-    </MainPageLayout>
+    </PageWrapper>
   );
 };
 
@@ -110,7 +110,7 @@ const Button = styled.div`
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  background: #e55643;
+  background: ${({ theme }) => theme.MainRed};;
   color: white;
   box-shadow: 0 6px 0 #AB3C2D, 0 5px 10px rgba(0, 0, 0, 0.35);
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
@@ -121,9 +121,9 @@ const Button = styled.div`
     text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
   }
 
-  :active, 
+  :active,
   :focus {
-    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
   }
 `;
 
@@ -134,7 +134,7 @@ const BackButton = styled.button`
   border-radius: 5px;
   border: 0px;
   color: white;
-  background: #2b9f5e;
+  background: ${({ theme }) => theme.MainGreen};
   box-shadow: 0 6px 0 #21844D, 0 5px 10px rgba(0, 0, 0, 0.35);
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
   cursor: pointer;
@@ -144,9 +144,9 @@ const BackButton = styled.button`
     text-shadow: 0 -1px 1px rgba(175, 49, 95, 0.9), 0 0 5px rgba(255, 255, 255, 0.8);
   }
 
-  :active, 
+  :active,
   :focus {
-    box-shadow: 0 8px 0 #21844D, 0 12px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 0 #21844D, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
   }
 `;
 

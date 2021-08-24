@@ -3,35 +3,35 @@ import styled from "styled-components";
 
 import RadioInput from "../RadioInput";
 
-const UserInfoForm = ({ 
-  isReady, 
-  username, 
-  role, 
-  onChange, 
-  onClick, 
-  onSubmit 
+const UserInfoForm = ({
+  isReady,
+  username,
+  role,
+  onChange,
+  onClick,
+  onSubmit
 }) => {
   return (
     <EditStateField onSubmit={onSubmit}>
-      <TextInput 
-        type="text" 
-        name="username" 
-        value={username} 
-        onChange={onChange} 
-        disabled={isReady} 
+      <TextInput
+        type="text"
+        name="username"
+        value={username}
+        onChange={onChange}
+        disabled={isReady}
       />
       <RadioField name="role" onChange={onChange}>
-        <RadioInput 
-          name="role" 
-          value="rabbit" 
-          isDisabled={isReady} 
-          isDefaultChecked={role === "rabbit" ? true : false} 
-        />
-        <RadioInput 
-          name="role" 
-          value="carrot" 
+        <RadioInput
+          name="role"
+          value="rabbit"
           isDisabled={isReady}
-          isDefaultChecked={role === "rabbit" ? false : true} 
+          isDefaultChecked={role === "rabbit" ? true : false}
+        />
+        <RadioInput
+          name="role"
+          value="carrot"
+          isDisabled={isReady}
+          isDefaultChecked={role === "rabbit" ? false : true}
         />
       </RadioField>
       <Button type="submit" value={isReady ? "Edit" : "Ready"} onClick={onClick} />
@@ -84,9 +84,9 @@ const Button = styled.input`
     text-shadow: 0 -1px 1px #D9CBBA, 0 0 5px rgba(255, 255, 255, 0.8);
   }
 
-  :active, 
+  :active,
   :focus {
-    box-shadow: 0 8px 0 #B9AB9B, 0 12px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 0 #B9AB9B, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
   }
 `;
 

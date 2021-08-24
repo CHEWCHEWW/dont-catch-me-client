@@ -5,9 +5,9 @@ import styled from "styled-components";
 import walkingRabbit from "../../../public/main-running-rabbit.png";
 import deadCarrot from "../../../public/hero-die-left.png";
 
-import MainPageLayout from "../../components/MainPageLayout";
 import MainButton from "../../components/MainButton";
 import PageCard from "../../components/shared/PageCard";
+import PageWrapper from "../../components/shared/PageWrapper";
 
 const StartPage = () => {
   const history = useHistory();
@@ -25,7 +25,7 @@ const StartPage = () => {
   };
 
   return (
-    <MainPageLayout>
+    <PageWrapper color={"#faee9a"}>
       <PageCard width={800} height={400}>
         <Content>
           <Title>
@@ -39,12 +39,12 @@ const StartPage = () => {
           </Sprites>
         </Content>
         <ButtonField>
-          <MainButton name="Single Play" onClick={handleSinglePlayButton} />
-          <MainButton name="Multi Play" onClick={handleMatchingPageButton} />
-          <MainButton name="Record" onClick={handleRecordsButton} />
+          <MainButton name={"Single Play"} onClick={handleSinglePlayButton} />
+          <MainButton name={"Multi Play"} onClick={handleMatchingPageButton} />
+          <MainButton name={"Record"} onClick={handleRecordsButton} />
         </ButtonField>
       </PageCard>
-    </MainPageLayout>
+    </PageWrapper>
   );
 };
 
@@ -57,7 +57,7 @@ const Content = styled.div`
 const Title = styled.h1`
   max-width: 225px;
   margin: -10px 0 45px 90px;
-  color: #fff;
+  color: ${({ theme }) => theme.White};
   font-size: 85px;
   font-family: "Fjalla One", sans-serif;
   line-height: 95%;
@@ -71,13 +71,13 @@ const Title = styled.h1`
     text-shadow: #533d4a 1px 1px, #533d4a 2px 2px, #533d4a 3px 3px, #533d4a 4px 4px, #533d4a 5px 5px, #533d4a 6px 6px;
 
     &:nth-child(1) {
-      color: #e55643;
+      color: ${({ theme }) => theme.MainRed};
     }
     &:nth-child(2) {
-      color: #2b9f5e;
+      color: ${({ theme }) => theme.MainGreen};
     }
     &:nth-child(3) {
-      color: #f1c83c;
+      color: ${({ theme }) => theme.MainYellow};
     }
   }
 `;

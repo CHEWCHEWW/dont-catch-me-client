@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ModalView from "../shared/ModalView";
 import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
+import { theme } from "../../theme/theme";
 
 const GameOverModalView = ({
   onHomeClick,
@@ -12,7 +13,7 @@ const GameOverModalView = ({
   isMultiplay
 }) => {
   return (
-    <ModalView width={800} height={600} color="rgba(0, 0, 0, 0.3)">
+    <ModalView width={800} height={600} color={theme.ModalBackground}>
       <ContentLayout>
         <GameMessage>
           {message}
@@ -31,7 +32,7 @@ const Button = styled.button`
   height: 40px;
   font-size: 20px;
   text-align: center;
-  background: #e55643;
+  background: ${({ theme }) => theme.MainRed};;
   color: white;
   margin-left: 10px;
   border-radius: 8px;
@@ -41,7 +42,7 @@ const Button = styled.button`
 
   :active,
   :focus {
-    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px ${({ theme }) => theme.ModalBackground};
   }
 
   :hover {

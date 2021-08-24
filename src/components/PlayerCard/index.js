@@ -5,7 +5,6 @@ const PlayerCard = ({ name, isReady, role }) => {
   return (
     <Card isReady={isReady} role={role}>
       <Title>{name}</Title>
-      {/* <Content>{isReady ? "ready" : "unReady"}</Content> */}
       <Content>{role}</Content>
     </Card>
   );
@@ -17,9 +16,9 @@ const Card = styled.div`
   height: 14%;
   padding: 10px;
   flex-direction: column;
-  background: ${({ isReady, role }) =>
-    isReady ? (role === "rabbit" ? "#e55643" : "#2b9f5e") : "#F3ECE4"};
-  color: ${({ isReady }) => isReady && "white"};
+  background: ${({ isReady, role, theme }) =>
+    isReady ? (role === "rabbit" ? theme.MainRed : theme.MainGreen) : "#F3ECE4"};
+  color: ${({ isReady, theme }) => isReady && theme.White};
   margin-bottom: 20px;
   border-radius: 5px;
   border: 1px solid #d6cbbf;
