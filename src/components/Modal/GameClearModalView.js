@@ -7,6 +7,7 @@ import { uuidv4 } from "../../utils/uuid";
 import ContentLayout from "../shared/ContentLayout";
 import GameMessage from "../shared/GameMessage";
 import { saveGameRecord } from "../../redux/slices/singlePlaySlice";
+import { theme } from "../../theme/theme";
 
 const GameClearModalView = ({ onClick, score }) => {
   const [username, setUsername] = useState("");
@@ -25,7 +26,7 @@ const GameClearModalView = ({ onClick, score }) => {
   };
 
   return (
-    <ModalView width={800} height={600} color="rgba(0, 0, 0, 0.3)">
+    <ModalView width={800} height={600} color={theme.ModalBackground}>
       <ContentLayout>
         <GameMessage>CLEAR</GameMessage>
         <UsernameForm

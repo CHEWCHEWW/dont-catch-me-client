@@ -8,8 +8,8 @@ const PageCard = styled.div`
   border-radius: 10px;
   align-items: center;
   flex-direction: ${({ isColumn }) => isColumn && "column"};
-  background: #FFFFFF78;
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+  background: ${({ theme }) => theme.White};
+  box-shadow: 0 6px 6px ${({ theme }) => theme.ModalBackground};
 `;
 
 export default PageCard;
