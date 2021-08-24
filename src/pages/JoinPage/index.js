@@ -4,11 +4,21 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useToasts } from "react-toast-notifications";
 
+import {
+  COPIED_ALARM_MESSAGE,
+  TOAST_APPEARANCE,
+  JOIN_TITLE,
+  BACK_BUTTON,
+  ENTER_BUTTON,
+  SHARE_BUTTON,
+} from "../../constants/ui";
 import { makeNewRoom } from "../../redux/slices/multiplaySlice";
 import useKakao from "../../hooks/useKakao";
 import { generateRandomCode } from "../../utils/random";
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
+import { theme } from "../../theme/theme";
+import { BoxInnerShadow } from "../../theme/BoxInnerShadow";
 
 const JoinPage = () => {
   const [invitationCode, setInvitationCode] = useState("");
@@ -37,22 +47,22 @@ const JoinPage = () => {
     history.push("/");
   };
 
-  const handleInputClick = () => { // copy 되었다고 알림 띄우기
+  const handleInputClick = () => {
     window.navigator.clipboard.writeText(`${process.env.PORT}/waiting/${invitationCode}`);
 
-    const alarmMessage = "Copied!";
+    const alarmMessage = COPIED_ALARM_MESSAGE;
 
     addToast(alarmMessage, {
-      appearance: "info",
+      appearance: TOAST_APPEARANCE,
       autoDismiss: true,
     });
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper color={theme.BackgroundBeige}>
       <PageCard width={500} height={400}>
         <Content>
-          <Title>Make Room</Title>
+          <Title>{JOIN_TITLE}</Title>
           <Input
             type="text"
             value={`${process.env.PORT}/waiting/${invitationCode}`}
@@ -62,15 +72,15 @@ const JoinPage = () => {
           <ButtonField>
             <SmallButtonField>
               <Button onClick={handleInvitationButtonClick}>
-                Share
+                {SHARE_BUTTON}
               </Button>
               <Button onClick={handleEnterButtonClick}>
-                Enter
+                {ENTER_BUTTON}
               </Button>
             </SmallButtonField>
-            <BackButton onClick={handleBackButtonClick}>
-              Back
-            </BackButton>
+            <LargeButton onClick={handleBackButtonClick}>
+              {BACK_BUTTON}
+            </LargeButton>
           </ButtonField>
         </Content>
       </PageCard>
@@ -110,9 +120,9 @@ const Button = styled.div`
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  background: ${({ theme }) => theme.MainRed};;
+  background: ${({ theme }) => theme.MainRed};
   color: white;
-  box-shadow: 0 6px 0 #AB3C2D, 0 5px 10px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 0 #AB3C2D, 0 5px 10px ${({ theme }) => theme.ModalBackground};
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
   cursor: pointer;
 
@@ -123,11 +133,11 @@ const Button = styled.div`
 
   :active,
   :focus {
-    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
+    box-shadow: 0 8px 0 #AB3C2D, 0 12px 10px ${({ theme }) => theme.ModalBackground};
   }
 `;
 
-const BackButton = styled.button`
+const LargeButton = styled.button`
   width: 83%;
   height: 35%;
   margin-top: 10px;
@@ -135,7 +145,7 @@ const BackButton = styled.button`
   border: 0px;
   color: white;
   background: ${({ theme }) => theme.MainGreen};
-  box-shadow: 0 6px 0 #21844D, 0 5px 10px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 0 ${({ theme }) => theme.DarkGreen}, 0 5px 10px ${({ theme }) => theme.ModalBackground};
   text-shadow: 0 -2px 2px rgba(175, 49, 95, 0.9);
   cursor: pointer;
 
@@ -146,7 +156,7 @@ const BackButton = styled.button`
 
   :active,
   :focus {
-    box-shadow: 0 8px 0 #21844D, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
+    box-shadow: 0 8px 0 ${({ theme }) => theme.DarkGreen}, 0 12px 10px ${({ theme }) => theme.ModalBackground};
   }
 `;
 
@@ -165,6 +175,7 @@ const Input = styled.input`
   border: 0;
   margin-top: 70px;
   text-align: center;
+  ${BoxInnerShadow};
 `;
 
 export default JoinPage;
