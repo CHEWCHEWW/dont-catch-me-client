@@ -23,10 +23,10 @@ const StartPage = () => {
   const handleRecordsButton = () => {
     history.push("/records");
   };
-  
+
   return (
     <MainPageLayout>
-      <PageCard width={850} height={650}>
+      <PageCard width={50} height={35}>
         <TitleBox>
           <Title>
             <TitleText>
@@ -101,11 +101,11 @@ const SpriteRabbit = styled.div`
   color: black;
 
   @keyframes play {
-    from { 
-      background-position: 0px; 
+    from {
+      background-position: 0px;
     }
-    to { 
-      background-position: -1536px; 
+    to {
+      background-position: -1536px;
     }
   }
 `;
@@ -120,11 +120,11 @@ const SpriteCarrot = styled.div`
   animation: play 0.7s steps(6) infinite;
 
   @keyframes play {
-    from { 
-      background-position: 0px; 
+    from {
+      background-position: 0px;
     }
-    to { 
-      background-position: -768px; 
+    to {
+      background-position: -768px;
     }
   }
 `;
