@@ -45,12 +45,12 @@ const MultiGamePage = () => {
 
   return (
     <PageWrapper color="#B9F8FF" src={clouds}>
-      <PageCard width={1024} height={768}>
+      <PageCard width={800} height={600}>
         {progress === gameProgress.GAME_OVER && (
           <Modal>
-            <GameOverModalView 
+            <GameOverModalView
               onHomeClick={handleHomeButtonClick}
-              onRestartClick={handleGameRestartButtonClick} 
+              onRestartClick={handleGameRestartButtonClick}
               message={isWin ? "WIN" : "LOSE"}
               isMultiplay={true}
             />
