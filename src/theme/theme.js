@@ -1,5 +1,6 @@
 export const theme = {
   MainRed: "#F75039",
+  DarkRed: "#AB3C2D",
   ModalBackground: "rgba(0, 0, 0, 0.3)",
   White: "#FFFFFF",
   MainGreen: "#1B8549",

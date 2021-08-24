@@ -1,5 +1,6 @@
 export const RESULT_TITLE = "Best Top 5";
 export const JOIN_TITLE = "Make Room";
+export const WAITING_TITLE = "Waiting Room";
 
 export const BACK_BUTTON = "BACK";
 export const ENTER_BUTTON = "Enter";

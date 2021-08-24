@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { BoxInnerShadow } from "../../theme/BoxInnerShadow";
+import { ButtonActiveAndFocus } from "../../theme/ButtonActiveAndFocus";
+import { ButtonHover } from "../../theme/ButtonHover";
+import { ButtonTextShadow } from "../../theme/ButtonTextShadow";
 
 import RadioInput from "../RadioInput";
 
@@ -45,10 +49,9 @@ const EditStateField = styled.form`
   align-items: center;
   width: 100%;
   height: 41%;
-  background: #F3ECE4;
+  background: ${({ theme }) => theme.White};
   border-radius: 5px;
-  border: 1.5px solid #D6CBBF;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 3px ${({ theme }) => theme.ModalBackground};
 `;
 
 const RadioField = styled.div`
@@ -63,31 +66,25 @@ const TextInput = styled.input`
   height: 12%;
   margin-top: 20px;
   border: 0;
+  border-radius: 10px;
   text-align: center;
+  ${BoxInnerShadow};
 `;
 
 const Button = styled.input`
   width: 50%;
   height: 25%;
   margin-top: 20px;
-  background: #D4C8BB;
+  background: ${({ theme }) => theme.MainRed};
   border: 0;
   border-radius: 5px;
   font-size: 20px;
-  color: #817568;
-  box-shadow: 0 6px 0 #B9AB9B, 0 5px 10px rgba(0, 0, 0, 0.35);
-  text-shadow: 0 -2px 2px #D9CBBA;
+  color: ${({ theme }) => theme.White};
+  box-shadow: 0 6px 0 ${({ theme }) => theme.DarkRed}, 0 5px 10px rgba(0, 0, 0, 0.35);
   cursor: pointer;
-
-  :hover {
-    background-color: #DDCEBF;
-    text-shadow: 0 -1px 1px #D9CBBA, 0 0 5px rgba(255, 255, 255, 0.8);
-  }
-
-  :active,
-  :focus {
-    box-shadow: 0 8px 0 #B9AB9B, 0 12px 10px ${({ theme }) => theme.ModalBackground};;
-  }
+  ${ButtonTextShadow};
+  ${ButtonActiveAndFocus};
+  ${ButtonHover};
 `;
 
 export default UserInfoForm;
