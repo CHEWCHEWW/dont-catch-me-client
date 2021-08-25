@@ -1,11 +1,11 @@
 import Stage from "./Stage";
 
 import { LEVEL_3 } from "../../../../constants/coordinates";
-import { GAME_PROGRESS } from "../../../../constants/game";
+import { GAME_PROGRESS, STAGE } from "../../../../constants/game";
 
 export default class Stage3 extends Stage {
   constructor() {
-    super("stage3");
+    super(STAGE.STAGE_3);
   }
 
   create() {
