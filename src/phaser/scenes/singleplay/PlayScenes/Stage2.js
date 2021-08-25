@@ -1,9 +1,10 @@
 import Stage from "./Stage";
 import { LEVEL_2 } from "../../../../constants/coordinates";
+import { STAGE } from "../../../../constants/game";
 
 export default class Stage2 extends Stage {
   constructor() {
-    super("stage2");
+    super(STAGE.STAGE_2);
   }
 
   create() {
@@ -17,7 +18,7 @@ export default class Stage2 extends Stage {
   update() {
     super.update();
 
-    const callback = () => this.scene.start("stage3");
+    const callback = () => this.scene.start(STAGE.STAGE_3);
 
     if (this.coinCount === 0 && !this.isCleared) {
       this.moveNextStage(callback);

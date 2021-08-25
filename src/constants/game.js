@@ -87,7 +87,7 @@ export const TIME = {
 
 export const SCORE = 10;
 
-export const gameProgress = {
+export const GAME_PROGRESS = {
   GAME_BEFORE_START: "GAME_BEFORE_START",
   GAME_ALL_PLAYER_READY: "GAME_ALL_PLAYER_READY",
   GAME_START: "GAME_START",
@@ -96,4 +96,10 @@ export const gameProgress = {
   GAME_OVER: "GAME_OVER",
   GAME_WIN: "GAME_WIN",
   GAME_LOSE: "GAME_LOSE",
+};
+
+export const STAGE = {
+  STAGE_1: "stage1",
+  STAGE_2: "stage2",
+  STAGE_3: "stage3",
 };
