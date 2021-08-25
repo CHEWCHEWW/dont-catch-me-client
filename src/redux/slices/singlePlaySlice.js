@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { gameProgress } from "../../constants/gameState";
+import { GAME_PROGRESS } from "../../constants/game";
 import { readGameRecords, createGameClearUserRecord } from "../../api";
 
 export const getGameRecords = createAsyncThunk(
@@ -36,7 +36,7 @@ export const saveGameRecord = createAsyncThunk(
 );
 
 const initialState = {
-  progress: gameProgress.GAME_BEFORE_START,
+  progress: GAME_PROGRESS.GAME_BEFORE_START,
   records: [],
   error: "",
   status: "idle",

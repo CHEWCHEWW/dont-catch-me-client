@@ -7,7 +7,7 @@ import clouds from "../../../public/clouds.png"
 import config from "../../phaser/scenes/multiplay";
 import Modal from "../../components/Modal";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
-import { gameProgress } from "../../constants/gameState";
+import { GAME_PROGRESS } from "../../constants/game";
 import { changeReadyState, gameProgressSelector, leaveRoom } from "../../redux/slices/multiplaySlice";
 import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
@@ -38,7 +38,7 @@ const MultiGamePage = () => {
   };
 
   const handleGameRestartButtonClick = () => {
-    dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
+    dispatch(updateGameProgress(GAME_PROGRESS.GAME_BEFORE_START));
 
     history.push(`/waiting/${id}`);
   };
@@ -46,7 +46,7 @@ const MultiGamePage = () => {
   return (
     <PageWrapper color="#B9F8FF" src={clouds}>
       <PageCard width={800} height={600}>
-        {progress === gameProgress.GAME_OVER && (
+        {progress === GAME_PROGRESS.GAME_OVER && (
           <Modal>
             <GameOverModalView
               onHomeClick={handleHomeButtonClick}

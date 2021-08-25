@@ -9,7 +9,7 @@ import config from "../../phaser/scenes/singleplay";
 import Modal from "../../components/Modal";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import GameClearModalView from "../../components/Modal/GameClearModalView";
-import { gameProgress } from "../../constants/gameState";
+import { GAME_PROGRESS } from "../../constants/game";
 import { updateGameProgress, gameProgressSelector } from "../../redux/slices/singlePlaySlice";
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
@@ -34,14 +34,18 @@ const GamePage = () => {
       autoDismiss: false,
     });
 
-    game.events.on("gameClear", ({ score, time }) => {
+    game.events.on(GAME_PROGRESS.GAME_OVER, () => {
+      dispatch(updateGameProgress(GAME_PROGRESS.GAME_OVER));
+    });
+
+    game.events.on(GAME_PROGRESS.GAME_CLEAR, ({ score, time }) => {
       setGameResult((prev) => ({
         ...prev,
         score,
         time,
       }));
 
-      dispatch(updateGameProgress(gameProgress.GAME_CLEAR));
+      dispatch(updateGameProgress(GAME_PROGRESS.GAME_CLEAR));
     });
 
     return () => {
@@ -52,23 +56,23 @@ const GamePage = () => {
   const handleGameOverModalClick = () => {
     history.push("/");
 
-    dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
+    dispatch(updateGameProgress(GAME_PROGRESS.GAME_BEFORE_START));
   };
 
   const handleGameClearModalClick = () => {
     history.push("/records");
 
-    dispatch(updateGameProgress(gameProgress.GAME_BEFORE_START));
+    dispatch(updateGameProgress(GAME_PROGRESS.GAME_BEFORE_START));
   };
 
   return (
     <PageWrapper color="#B9F8FF" src={clouds}>
-      {progress === gameProgress.GAME_OVER && (
+      {progress === GAME_PROGRESS.GAME_OVER && (
         <Modal>
           <GameOverModalView onHomeClick={handleGameOverModalClick} />
         </Modal>
       )}
-      {progress === gameProgress.GAME_CLEAR && (
+      {progress === GAME_PROGRESS.GAME_CLEAR && (
         <Modal>
           <GameClearModalView
             onClick={handleGameClearModalClick}

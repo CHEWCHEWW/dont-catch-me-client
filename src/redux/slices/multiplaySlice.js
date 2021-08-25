@@ -1,13 +1,13 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 
-import { gameProgress } from "../../constants/gameState";
+import { GAME_PROGRESS } from "../../constants/game";
 
 const initialState = {
   room: {
     roomId: "",
     creatorId: "",
     players: {},
-    progress: gameProgress.GAME_BEFORE_START,
+    progress: GAME_PROGRESS.GAME_BEFORE_START,
     isAllUsersReady: false,
   },
   user: {
@@ -52,11 +52,11 @@ const multiSlice = createSlice({
       room.progress = payload;
     },
     updateGameResult({ room, user }, { payload: { isWin } }) {
-      room.progress = gameProgress.GAME_OVER;
+      room.progress = GAME_PROGRESS.GAME_OVER;
       user.isWin = isWin;
     },
     startGame({ room }) {
-      room.progress = gameProgress.GAME_START;
+      room.progress = GAME_PROGRESS.GAME_START;
     },
     leaveRoom() {
       return initialState;
