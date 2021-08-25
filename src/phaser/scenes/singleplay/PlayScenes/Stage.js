@@ -9,6 +9,23 @@ import store from "../../../../store";
 import { updateGameProgress } from "../../../../redux/slices/singlePlaySlice";
 import { gameProgress } from "../../../../constants/gameState";
 import { Clouds } from "../../../../constants/coordinates";
+import {
+  GAME_FONT_OPTION,
+  GAME_STATUS,
+  GAME_ITEM,
+  GAME_SCENE,
+  COUNT_DOWN_LOCATION,
+  SCORE_LOCATION,
+  COIN,
+  CLOUD,
+  HERO,
+  ENEMY,
+  AI,
+  CAMERA_OPTION,
+  TIME,
+  SCORE
+} from "../../../../constants/game";
+import { calculateTime } from "../../../../utils/times";
 
 export default class Stage extends Phaser.Scene {
   init() {
@@ -17,14 +34,14 @@ export default class Stage extends Phaser.Scene {
   }
 
   create() {
-    this.successEffect = this.sound.add("success", { loop: false });
-    this.coinEffect = this.sound.add("coin", { loop: false });
-    this.failEffect = this.sound.add("fail", { loop: false });
-    this.mainMusic = this.sound.add("main", { loop: true });
+    this.successEffect = this.sound.add(GAME_STATUS.SUCCESS, { loop: false });
+    this.coinEffect = this.sound.add(GAME_ITEM.COIN, { loop: false });
+    this.failEffect = this.sound.add(GAME_STATUS.FAIL, { loop: false });
+    this.mainMusic = this.sound.add(GAME_STATUS.MAIN, { loop: true });
 
     const countDownScene = new CountDownScene(this.scene, this.mainMusic);
 
-    this.scene.add("CountDownScene", countDownScene, true);
+    this.scene.add(GAME_SCENE.COUNT_DOWN_SCENE, countDownScene, true);
 
     this.setStatusBar();
 
@@ -40,19 +57,17 @@ export default class Stage extends Phaser.Scene {
       return;
     }
 
-    const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
-    const currentMin = Math.floor(currentTime / 60);
-    const currentSecond = currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
+    const currentTime = calculateTime(this.timer.getElapsedSeconds());
 
-    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`).setDepth(7);
+    this.countDown.setText(`TIME: ${currentTime}`).setDepth(COUNT_DOWN_LOCATION.DEPTH);
 
-    this.countDown.x = this.hero.body.position.x + 160;
-    this.countDown.y = this.hero.body.position.y - 340;
+    this.countDown.x = this.hero.body.position.x + COUNT_DOWN_LOCATION.X;
+    this.countDown.y = this.hero.body.position.y - COUNT_DOWN_LOCATION.Y;
 
-    this.score.setText(`SCORE: ${this.registry.values.score}`).setDepth(7);
+    this.score.setText(`SCORE: ${this.registry.values.score}`).setDepth(COUNT_DOWN_LOCATION.DEPTH);
 
-    this.score.x = this.hero.body.position.x + 340;
-    this.score.y = this.hero.body.position.y - 340;
+    this.score.x = this.hero.body.position.x + SCORE_LOCATION.X;
+    this.score.y = this.hero.body.position.y - SCORE_LOCATION.Y;
 
     this.hero.handleMovement(
       this.cursors,
@@ -63,18 +78,18 @@ export default class Stage extends Phaser.Scene {
   setBackground(level) {
     this.map = this.add.tilemap(`level${level}-map`);
 
-    const tileset = this.map.addTilesetImage(`iso-level${level}`, "tiles");
+    const tileset = this.map.addTilesetImage(`iso-level${level}`, GAME_ITEM.TILES);
 
-    this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
-    this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
+    this.boardLayer = this.map.createLayer(GAME_ITEM.TILE_LAYER_1, tileset).setDepth(2);
+    this.coinLayer = this.map.createLayer(GAME_ITEM.TILE_LAYER_2, tileset);
 
     Clouds.forEach((cloud) => {
-      this.add.image(cloud.x, cloud.y, "cloud").setDepth(1);
+      this.add.image(cloud.x, cloud.y, GAME_ITEM.CLOUD).setDepth(CLOUD.DEPTH);
     });
   }
 
   setCoinToMap() {
-    this.coins = this.coinLayer.createFromTiles(6, -1, { key: "coin" });
+    this.coins = this.coinLayer.createFromTiles(COIN.INDEX, COIN.NO_CONFIG, { key: GAME_ITEM.COIN });
 
     this.coinCount = this.coins.length;
 
@@ -83,8 +98,8 @@ export default class Stage extends Phaser.Scene {
 
       const body = coin.body;
 
-      body.setCircle(32, 31, -1);
-      coin.setDepth(5);
+      body.setCircle(COIN.WIDTH, COIN.HEIGHT, COIN.NO_CONFIG);
+      coin.setDepth(COIN.DEPTH);
     });
 
     if (this.hero) {
@@ -100,22 +115,22 @@ export default class Stage extends Phaser.Scene {
 
   setStatusBar() {
     this.score = this.add
-      .text(0, 500, `SCORE: `, {
-        fontSize: "35px",
-        fill: "#FFFFFF",
-        fontFamily: "MainFont"
+      .text(0, 500, "SCORE: ", {
+        fontSize: GAME_FONT_OPTION.SIZE,
+        fill: GAME_FONT_OPTION.COLOR,
+        fontFamily: GAME_FONT_OPTION.FONTFAMILY,
       })
-      .setDepth(0);
+      .setDepth(GAME_FONT_OPTION.DEPTH);
 
     this.countDown = this.add
-      .text(0, 500, `TIME: `, {
-        fontSize: "35px",
-        fill: "#FFFFFF",
-        fontFamily: "MainFont"
+      .text(0, 500, "TIME: ", {
+        fontSize: GAME_FONT_OPTION.SIZE,
+        fill: GAME_FONT_OPTION.COLOR,
+        fontFamily: GAME_FONT_OPTION.FONTFAMILY,
       })
-      .setDepth(0);
+      .setDepth(GAME_FONT_OPTION.DEPTH);
 
-    this.timer = this.time.delayedCall(90000, this.stopStage, [], this);
+    this.timer = this.time.delayedCall(TIME.STAGE_DELAY, this.stopStage, [], this);
   }
 
   setCharacters(enemyList) {
@@ -129,41 +144,41 @@ export default class Stage extends Phaser.Scene {
   }
 
   createHero() {
-    this.hero = new Hero(this, 90, 400, "hero");
+    this.hero = new Hero(this, HERO.X, HERO.Y, GAME_ITEM.HERO);
 
-    this.add.existing(this.hero).setDepth(5);
+    this.add.existing(this.hero).setDepth(HERO.DEPTH);
 
     this.physics.world.enable(
       this.hero,
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
 
-    this.hero.body.setSize(35, 50, true);
-    this.hero.body.setOffset(45, 40);
+    this.hero.body.setSize(HERO.WIDTH, HERO.HEIGHT, true);
+    this.hero.body.setOffset(HERO.OFFSET_X, HERO.OFFSET_Y);
   }
 
   createEnemies(enemyList) {
     this.enemies = enemyList.map((enemy) => {
-      const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
+      const newEnemy = new Enemy(this, enemy.x, enemy.y, GAME_ITEM.ENEMY);
 
-      this.add.existing(newEnemy).setDepth(6);
+      this.add.existing(newEnemy).setDepth(ENEMY.DEPTH);
 
       this.physics.world.enable(
         newEnemy,
         Phaser.Physics.Arcade.DYNAMIC_BODY
       );
 
-      newEnemy.body.setSize(40, 75, true);
-      newEnemy.body.setOffset(45, 40);
+      newEnemy.body.setSize(ENEMY.WIDTH, ENEMY.HEIGHT, true);
+      newEnemy.body.setOffset(ENEMY.OFFSET_X, ENEMY.OFFSET_Y);
 
       const ai = enemy.ai;
 
       switch (ai) {
-        case "chase": {
+        case AI.CHASE: {
           newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
           break;
         }
-        case "conditionalChase": {
+        case AI.CONDITIONAL_CHASE: {
           newEnemy.setTint(0xFFD3DD);
           newEnemy.setAI(new ConditionalChaseAI(
             this.hero,
@@ -186,7 +201,7 @@ export default class Stage extends Phaser.Scene {
 
   setCamera() {
     this.cameras.main.startFollow(this.hero, true);
-    this.cameras.main.setZoom(1);
+    this.cameras.main.setZoom(CAMERA_OPTION.ZOOM);
   }
 
   stopStage() {
@@ -209,7 +224,7 @@ export default class Stage extends Phaser.Scene {
         });
       },
       callbackScope: this,
-      delay: 2000,
+      delay: TIME.STAGE_DELAY,
     });
   }
 
@@ -225,7 +240,7 @@ export default class Stage extends Phaser.Scene {
 
     this.time.addEvent({
       callback: () => {
-        this.cameras.main.fadeOut(3000, 50, 50, 50);
+        this.cameras.main.fadeOut(CAMERA_OPTION.DURATION, CAMERA_OPTION.RED, CAMERA_OPTION.GREEN, CAMERA_OPTION.BLUE);
 
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
@@ -233,7 +248,7 @@ export default class Stage extends Phaser.Scene {
         );
       },
       callbackScope: this,
-      delay: 2000,
+      delay: TIME.STAGE_DELAY,
     });
   }
 
@@ -246,7 +261,7 @@ export default class Stage extends Phaser.Scene {
 
     this.coinCount--;
 
-    this.registry.values.score += 10;
+    this.registry.values.score += SCORE;
   }
 
   checkIsCanPlayerGetCoin(hero, coin) {
