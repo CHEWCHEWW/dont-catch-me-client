@@ -1,13 +1,11 @@
 export const Level1 = [
   { x: -400, y: 400, indicatorColor: "#FCB4E3", ai: "chase", accumulatedSpeed: 0 },
   { x: 500, y: 800, indicatorColor: "#E73A2E", ai: "conditionalChase", accumulatedSpeed: 0 },
-  // { x: 450, y: 800, indicatorColor: "#E73A2E", ai: "conditionalChase" },
 ];
 
 export const Level2 = [
   { x: 200, y: 200, indicatorColor: "#FCB4E3", ai: "chase", accumulatedSpeed: 10 },
   { x: -200, y: 400, indicatorColor: "#221A4D", ai: "chase", accumulatedSpeed: 10 },
-  // { x: 500, y: 700, indicatorColor: "#E73A2E", ai: "conditionalChase" },
   { x: -200, y: 800, indicatorColor: "#E73A2E", ai: "conditionalChase", accumulatedSpeed: 0 },
   { x: -500, y: 500, indicatorColor: "#E7DC2E", ai: "conditionalChase", accumulatedSpeed: 0 },
 ];
