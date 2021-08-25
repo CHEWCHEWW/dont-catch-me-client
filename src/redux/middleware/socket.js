@@ -1,9 +1,9 @@
-import { gameProgress } from "../../constants/gameState";
-import { 
-  updateGameProgress, 
-  createRoomSuccess, 
-  joinUserSuccess, 
-  changeSomeUserState, 
+import { GAME_PROGRESS } from "../../constants/game";
+import {
+  updateGameProgress,
+  createRoomSuccess,
+  joinUserSuccess,
+  changeSomeUserState,
   changeMyState,
   leaveSomeUser,
 } from "../slices/multiplaySlice";
@@ -28,7 +28,7 @@ const socketMiddleware = () => {
     });
 
     socket.on("allUsersReady", () => {
-      store.dispatch(updateGameProgress(gameProgress.GAME_ALL_PLAYER_READY));
+      store.dispatch(updateGameProgress(GAME_PROGRESS.GAME_ALL_PLAYER_READY));
     });
 
     socket.on("leaveSomeUser", ({ id }) => {

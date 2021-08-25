@@ -1,6 +1,7 @@
 import Stage from "./Stage";
 
-import { Level3 } from "../../../../constants/coordinates";
+import { LEVEL_3 } from "../../../../constants/coordinates";
+import { GAME_PROGRESS } from "../../../../constants/game";
 
 export default class Stage3 extends Stage {
   constructor() {
@@ -10,7 +11,7 @@ export default class Stage3 extends Stage {
   create() {
     this.setBackground(3);
 
-    this.setCharacters(Level3);
+    this.setCharacters(LEVEL_3);
 
     super.create();
   }
@@ -18,7 +19,7 @@ export default class Stage3 extends Stage {
   update() {
     super.update();
 
-    const callback = () => this.game.events.emit("gameClear", { score: this.registry.values.score, time: this.registry.values.time });
+    const callback = () => this.game.events.emit(GAME_PROGRESS.GAME_CLEAR, { score: this.registry.values.score, time: this.registry.values.time });
 
     if (this.coinCount === 0 && !this.isCleared) {
       this.moveNextStage(callback);

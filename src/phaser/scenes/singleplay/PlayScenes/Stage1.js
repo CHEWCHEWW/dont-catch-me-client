@@ -1,5 +1,5 @@
 import Stage from "./Stage";
-import { Level1 } from "../../../../constants/coordinates";
+import { LEVEL_1 } from "../../../../constants/coordinates";
 
 export default class Stage1 extends Stage {
   constructor() {
@@ -8,17 +8,17 @@ export default class Stage1 extends Stage {
 
   init() {
     super.init();
-    
+
     this.registry.values.score = 0;
     this.registry.values.time = 0;
   }
 
   create() {
     this.game.events.emit("gameStart");
-    
+
     this.setBackground(1);
 
-    this.setCharacters(Level1);
+    this.setCharacters(LEVEL_1);
 
     super.create();
   }

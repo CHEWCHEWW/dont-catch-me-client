@@ -5,10 +5,8 @@ import RotateAI from "../../../ai/RotateAI";
 import ConditionalChaseAI from "../../../ai/ConditionalChaseAI";
 import CountDownScene from "../../common/CountDownScene";
 
-import store from "../../../../store";
-import { updateGameProgress } from "../../../../redux/slices/singlePlaySlice";
-import { gameProgress } from "../../../../constants/gameState";
-import { Clouds } from "../../../../constants/coordinates";
+import { GAME_PROGRESS } from "../../../../constants/game";
+import { CLOUDS } from "../../../../constants/coordinates";
 import {
   GAME_FONT_OPTION,
   GAME_STATUS,
@@ -83,7 +81,7 @@ export default class Stage extends Phaser.Scene {
     this.boardLayer = this.map.createLayer(GAME_ITEM.TILE_LAYER_1, tileset).setDepth(2);
     this.coinLayer = this.map.createLayer(GAME_ITEM.TILE_LAYER_2, tileset);
 
-    Clouds.forEach((cloud) => {
+    CLOUDS.forEach((cloud) => {
       this.add.image(cloud.x, cloud.y, GAME_ITEM.CLOUD).setDepth(CLOUD.DEPTH);
     });
   }
@@ -130,7 +128,7 @@ export default class Stage extends Phaser.Scene {
       })
       .setDepth(GAME_FONT_OPTION.DEPTH);
 
-    this.timer = this.time.delayedCall(TIME.STAGE_DELAY, this.stopStage, [], this);
+    this.timer = this.time.delayedCall(TIME.TIME_LIMIT, this.stopStage, [], this);
   }
 
   setCharacters(enemyList) {
@@ -216,7 +214,7 @@ export default class Stage extends Phaser.Scene {
 
     this.time.addEvent({
       callback: () => {
-        store.dispatch(updateGameProgress(gameProgress.GAME_OVER));
+        this.game.events.emit(GAME_PROGRESS.GAME_OVER);
 
         this.hero.destroy();
         this.enemies.forEach((enemy) => {

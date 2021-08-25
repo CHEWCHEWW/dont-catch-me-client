@@ -1,5 +1,5 @@
 import Stage from "./Stage";
-import { Level2 } from "../../../../constants/coordinates";
+import { LEVEL_2 } from "../../../../constants/coordinates";
 
 export default class Stage2 extends Stage {
   constructor() {
@@ -9,7 +9,7 @@ export default class Stage2 extends Stage {
   create() {
     this.setBackground(2);
 
-    this.setCharacters(Level2);
+    this.setCharacters(LEVEL_2);
 
     super.create();
   }

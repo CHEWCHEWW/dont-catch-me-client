@@ -7,7 +7,7 @@ import { enterRoom } from "../../redux/slices/multiplaySlice";
 import PlayerList from "../../components/PlayerList";
 import UserInfoForm from "../../components/UserInfoForm";
 import UsernameForm from "../../components/UsernameForm";
-import { gameProgress } from "../../constants/gameState";
+import { GAME_PROGRESS } from "../../constants/game";
 import PageCard from "../../components/shared/PageCard";
 import PageWrapper from "../../components/shared/PageWrapper";
 import Modal from "../../components/Modal";
@@ -35,11 +35,11 @@ const WaitingPage = () => {
   const [leftTime, setLeftTime] = useState(3);
 
   useEffect(() => {
-    if (progress === gameProgress.GAME_ALL_PLAYER_READY) {
+    if (progress === GAME_PROGRESS.GAME_ALL_PLAYER_READY) {
       setIsCountDownModalOn(true);
     }
 
-    if (progress === gameProgress.GAME_START) {
+    if (progress === GAME_PROGRESS.GAME_START) {
       setIsCountDownModalOn(false);
 
       history.push(`/game/${id}`);

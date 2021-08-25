@@ -1,5 +1,5 @@
 import { Direction } from "../constants/direction";
-import { TileSize } from "../constants/tile";
+import { TILE_SIZE } from "../constants/tile";
 
 export const getOrderedDirections = (filter) => {
   const directions = [Direction.Up, Direction.Left, Direction.Down, Direction.Right];
@@ -44,16 +44,16 @@ export const getOppositeDirection = (direction) => {
 export const getPositionByDirection = (x, y, direction) => {
   switch (direction) {
     case Direction.Up: {
-      return { x: x + TileSize.x, y: y - TileSize.y };
+      return { x: x + TILE_SIZE.x, y: y - TILE_SIZE.y };
     }
     case Direction.Down: {
-      return { x: x - TileSize.x, y: y + TileSize.y };
+      return { x: x - TILE_SIZE.x, y: y + TILE_SIZE.y };
     }
     case Direction.Left: {
-      return { x: x - TileSize.x, y: y - TileSize.y };
+      return { x: x - TILE_SIZE.x, y: y - TILE_SIZE.y };
     }
     case Direction.Right: {
-      return { x: x + TileSize.x, y: y - TileSize.y };
+      return { x: x + TILE_SIZE.x, y: y - TILE_SIZE.y };
     }
     default: {
       break;
@@ -62,20 +62,20 @@ export const getPositionByDirection = (x, y, direction) => {
 };
 
 export const determineDirectionByTarget = ({
-  targetX, 
-  targetY, 
-  currentX, 
-  currentY, 
-  directions, 
-  board, 
+  targetX,
+  targetY,
+  currentX,
+  currentY,
+  directions,
+  board,
   oppositeDirection,
 }) => {
   let lastClosedDirection = Direction.None;
   let lastClosedDistance = -1;
-  
+
   for (const direction of directions) {
     const { x: positionX, y: positionY } = getPositionByDirection(currentX, currentY, direction);
-    
+
     if (!board.getTileAtWorldXY(positionX + 12, positionY + 60)) {
       continue;
     }
@@ -86,7 +86,7 @@ export const determineDirectionByTarget = ({
       targetX,
       targetY
     );
-    
+
     if (lastClosedDirection === Direction.None || distance < lastClosedDistance) {
       lastClosedDirection = direction;
       lastClosedDistance = distance;
