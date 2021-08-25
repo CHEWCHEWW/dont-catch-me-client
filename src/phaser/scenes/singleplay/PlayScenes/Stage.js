@@ -31,7 +31,7 @@ export default class Stage extends Phaser.Scene {
     this.setCoinToMap();
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    
+
     this.setCamera();
   }
 
@@ -39,7 +39,7 @@ export default class Stage extends Phaser.Scene {
     if (!this.hero || !this.hero.body) {
       return;
     }
-    
+
     const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
     const currentMin = Math.floor(currentTime / 60);
     const currentSecond = currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
@@ -53,7 +53,7 @@ export default class Stage extends Phaser.Scene {
 
     this.score.x = this.hero.body.position.x + 340;
     this.score.y = this.hero.body.position.y - 340;
-    
+
     this.hero.handleMovement(
       this.cursors,
       this.boardLayer,
@@ -86,7 +86,7 @@ export default class Stage extends Phaser.Scene {
       body.setCircle(32, 31, -1);
       coin.setDepth(5);
     });
-    
+
     if (this.hero) {
       this.physics.add.overlap(
         this.hero,
@@ -101,17 +101,17 @@ export default class Stage extends Phaser.Scene {
   setStatusBar() {
     this.score = this.add
       .text(0, 500, `SCORE: `, {
-        fontSize: "35px", 
-        fill: "#FFFFFF", 
-        fontFamily: "MainFont" 
+        fontSize: "35px",
+        fill: "#FFFFFF",
+        fontFamily: "MainFont"
       })
       .setDepth(0);
 
     this.countDown = this.add
       .text(0, 500, `TIME: `, {
         fontSize: "35px",
-        fill: "#FFFFFF", 
-        fontFamily: "MainFont" 
+        fill: "#FFFFFF",
+        fontFamily: "MainFont"
       })
       .setDepth(0);
 
@@ -120,9 +120,9 @@ export default class Stage extends Phaser.Scene {
 
   setCharacters(enemyList) {
     this.createHero();
-    
+
     this.createEnemies(enemyList);
-    
+
     this.physics.add.collider(this.hero, this.enemies, () => {
       this.stopStage();
     });
@@ -145,8 +145,6 @@ export default class Stage extends Phaser.Scene {
   createEnemies(enemyList) {
     this.enemies = enemyList.map((enemy) => {
       const newEnemy = new Enemy(this, enemy.x, enemy.y, "enemy");
-      
-      // newEnemy.setTargetIndicatorColor(enemy.indicatorColor);
 
       this.add.existing(newEnemy).setDepth(6);
 
@@ -154,12 +152,12 @@ export default class Stage extends Phaser.Scene {
         newEnemy,
         Phaser.Physics.Arcade.DYNAMIC_BODY
       );
-      
+
       newEnemy.body.setSize(40, 75, true);
       newEnemy.body.setOffset(45, 40);
 
       const ai = enemy.ai;
-      
+
       switch (ai) {
         case "chase": {
           newEnemy.setAI(new ChaseHeroAI(this.hero, newEnemy, this.boardLayer));
@@ -168,10 +166,10 @@ export default class Stage extends Phaser.Scene {
         case "conditionalChase": {
           newEnemy.setTint(0xFFD3DD);
           newEnemy.setAI(new ConditionalChaseAI(
-            this.hero, 
-            newEnemy, 
+            this.hero,
+            newEnemy,
             this.boardLayer,
-            new RotateAI({ x: enemy.x, y: enemy.y }, newEnemy, this.boardLayer, this.hero), 
+            new RotateAI({ x: enemy.x, y: enemy.y }, newEnemy, this.boardLayer, this.hero),
             new ChaseHeroAI(this.hero, newEnemy, this.boardLayer),
           ));
           break;
@@ -231,7 +229,7 @@ export default class Stage extends Phaser.Scene {
 
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
-         callback
+          callback
         );
       },
       callbackScope: this,
