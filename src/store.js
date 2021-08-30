@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger"
 
-import single from "./redux/slices/singlePlaySlice"; 
+import single from "./redux/slices/singlePlaySlice";
 import multiple from "./redux/slices/multiplaySlice";
 import socketMiddleware from "./redux/middleware/socket";
 
@@ -15,7 +15,7 @@ const store = configureStore({
       return getDefaultMiddleware().concat([logger, socketMiddleware()]);
     }
 
-    return getDefaultMiddleware().concat([logger, socketMiddleware()]);
+    return getDefaultMiddleware().concat([socketMiddleware()]);
   },
   devTools: process.env.NODE_ENV !== "production",
 });

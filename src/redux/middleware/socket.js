@@ -36,7 +36,7 @@ const socketMiddleware = () => {
     });
 
     socket.on("error", ({ message }) => {
-      console.log(message);
+      console.warn(message);
     });
 
     return (next) => (action) => {

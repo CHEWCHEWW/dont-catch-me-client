@@ -37,62 +37,8 @@ export default class MultiStage extends Phaser.Scene {
 
     this.scene.add("CountDownScene", countDownScene, true);
 
-    const playersInformations = store.getState().multiple.room.players;
-    const currentPlayerId = store.getState().multiple.user.userId;
-
-    // this.otherPlayers = [];
-
-    // Object.values(playersInformations).forEach((playerInformation) => {
-    //   if (playerInformation.userId === currentPlayerId) {
-    //     this.player = new Hero(
-    //       this,
-    //       playerInformation.x,
-    //       playerInformation.y,
-    //       playerInformation.role === "rabbit" ? "enemy" : "hero"
-    //     );
-
-    //     this.player.id = playerInformation.userId;
-    //     this.player.role = playerInformation.role;
-
-    //     return;
-    //   }
-
-    //   const otherPlayer = new Hero(
-    //     this,
-    //     playerInformation.x,
-    //     playerInformation.y,
-    //     playerInformation.role === "rabbit" ? "enemy" : "hero"
-    //   );
-
-    //   otherPlayer.id = playerInformation.userId;
-    //   otherPlayer.role = playerInformation.role;
-
-    //   this.otherPlayers.push(otherPlayer);
-    // });
-
-    // console.log(this.player);
-    // console.log(this.otherPlayers);
-
-    // this.physics.world.enable(
-    //   [this.player, ...this.otherPlayers],
-    //   Phaser.Physics.Arcade.DYNAMIC_BODY
-    // );
-
-    // this.createPlayer(this.player);
-
-    // this.otherPlayers.forEach((player) => {
-    //   this.createPlayer(player);
-    // });
-
-    // this.playerQueuedPosition = {
-    //   x: this.player.x,
-    //   y: this.player.y,
-    // };
-
-    // this.setCamera();
     socket.on("loadPlayers", ({ player, otherPlayers }) => {
       this.player = new Hero(this, player.x, player.y, player.role === "rabbit" ? "enemy" : "hero");
-      console.log(store.getState().multiple.room.players)
       this.player.id = player.userId;
       this.player.role = player.role;
 
@@ -120,8 +66,7 @@ export default class MultiStage extends Phaser.Scene {
       this.otherPlayers.forEach((player) => {
         this.createPlayer(player);
       });
-      console.log(this.player);
-      console.log(this.otherPlayers);
+
       this.playerQueuedPosition = {
         x: this.player.x,
         y: this.player.y,
