@@ -16,6 +16,8 @@ const initialState = {
     isReady: false,
     role: "rabbit",
     isWin: false,
+    x: 0,
+    y: 0,
   },
 };
 
@@ -28,7 +30,7 @@ const multiSlice = createSlice({
     },
     joinUserSuccess(
       { user, room },
-      { payload: { members, creatorId, userId, roomId, username } }
+      { payload: { members, creatorId, userId, roomId, username, userInformation } }
     ) {
       user.userId = userId;
       user.username = username;

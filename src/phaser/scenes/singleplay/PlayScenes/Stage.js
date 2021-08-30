@@ -24,6 +24,7 @@ import {
   SCORE
 } from "../../../../constants/game";
 import { calculateTime } from "../../../../utils/times";
+import store from "../../../../store";
 
 export default class Stage extends Phaser.Scene {
   init() {
@@ -54,7 +55,6 @@ export default class Stage extends Phaser.Scene {
     if (!this.hero || !this.hero.body) {
       return;
     }
-
     const currentTime = calculateTime(this.timer.getElapsedSeconds());
 
     this.countDown.setText(`TIME: ${currentTime}`).setDepth(COUNT_DOWN_LOCATION.DEPTH);

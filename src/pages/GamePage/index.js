@@ -26,12 +26,15 @@ const GamePage = () => {
 
   useEffect(() => {
     const game = new Phaser.Game(config);
-
     const guideMessage = "Use the rudder key to move";
 
     addToast(guideMessage, {
       appearance: "info",
       autoDismiss: false,
+    });
+
+    game.events.on(GAME_PROGRESS.GAME_START, () => {
+      dispatch(updateGameProgress(GAME_PROGRESS.GAME_START));
     });
 
     game.events.on(GAME_PROGRESS.GAME_OVER, () => {
@@ -47,7 +50,6 @@ const GamePage = () => {
 
       dispatch(updateGameProgress(GAME_PROGRESS.GAME_CLEAR));
     });
-
     return () => {
       game.destroy();
     };
