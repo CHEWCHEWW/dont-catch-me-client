@@ -4,8 +4,9 @@ import CountDownScene from "../common/CountDownScene";
 import { socket } from "../../../utils/socket";
 import store from "../../../store";
 import { updateGameResult } from "../../../redux/slices/multiplaySlice";
-import { Clouds } from "../../../constants/coordinates";
- 
+import { CLOUDS } from "../../../constants/coordinates";
+import { calculateTime } from "../../../utils/times";
+
 export default class MultiStage extends Phaser.Scene {
   constructor() {
     super("multi");
@@ -31,14 +32,67 @@ export default class MultiStage extends Phaser.Scene {
     this.coinEffect = this.sound.add("coin", { loop: false });
     this.failEffect = this.sound.add("fail", { loop: false });
     this.mainMusic = this.sound.add("main", { loop: true });
-    
+
     const countDownScene = new CountDownScene(this.scene, this.mainMusic);
 
     this.scene.add("CountDownScene", countDownScene, true);
 
+    const playersInformations = store.getState().multiple.room.players;
+    const currentPlayerId = store.getState().multiple.user.userId;
+
+    // this.otherPlayers = [];
+
+    // Object.values(playersInformations).forEach((playerInformation) => {
+    //   if (playerInformation.userId === currentPlayerId) {
+    //     this.player = new Hero(
+    //       this,
+    //       playerInformation.x,
+    //       playerInformation.y,
+    //       playerInformation.role === "rabbit" ? "enemy" : "hero"
+    //     );
+
+    //     this.player.id = playerInformation.userId;
+    //     this.player.role = playerInformation.role;
+
+    //     return;
+    //   }
+
+    //   const otherPlayer = new Hero(
+    //     this,
+    //     playerInformation.x,
+    //     playerInformation.y,
+    //     playerInformation.role === "rabbit" ? "enemy" : "hero"
+    //   );
+
+    //   otherPlayer.id = playerInformation.userId;
+    //   otherPlayer.role = playerInformation.role;
+
+    //   this.otherPlayers.push(otherPlayer);
+    // });
+
+    // console.log(this.player);
+    // console.log(this.otherPlayers);
+
+    // this.physics.world.enable(
+    //   [this.player, ...this.otherPlayers],
+    //   Phaser.Physics.Arcade.DYNAMIC_BODY
+    // );
+
+    // this.createPlayer(this.player);
+
+    // this.otherPlayers.forEach((player) => {
+    //   this.createPlayer(player);
+    // });
+
+    // this.playerQueuedPosition = {
+    //   x: this.player.x,
+    //   y: this.player.y,
+    // };
+
+    // this.setCamera();
     socket.on("loadPlayers", ({ player, otherPlayers }) => {
       this.player = new Hero(this, player.x, player.y, player.role === "rabbit" ? "enemy" : "hero");
-
+      console.log(store.getState().multiple.room.players)
       this.player.id = player.userId;
       this.player.role = player.role;
 
@@ -62,11 +116,12 @@ export default class MultiStage extends Phaser.Scene {
       );
 
       this.createPlayer(this.player);
-      
+
       this.otherPlayers.forEach((player) => {
         this.createPlayer(player);
       });
-
+      console.log(this.player);
+      console.log(this.otherPlayers);
       this.playerQueuedPosition = {
         x: this.player.x,
         y: this.player.y,
@@ -94,11 +149,11 @@ export default class MultiStage extends Phaser.Scene {
       const [targetPlayer] = this.otherPlayers.filter(
         (player) => player.id === id
       );
-      
+
       if (targetPlayer) {
         targetPlayer.getCoin();
       }
-      
+
       this.registry.values.score = { ...score };
     });
 
@@ -111,7 +166,7 @@ export default class MultiStage extends Phaser.Scene {
         this.player.setLose();
       }
 
-      store.dispatch(updateGameResult({ isWin }));    
+      store.dispatch(updateGameResult({ isWin }));
     });
   }
 
@@ -119,12 +174,10 @@ export default class MultiStage extends Phaser.Scene {
     if (!this.player) {
       return;
     }
-    
-    const currentTime = 90 - this.timer.getElapsedSeconds().toString().substr(0, 2);
-    const currentMin = Math.floor(currentTime / 60);
-    const currentSecond = currentTime % 60 < 10 ? `0${currentTime % 60}` : currentTime % 60;
 
-    this.countDown.setText(`TIME: ${currentMin}:${currentSecond}`).setDepth(7);
+    const currentTime = calculateTime(this.timer.getElapsedSeconds());
+
+    this.countDown.setText(`TIME: ${currentTime}`).setDepth(7);
 
     this.countDown.x = this.player.body.position.x - 450;
     this.countDown.y = this.player.body.position.y - 340;
@@ -160,7 +213,7 @@ export default class MultiStage extends Phaser.Scene {
     this.boardLayer = this.map.createLayer("Tile Layer 1", tileset).setDepth(2);
     this.coinLayer = this.map.createLayer("Tile Layer 2", tileset);
 
-    Clouds.forEach((cloud) => {
+    CLOUDS.forEach((cloud) => {
       this.add.image(cloud.x, cloud.y, "cloud").setDepth(1);
     });
   }
@@ -173,18 +226,18 @@ export default class MultiStage extends Phaser.Scene {
   setStatusBar() {
     this.score = this.add
       .text(0, 500, `Rabbit: Carrot: `, {
-        fontSize: "35px", 
-        fill: "#733F10", 
-        fontFamily: "MainFont" 
+        fontSize: "35px",
+        fill: "#733F10",
+        fontFamily: "MainFont"
       });
 
     this.countDown = this.add
       .text(0, 500, `TIME: `, {
         fontSize: "35px",
-        fill: "#733F10", 
-        fontFamily: "MainFont" 
+        fill: "#733F10",
+        fontFamily: "MainFont"
       });
-    
+
     this.timer = this.time.delayedCall(90000, this.stopGame, [], this);
   }
 
@@ -236,12 +289,12 @@ export default class MultiStage extends Phaser.Scene {
       },
       callbackScope: this,
       delay: 1000,
-    });    
+    });
   }
 
   handlePlayerGetCoin(player, coin) {
     coin.destroy(true);
-    
+
     this.coinCount--;
 
     player.getCoin();
@@ -254,7 +307,7 @@ export default class MultiStage extends Phaser.Scene {
   }
 
   checkIsCanPlayerGetCoin(player) {
-    return (object, coin) => {
+    return (_, coin) => {
       if (!player) {
         return false;
       }

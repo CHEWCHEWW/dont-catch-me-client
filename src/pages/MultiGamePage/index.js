@@ -8,12 +8,10 @@ import config from "../../phaser/scenes/multiplay";
 import Modal from "../../components/Modal";
 import GameOverModalView from "../../components/Modal/GameOverModalView";
 import { GAME_PROGRESS } from "../../constants/game";
-import { changeReadyState, gameProgressSelector, leaveRoom } from "../../redux/slices/multiplaySlice";
+import { gameProgressSelector, leaveRoom } from "../../redux/slices/multiplaySlice";
 import PageWrapper from "../../components/shared/PageWrapper";
 import PageCard from "../../components/shared/PageCard";
 import { updateGameProgress } from "../../redux/slices/singlePlaySlice";
-
-import mainFont from "../.././../public/font/ConcertOne-Regular.ttf"
 
 const MultiGamePage = () => {
   const progress  = useSelector(gameProgressSelector);
@@ -44,7 +42,7 @@ const MultiGamePage = () => {
   };
 
   return (
-    <PageWrapper color="#B9F8FF" src={clouds}>
+    <PageWrapper color={"#B9F8FF"} src={clouds}>
       <PageCard width={800} height={600}>
         {progress === GAME_PROGRESS.GAME_OVER && (
           <Modal>
