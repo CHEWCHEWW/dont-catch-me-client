@@ -5,5 +5,3 @@ export const shuffleOrder = (array) => {
 export const generateRandomCode = () => {
   return Math.random().toString(36).substring(7);
 };
-
-export const generateRandomEnemy = () => {};
