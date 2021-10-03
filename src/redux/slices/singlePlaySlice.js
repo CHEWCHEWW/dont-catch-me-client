@@ -73,7 +73,6 @@ const singlePlaySlice = createSlice({
       state.error = action.error.message || null;
     },
   }
-
 });
 
 export const { updateGameProgress } = singlePlaySlice.actions;
